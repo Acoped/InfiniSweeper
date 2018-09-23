@@ -1,8 +1,8 @@
 import random
 
+
 # A class describing the game board
 class Board:
-
 
     def __init__(self, w, h, bombs):
         self.w = w
@@ -10,14 +10,12 @@ class Board:
         self.bombs = bombs
         self.bomb_matrix = []
 
-
     def place_bombs(self):
 
         # Randomizes bombs
         cells = self.w * self.h
         bomb_pos_list = random.sample(range(0, cells), self.bombs)
         bomb_pos_list.sort()
-        print(bomb_pos_list)
 
         # Places the bombs on the board
         current_bomb = 0
@@ -28,12 +26,11 @@ class Board:
                 cell = row * self.w + column
                 bomb = 0
                 if not current_bomb == self.bombs:
-                    if  cell == bomb_pos_list[current_bomb]:
+                    if cell == bomb_pos_list[current_bomb]:
                         bomb = 1
                         current_bomb += 1
                 bomb_row.append(bomb)
             self.bomb_matrix.append(bomb_row)
-
 
     def print(self):
 
@@ -42,7 +39,6 @@ class Board:
             print(row)
 
         print("\nBoard:\n")
-
 
 
 if __name__ == "__main__":
