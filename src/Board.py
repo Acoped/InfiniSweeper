@@ -1,15 +1,18 @@
 import random
+from src.Entity import Entity
+from pygame.locals import *
 import numpy
 
 # A class describing the game board
 class Board:
 
-    def __init__(self, w, h, bombs):
+    def __init__(self, w, h, bombs, side):
         self.w = w
         self.h = h
         self.bombs = bombs
         self.bomb_matrix = []
         self.board_matrix = []
+        self.side = 8
 
     def place_bombs(self):
 
@@ -61,11 +64,45 @@ class Board:
 
     def print_board(self):
 
-        BOMB_SYMBOL = "X"
-
         print("\nBoard Matrix:\n")
         for r in self.board_matrix:
             print(r)
+
+    def draw(self, screen):
+        x = 0
+        y = 0
+        # self.entity_matrix = []
+        for row in range(self.h):
+            x = 0
+            for column in range(self.w):
+                cell = self.board_matrix[row][column]
+                e = Entity("../resources/tiles/XS/0.png", x, y, self.side, self.side)
+                if cell == 1:
+                    e = Entity("../resources/tiles/XS/1.png", x, y, self.side, self.side)
+                elif cell == 2:
+                    e = Entity("../resources/tiles/XS/2.png", x, y, self.side, self.side)
+                elif cell == 3:
+                    e = Entity("../resources/tiles/XS/3.png", x, y, self.side, self.side)
+                elif cell == 4:
+                    e = Entity("../resources/tiles/XS/4.png", x, y, self.side, self.side)
+                elif cell == 5:
+                    e = Entity("../resources/tiles/XS/5.png", x, y, self.side, self.side)
+                elif cell == 6:
+                    e = Entity("../resources/tiles/XS/6.png", x, y, self.side, self.side)
+                elif cell == 7:
+                    e = Entity("../resources/tiles/XS/7.png", x, y, self.side, self.side)
+                elif cell == 8:
+                    e = Entity("../resources/tiles/XS/8.png", x, y, self.side, self.side)
+                elif cell == 9:
+                    e = Entity("../resources/tiles/XS/b.png", x, y, self.side, self.side)
+                e.draw(screen)
+                x += self.side
+            y += self.side
+
+        # screen.blit(self.image, self.rect)
+
+    def calculate_screen_res(self):
+        return [self.side * self.w, self.side * self.h]
 
 
 # Returns a lookup matrix for neighboring cells.
@@ -149,6 +186,8 @@ def count_neighbor_bombs(x, y, matrix, lookup):
     return bombs
 
 
+"""
 if __name__ == "__main__":
     board = Board(10, 9, 10)
     board.place_bombs()
+"""
