@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import pygame.camera
 
 
 # An advanced sprite class, subclassing PyGame's own Sprite

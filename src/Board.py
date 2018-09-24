@@ -8,10 +8,33 @@ class Board:
     def __init__(self, w, h, bombs, side):
         self.w = w
         self.h = h
+        self.side = side
         self.bombs = bombs
         self.bomb_matrix = []
         self.board_matrix = []
-        self.side = side
+        self.opened_matrix = []
+
+        for row in range(h):
+            opened_row = []
+            for column in range(w):
+                opened_row.append(0)
+            self.opened_matrix.append(opened_row)
+
+        for row in range(h):
+            print(self.opened_matrix[row])
+
+        # Idea for making image loading more efficient
+        """
+        e = Entity("../resources/tiles/XS/1.png", 0, 0, self.side, self.side)
+        e2 = Entity("../resources/tiles/XS/2.png", 0, 0, self.side, self.side)
+        e3 = Entity("../resources/tiles/XS/3.png", 0, 0, self.side, self.side)
+        e4 = Entity("../resources/tiles/XS/4.png", 0, 0, self.side, self.side)
+        e5 = Entity("../resources/tiles/XS/5.png", 0, 0, self.side, self.side)
+        e6 = Entity("../resources/tiles/XS/6.png", 0, 0, self.side, self.side)
+        e7 = Entity("../resources/tiles/XS/7.png", 0, 0, self.side, self.side)
+        e8 = Entity("../resources/tiles/XS/8.png", 0, 0, self.side, self.side)
+        e9 = Entity("../resources/tiles/XS/b.png", 0, 0, self.side, self.side)
+        """
 
     def place_bombs(self):
 

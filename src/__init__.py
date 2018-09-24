@@ -3,7 +3,7 @@ from pygame.locals import *
 from src.Entity import Entity
 from src.Board import Board
 
-full_screen = False
+full_screen = True
 min_viewport = [120, 72]
 viewport = [2560, 1440]
 frame_rate = 25
@@ -16,8 +16,8 @@ white = (255, 255, 255)
 def main():
     pygame.init()
 
-    board = Board(30, 16, 99, 8)
-    # board = Board(320, 180, 11900, 8)
+    # board = Board(30, 16, 99, 8)
+    board = Board(320, 180, 11900, 8)
     board.place_bombs()
     viewport = board.calculate_screen_res()
     min_viewport = viewport
@@ -35,16 +35,21 @@ def main():
     # xs2 = xs.__copy__()
     # xs2.update(72, 0)
 
+    change = True
+
     # Game loop
     while True:
 
-        pygame.display.flip()
-
         # ALL DRAW CODE SHOULD GO BELOW THIS COMMENT
-        screen.fill(black)
+        # screen.fill(black)
         # xs.draw(screen)
         # xs2.draw(screen)
-        board.draw(screen)
+
+        # Only update screen on change
+        if change:
+            board.draw(screen)
+            pygame.display.update()
+            change = False
         # ALL DRAW CODE SHOULD GO ABOVE THIS COMMENT
 
         # EVENT HANDLING
