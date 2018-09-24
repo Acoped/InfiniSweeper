@@ -20,8 +20,10 @@ class Board:
                 opened_row.append(0)
             self.opened_matrix.append(opened_row)
 
+        """
         for row in range(h):
             print(self.opened_matrix[row])
+        """
 
         # Idea for making image loading more efficient
         """
@@ -111,6 +113,18 @@ class Board:
                     e = Entity("../resources/tiles/XS/8.png", x, y, self.side, self.side)
                 elif cell == 9:
                     e = Entity("../resources/tiles/XS/b.png", x, y, self.side, self.side)
+                e.draw(screen)
+                x += self.side
+            y += self.side
+
+    def draw_start(self, screen):
+        y = 0
+        x = 0
+        e = Entity("../resources/tiles/XS/u.png", x, y, self.side, self.side)
+        for row in range(self.h):
+            x = 0
+            for column in range(self.w):
+                e.update(x, y)
                 e.draw(screen)
                 x += self.side
             y += self.side
