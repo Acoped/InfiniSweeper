@@ -21,21 +21,9 @@ class Board:
             self.opened_matrix.append(opened_row)
 
         """
+        # print opened_matrix
         for row in range(h):
             print(self.opened_matrix[row])
-        """
-
-        # Idea for making image loading more efficient
-        """
-        e = Entity("../resources/tiles/XS/1.png", 0, 0, self.side, self.side)
-        e2 = Entity("../resources/tiles/XS/2.png", 0, 0, self.side, self.side)
-        e3 = Entity("../resources/tiles/XS/3.png", 0, 0, self.side, self.side)
-        e4 = Entity("../resources/tiles/XS/4.png", 0, 0, self.side, self.side)
-        e5 = Entity("../resources/tiles/XS/5.png", 0, 0, self.side, self.side)
-        e6 = Entity("../resources/tiles/XS/6.png", 0, 0, self.side, self.side)
-        e7 = Entity("../resources/tiles/XS/7.png", 0, 0, self.side, self.side)
-        e8 = Entity("../resources/tiles/XS/8.png", 0, 0, self.side, self.side)
-        e9 = Entity("../resources/tiles/XS/b.png", 0, 0, self.side, self.side)
         """
 
     def place_bombs(self):
@@ -88,32 +76,51 @@ class Board:
             print(r)
 
     def draw(self, screen):
+        e = Entity("../resources/tiles/XS/0.png", 0, 0, self.side, self.side)
+        e1 = Entity("../resources/tiles/XS/1.png", 0, 0, self.side, self.side)
+        e2 = Entity("../resources/tiles/XS/2.png", 0, 0, self.side, self.side)
+        e3 = Entity("../resources/tiles/XS/3.png", 0, 0, self.side, self.side)
+        e4 = Entity("../resources/tiles/XS/4.png", 0, 0, self.side, self.side)
+        e5 = Entity("../resources/tiles/XS/5.png", 0, 0, self.side, self.side)
+        e6 = Entity("../resources/tiles/XS/6.png", 0, 0, self.side, self.side)
+        e7 = Entity("../resources/tiles/XS/7.png", 0, 0, self.side, self.side)
+        e8 = Entity("../resources/tiles/XS/8.png", 0, 0, self.side, self.side)
+        e9 = Entity("../resources/tiles/XS/b.png", 0, 0, self.side, self.side)
         y = 0
-        # self.entity_matrix = []
         for row in range(self.h):
             x = 0
             for column in range(self.w):
                 cell = self.board_matrix[row][column]
-                e = Entity("../resources/tiles/XS/0.png", x, y, self.side, self.side)
-                if cell == 1:
-                    e = Entity("../resources/tiles/XS/1.png", x, y, self.side, self.side)
+                if cell == 0:
+                    e.update(x, y)
+                    e.draw(screen)
+                elif cell == 1:
+                    e1.update(x, y)
+                    e1.draw(screen)
                 elif cell == 2:
-                    e = Entity("../resources/tiles/XS/2.png", x, y, self.side, self.side)
+                    e2.update(x, y)
+                    e2.draw(screen)
                 elif cell == 3:
-                    e = Entity("../resources/tiles/XS/3.png", x, y, self.side, self.side)
+                    e3.update(x, y)
+                    e3.draw(screen)
                 elif cell == 4:
-                    e = Entity("../resources/tiles/XS/4.png", x, y, self.side, self.side)
+                    e4.update(x, y)
+                    e4.draw(screen)
                 elif cell == 5:
-                    e = Entity("../resources/tiles/XS/5.png", x, y, self.side, self.side)
+                    e5.update(x, y)
+                    e5.draw(screen)
                 elif cell == 6:
-                    e = Entity("../resources/tiles/XS/6.png", x, y, self.side, self.side)
+                    e6.update(x, y)
+                    e6.draw(screen)
                 elif cell == 7:
-                    e = Entity("../resources/tiles/XS/7.png", x, y, self.side, self.side)
+                    e7.update(x, y)
+                    e7.draw(screen)
                 elif cell == 8:
-                    e = Entity("../resources/tiles/XS/8.png", x, y, self.side, self.side)
+                    e8.update(x, y)
+                    e8.draw(screen)
                 elif cell == 9:
-                    e = Entity("../resources/tiles/XS/b.png", x, y, self.side, self.side)
-                e.draw(screen)
+                    e9.update(x, y)
+                    e9.draw(screen)
                 x += self.side
             y += self.side
 

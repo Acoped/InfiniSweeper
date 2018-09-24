@@ -47,8 +47,8 @@ def main():
 
         # Only update screen on change
         if change:
-            # board.draw(screen)
-            board.draw_start(screen)
+            board.draw(screen)
+            # board.draw_start(screen)
             pygame.display.update()
             change = False
         # ALL DRAW CODE SHOULD GO ABOVE THIS COMMENT
