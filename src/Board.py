@@ -1,7 +1,6 @@
 import random
 from src.Entity import Entity
-from pygame.locals import *
-import numpy
+
 
 # A class describing the game board
 class Board:
@@ -12,7 +11,7 @@ class Board:
         self.bombs = bombs
         self.bomb_matrix = []
         self.board_matrix = []
-        self.side = 8
+        self.side = side
 
     def place_bombs(self):
 
@@ -36,25 +35,20 @@ class Board:
                 bomb_row.append(bomb)
             self.bomb_matrix.append(bomb_row)
 
-        self.print_bomb()
-
         # Calculates the board
         self.board_matrix = []
         for row in range(self.h):
             board_row = []
             for column in range(self.w):
                 current_cell = self.bomb_matrix[row][column]
-                print(current_cell)
                 if current_cell != 9:
                     lookup = get_neighbors(self.bomb_matrix, row, column)
                     neighboring_bombs = count_neighbor_bombs(row, column, self.bomb_matrix, lookup)
                     appendix = neighboring_bombs
                 else:
                     appendix = 9
-                print("appendix: ", appendix)
                 board_row.append(appendix)
             self.board_matrix.append(board_row)
-            self.print_board()
 
     def print_bomb(self):
 
@@ -69,7 +63,6 @@ class Board:
             print(r)
 
     def draw(self, screen):
-        x = 0
         y = 0
         # self.entity_matrix = []
         for row in range(self.h):
@@ -99,8 +92,6 @@ class Board:
                 x += self.side
             y += self.side
 
-        # screen.blit(self.image, self.rect)
-
     def calculate_screen_res(self):
         return [self.side * self.w, self.side * self.h]
 
@@ -109,10 +100,6 @@ class Board:
 def get_neighbors(matrix, x, y):
     h = len(matrix) - 1
     w = len(matrix[0]) - 1
-
-    print()
-    print("hw: ", h, w)
-    lookup = []
 
     if x == 0 and y == 0:
         lookup = [[0, 0, 0],
@@ -151,37 +138,25 @@ def get_neighbors(matrix, x, y):
                   [1, 1, 1],
                   [1, 1, 1]]
 
-    for row in lookup:
-        print(row)
-
     return lookup
 
 
 # Counts the neighbors which are bombs
 def count_neighbor_bombs(x, y, matrix, lookup):
     bombs = 0
-    """
-    coordinates = [[[-1, -1],[0, -1],[1, -1]],
-                   [[-1, 0],[0, 0],[1, 0]],
-                   [[-1, 1],[0, 1],[1, 1]]]
-    """
+
     coordinates = [[[-1, -1], [-1, 0], [-1, 1]],
                    [[0, -1], [0, 0], [0, 1]],
-                   [[1, -1], [1, 0], [1, 1]],]
-    print("x y: ", x, y)
-    print("matrix_dim: ", len(matrix), len(matrix[0]))
+                   [[1, -1], [1, 0], [1, 1]]]
+
     for row in range(3):
         for column in range(3):
             if lookup[row][column] == 1:
                 look = coordinates[row][column]
                 x_p = x + look[0]
                 y_p = y + look[1]
-                print("look: ", look)
-                print("look: ", x_p, y_p)
                 if matrix[x_p][y_p] == 9:
                     bombs += 1
-
-    print("bombs: ", bombs)
 
     return bombs
 
