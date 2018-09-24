@@ -6,7 +6,7 @@ from src.Board import Board
 full_screen = True
 min_viewport = [120, 72]
 viewport = [2560, 1440]
-frame_rate = 25
+frame_rate = 60
 title = "InfiniSweeper"
 
 black = (0, 0, 0)
@@ -35,6 +35,7 @@ def main():
     # xs2 = xs.__copy__()
     # xs2.update(72, 0)
 
+    start = True
     change = True
 
     # Game loop
@@ -47,8 +48,10 @@ def main():
 
         # Only update screen on change
         if change:
-            board.draw(screen)
-            # board.draw_start(screen)
+            # board.draw(screen)
+            if start:
+                board.draw_start(screen)
+                start = False
             pygame.display.update()
             change = False
         # ALL DRAW CODE SHOULD GO ABOVE THIS COMMENT
@@ -70,6 +73,37 @@ def main():
         elif event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 pygame.quit()
+        elif event.type == MOUSEBUTTONUP:
+            button = event.button
+            # left click
+            if button == 1:
+                change = True
+                mouse_pos = pygame.mouse.get_pos()
+                board.open_tile(screen, mouse_pos)
+            # middle click
+            elif button == 2:
+                pass
+            # right click
+            elif button == 3:
+                pass
+            # scroll up
+            elif button == 4:
+                pass
+            # scroll down
+            elif button == 5:
+                pass
+        # Unhide the lines below later for "sunken effect" on held down unopened tiles
+        """
+        elif pygame.mouse.get_pressed()[0]:
+            change = True
+            mouse_pos = pygame.mouse.get_pos()
+            board.draw_hold(screen, mouse_pos)
+        """
+        """
+        elif event.type == MOUSEBUTTONDOWN:
+            change = True
+            mouse_pos = pygame.mouse.get_pos()
+            board.draw_hold(screen, mouse_pos)"""
         # /EVENT HANDLING
 
         clock.tick(frame_rate)
