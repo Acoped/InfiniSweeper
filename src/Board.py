@@ -85,14 +85,14 @@ class Board:
             self.board_matrix.append(board_row)
 
     def fatten_islands(self):
-        self.island_matrix = deepcopy(self.board_matrix)
+        # self.island_matrix = deepcopy(self.board_matrix)
 
         # Simplifies the matrix for printout
         for row in range(self.h):
             for column in range(self.w):
                 cell = self.island_matrix[row][column]
-                if cell != 0 and cell != 9:
-                    self.island_matrix[row][column] = 1
+                if cell != 0:
+                    self.island_matrix[row][column] = -1
 
         self.print_island()
 
@@ -103,7 +103,7 @@ class Board:
             for column in range(self.w):
                 cell = self.island_matrix[row][column]
                 # om elementet är ett
-                if cell == 1:
+                if cell == -1:
                     # Kolla vilka grannar elementet har
                     neighbors = get_neighbors(self.island_matrix, row, column)
                     """
@@ -130,11 +130,55 @@ class Board:
                                     # sätt cellen till 3
                                     self.island_matrix[row][column] = 3
 
+        self.print_island()
+
+        # sätt 3:orna till 0
+        for row in range(self.h):
+            for column in range(self.w):
+                if self.island_matrix[row][column] == 3:
+                    self.island_matrix[row][column] = 0
+
 
         self.print_island()
 
-    def islands(self):
-        return 0
+    def find_islands(self):
+        self.island_matrix = deepcopy(self.board_matrix)
+
+        # Simplifies the matrix for printout
+        for row in range(self.h):
+            for column in range(self.w):
+                cell = self.island_matrix[row][column]
+                if cell != 0:
+                    self.island_matrix[row][column] = -1
+
+        self.print_island()
+
+        # finds islands
+        total = 0
+        for i in range(self.h):
+            for j in range(self.w):
+                if self.island_matrix[i][j] == 0:
+                    total += 1
+                    self.fid(total, i, j)
+
+        self.print_island()
+        print("Found ", total, " islands!")
+
+    # find_islands_deep. recursive function
+    def fid(self, id, x, y):
+        try:
+            if self.island_matrix[x][y] == 0:
+                self.island_matrix[x][y] = id
+                self.fid(id, x + 1, y)
+                self.fid(id, x, y + 1)
+                self.fid(id, x - 1, y)
+                self.fid(id, x, y - 1)
+                self.fid(id, x + 1, y + 1)
+                self.fid(id, x - 1, y - 1)
+                self.fid(id, x + 1, y - 1)
+                self.fid(id, x - 1, y + 1)
+        except IndexError:
+            pass
 
 
     def print_island(self):
