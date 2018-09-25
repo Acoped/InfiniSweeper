@@ -1,6 +1,6 @@
 import random
 from src.Entity import Entity
-
+from copy import copy, deepcopy
 
 # A class describing the game board
 class Board:
@@ -14,6 +14,7 @@ class Board:
         self.bomb_matrix = []
         self.board_matrix = []
         self.opened_matrix = []
+        self.island_matrix = []
 
         for row in range(h):
             opened_row = []
@@ -83,17 +84,29 @@ class Board:
                 board_row.append(appendix)
             self.board_matrix.append(board_row)
 
+    def find_islands(self):
+        self.island_matrix = deepcopy(self.board_matrix)
+        self.print_board()
+        self.print_island()
+
+    def print_island(self):
+        print("\nIsland Matrix:\n")
+
+        self.nice_print(self.island_matrix)
+
+    def nice_print(self, A):
+        print('\n'.join([''.join(['{:4}'.format(item) for item in row])
+                         for row in A]))
+
     def print_bomb(self):
 
         print("\nBomb Matrix:\n")
-        for row in self.bomb_matrix:
-            print(row)
+        self.nice_print(self.bomb_matrix)
 
     def print_board(self):
 
         print("\nBoard Matrix:\n")
-        for r in self.board_matrix:
-            print(r)
+        self.nice_print(self.board_matrix)
 
     def draw(self):
         y = 0
