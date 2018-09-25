@@ -81,7 +81,7 @@ def main():
             if button == 1:
                 change = True
                 mouse_pos = pygame.mouse.get_pos()
-                board.open_tile(mouse_pos)
+                board.open_tile_from_mouse(mouse_pos)
             # middle click
             elif button == 2:
                 pass
@@ -99,13 +99,13 @@ def main():
         elif pygame.mouse.get_pressed()[0]:
             change = True
             mouse_pos = pygame.mouse.get_pos()
-            board.draw_hold(screen, mouse_pos)
+            board.draw_hold(mouse_pos)
         """
         """
         elif event.type == MOUSEBUTTONDOWN:
             change = True
             mouse_pos = pygame.mouse.get_pos()
-            board.draw_hold(screen, mouse_pos)"""
+            board.draw_hold(mouse_pos)"""
         # /EVENT HANDLING
 
         clock.tick(frame_rate)

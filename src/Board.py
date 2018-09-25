@@ -144,13 +144,20 @@ class Board:
                 x += self.side
             y += self.side
 
-    def open_tile(self, mouse_pos):
-
+    def get_clicked_tile(self, mouse_pos):
         mx = mouse_pos[0]
         my = mouse_pos[1]
 
         x = int(mx / self.side)
         y = int(my / self.side)
+
+        return x, y
+
+    def open_tile_from_mouse(self, mouse_pos):
+        x, y = self.get_clicked_tile(mouse_pos)
+        self.open_tile_from_coords(x,y)
+
+    def open_tile_from_coords(self, x, y):
 
         cell = self.board_matrix[y][x]
 
@@ -217,8 +224,8 @@ class Board:
         self.br.update(x, y)
         self.br.draw(self.screen)
 
-    # Unhide this method later for "sunken effect" on held down unopened tiles
     """
+    # Unhide this method later for "sunken effect" on held down unopened tiles
     def draw_hold(self, mouse_pos):
 
         mx = mouse_pos[0]
@@ -231,8 +238,6 @@ class Board:
         if self.opened_matrix[y][x] == 0:
             self.e.update(x * self.side, y * self.side)
             self.e.draw(self.screen)
-
-        pass
     """
 
     def calculate_screen_res(self):
