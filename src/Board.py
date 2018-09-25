@@ -42,6 +42,9 @@ class Board:
             print(self.opened_matrix[row])
         """
 
+    def set_screen(self, screen):
+        self.screen = screen
+
     def place_bombs(self):
 
         # Randomizes bombs
@@ -91,7 +94,7 @@ class Board:
         for r in self.board_matrix:
             print(r)
 
-    def draw(self, screen):
+    def draw(self):
         y = 0
         for row in range(self.h):
             x = 0
@@ -99,49 +102,49 @@ class Board:
                 cell = self.board_matrix[row][column]
                 if cell == 0:
                     self.e.update(x, y)
-                    self.e.draw(screen)
+                    self.e.draw(self.screen)
                 elif cell == 1:
                     self.e1.update(x, y)
-                    self.e1.draw(screen)
+                    self.e1.draw(self.screen)
                 elif cell == 2:
                     self.e2.update(x, y)
-                    self.e2.draw(screen)
+                    self.e2.draw(self.screen)
                 elif cell == 3:
                     self.e3.update(x, y)
-                    self.e3.draw(screen)
+                    self.e3.draw(self.screen)
                 elif cell == 4:
                     self.e4.update(x, y)
-                    self.e4.draw(screen)
+                    self.e4.draw(self.screen)
                 elif cell == 5:
                     self.e5.update(x, y)
-                    self.e5.draw(screen)
+                    self.e5.draw(self.screen)
                 elif cell == 6:
                     self.e6.update(x, y)
-                    self.e6.draw(screen)
+                    self.e6.draw(self.screen)
                 elif cell == 7:
                     self.e7.update(x, y)
-                    self.e7.draw(screen)
+                    self.e7.draw(self.screen)
                 elif cell == 8:
                     self.e8.update(x, y)
-                    self.e8.draw(screen)
+                    self.e8.draw(self.screen)
                 elif cell == 9:
                     self.e9.update(x, y)
-                    self.e9.draw(screen)
+                    self.e9.draw(self.screen)
                 x += self.side
             y += self.side
 
-    def draw_start(self, screen):
+    def draw_start(self):
         y = 0
         x = 0
         for row in range(self.h):
             x = 0
             for column in range(self.w):
                 self.u.update(x, y)
-                self.u.draw(screen)
+                self.u.draw(self.screen)
                 x += self.side
             y += self.side
 
-    def open_tile(self, screen, mouse_pos):
+    def open_tile(self, mouse_pos):
 
         mx = mouse_pos[0]
         my = mouse_pos[1]
@@ -168,31 +171,31 @@ class Board:
 
             if cell == 0:
                 self.e.update(x, y)
-                self.e.draw(screen)
+                self.e.draw(self.screen)
             elif cell == 1:
                 self.e1.update(x, y)
-                self.e1.draw(screen)
+                self.e1.draw(self.screen)
             elif cell == 2:
                 self.e2.update(x, y)
-                self.e2.draw(screen)
+                self.e2.draw(self.screen)
             elif cell == 3:
                 self.e3.update(x, y)
-                self.e3.draw(screen)
+                self.e3.draw(self.screen)
             elif cell == 4:
                 self.e4.update(x, y)
-                self.e4.draw(screen)
+                self.e4.draw(self.screen)
             elif cell == 5:
                 self.e5.update(x, y)
-                self.e5.draw(screen)
+                self.e5.draw(self.screen)
             elif cell == 6:
                 self.e6.update(x, y)
-                self.e6.draw(screen)
+                self.e6.draw(self.screen)
             elif cell == 7:
                 self.e7.update(x, y)
-                self.e7.draw(screen)
+                self.e7.draw(self.screen)
             elif cell == 8:
                 self.e8.update(x, y)
-                self.e8.draw(screen)
+                self.e8.draw(self.screen)
             elif cell == 9:
 
                 # todo: draw flags
@@ -205,17 +208,17 @@ class Board:
                         cell = self.board_matrix[row][column]
                         if cell == 9:
                             self.e9.update(bx, by)
-                            self.e9.draw(screen)
+                            self.e9.draw(self.screen)
                         bx += self.side
                     by += self.side
 
                 # draws the red clicked bombed
                 self.br.update(x, y)
-                self.br.draw(screen)
+                self.br.draw(self.screen)
 
     # Unhide this method later for "sunken effect" on held down unopened tiles
     """
-    def draw_hold(self, screen, mouse_pos):
+    def draw_hold(self, mouse_pos):
 
         mx = mouse_pos[0]
         my = mouse_pos[1]
@@ -226,11 +229,10 @@ class Board:
 
         if self.opened_matrix[y][x] == 0:
             self.e.update(x * self.side, y * self.side)
-            self.e.draw(screen)
+            self.e.draw(self.screen)
 
         pass
     """
-
 
     def calculate_screen_res(self):
         return [self.side * self.w, self.side * self.h]

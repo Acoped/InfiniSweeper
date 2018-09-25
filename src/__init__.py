@@ -26,6 +26,8 @@ def main():
     if full_screen:
         pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
+    board.set_screen(screen)
+
     pygame.display.set_caption(title)
 
     clock = pygame.time.Clock()
@@ -50,7 +52,7 @@ def main():
         if change:
             # board.draw(screen)
             if start:
-                board.draw_start(screen)
+                board.draw_start()
                 start = False
             pygame.display.update()
             change = False
@@ -79,7 +81,7 @@ def main():
             if button == 1:
                 change = True
                 mouse_pos = pygame.mouse.get_pos()
-                board.open_tile(screen, mouse_pos)
+                board.open_tile(mouse_pos)
             # middle click
             elif button == 2:
                 pass
