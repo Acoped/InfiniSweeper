@@ -3,17 +3,17 @@ from pygame.locals import *
 from src.Entity import Entity
 from src.Board import Board
 
-full_screen = True
-min_viewport = [120, 72]
-viewport = [2560, 1440]
-frame_rate = 60
-title = "InfiniSweeper"
-
-black = (0, 0, 0)
-white = (255, 255, 255)
-
 
 def main():
+    full_screen = True
+    min_viewport = [120, 72]
+    viewport = [2560, 1440]
+    frame_rate = 60
+    title = "InfiniSweeper"
+
+    black = (0, 0, 0)
+    white = (255, 255, 255)
+
     pygame.init()
 
     # board = Board(30, 16, 99, 8)

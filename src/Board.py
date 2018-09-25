@@ -6,6 +6,7 @@ from src.Entity import Entity
 class Board:
 
     def __init__(self, w, h, bombs, side):
+        self.screen = None  # Define later in set_screen
         self.w = w
         self.h = h
         self.side = side
@@ -135,7 +136,6 @@ class Board:
 
     def draw_start(self):
         y = 0
-        x = 0
         for row in range(self.h):
             x = 0
             for column in range(self.w):
@@ -153,7 +153,6 @@ class Board:
         y = int(my / self.side)
 
         cell = self.board_matrix[y][x]
-
 
         if self.opened_matrix[y][x] == 0:
 
@@ -197,24 +196,26 @@ class Board:
                 self.e8.update(x, y)
                 self.e8.draw(self.screen)
             elif cell == 9:
+                self.draw_bombs(x, y)
 
-                # todo: draw flags
+    def draw_bombs(self, x, y):
+        # todo: draw flags
 
-                # draws the rest of the bombs
-                by = 0
-                for row in range(self.h):
-                    bx = 0
-                    for column in range(self.w):
-                        cell = self.board_matrix[row][column]
-                        if cell == 9:
-                            self.e9.update(bx, by)
-                            self.e9.draw(self.screen)
-                        bx += self.side
-                    by += self.side
+        # draws the rest of the bombs
+        by = 0
+        for row in range(self.h):
+            bx = 0
+            for column in range(self.w):
+                cell = self.board_matrix[row][column]
+                if cell == 9:
+                    self.e9.update(bx, by)
+                    self.e9.draw(self.screen)
+                bx += self.side
+            by += self.side
 
-                # draws the red clicked bombed
-                self.br.update(x, y)
-                self.br.draw(self.screen)
+        # draws the red clicked bombed
+        self.br.update(x, y)
+        self.br.draw(self.screen)
 
     # Unhide this method later for "sunken effect" on held down unopened tiles
     """
