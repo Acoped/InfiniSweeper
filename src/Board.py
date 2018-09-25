@@ -84,10 +84,58 @@ class Board:
                 board_row.append(appendix)
             self.board_matrix.append(board_row)
 
-    def find_islands(self):
+    def fatten_islands(self):
         self.island_matrix = deepcopy(self.board_matrix)
-        self.print_board()
+
+        # Simplifies the matrix for printout
+        for row in range(self.h):
+            for column in range(self.w):
+                cell = self.island_matrix[row][column]
+                if cell != 0 and cell != 9:
+                    self.island_matrix[row][column] = 1
+
         self.print_island()
+
+        # Mark the cell if it is next to an island
+
+        # För varje element i matrisen
+        for row in range(self.h):
+            for column in range(self.w):
+                cell = self.island_matrix[row][column]
+                # om elementet är ett
+                if cell == 1:
+                    # Kolla vilka grannar elementet har
+                    neighbors = get_neighbors(self.island_matrix, row, column)
+                    """
+                    print()
+                    self.nice_print(neighbors)
+                    """
+
+                    coordinates = [[[-1, -1], [-1, 0], [-1, 1]],
+                                   [[0, -1], [0, 0], [0, 1]],
+                                   [[1, -1], [1, 0], [1, 1]]]
+
+                    # För varje granne
+                    for a in range(3):
+                        for b in range(3):
+                            look = neighbors[a][b]
+                            # om vi ska kolla
+                            if look == 1:
+                                # kolla grannens värde
+                                look = coordinates[a][b]
+                                x_p = row + look[0]
+                                y_p = column + look[1]
+                                # om grannens värde är noll
+                                if self.island_matrix[x_p][y_p] == 0:
+                                    # sätt cellen till 3
+                                    self.island_matrix[row][column] = 3
+
+
+        self.print_island()
+
+    def islands(self):
+        return 0
+
 
     def print_island(self):
         print("\nIsland Matrix:\n")
