@@ -124,6 +124,16 @@ class Board:
         self.print_island()
         print("Found ", id, " islands!")
 
+        # removes padding
+        self.island_matrix = self.island_matrix[1:-1]
+        self.print_island()
+        print("hej")
+        for i in range(self.h):
+            self.island_matrix[i] = self.island_matrix[i][1:-1]
+        self.print_island()
+
+
+        """
         # Creates a lookuptable of cells' neighboring islands
         c = [[[-1, -1], [-1, 0], [-1, 1]],
                [[0, -1], [0, 0], [0, 1]],
@@ -137,7 +147,7 @@ class Board:
             for j in range(self.w):
                 # om inte padding och -1
                 cell = self.island_matrix[i][j]
-                if cell!= padding and cell != -1:
+                if cell!= padding and cell == -1:
                     # kolla alla grannar
                     n = []
                     for row in range(3):
@@ -146,16 +156,18 @@ class Board:
                             x_p = i + look[0]
                             y_p = j + look[1]
                             check = self.island_matrix[x_p][y_p]
-                            if check != -1 and check not in n:
+                            if check != -1 and check != 999 and check not in n:
                                 n.append(check)
                     n_row.append(n)
+                else:
+                    n_row.append([0])
             n_matrix.append(n_row)
 
         # self.nice_print(n_matrix)
 
         print()
         for n_row in n_matrix:
-            print(n_row)
+            print(n_row)"""
 
 
     # find_islands_deep. recursive function
