@@ -89,7 +89,11 @@ class Board:
     def fatten_islands(self):
         pass
 
+    # Finds the 0-islands and id:s them.
+    # Also creates a lookup table for 0-islands and cells neighboring 0-islands for efficient opening of 0-islands.
     def find_islands(self):
+
+        padding = 999999
 
         self.island_matrix = deepcopy(self.board_matrix)
         self.print_island()
@@ -97,8 +101,10 @@ class Board:
         self.island_matrix = change_all_except(self.island_matrix, -1, 0)
         self.print_island()
 
-        # finds islands
-        pad(self.island_matrix, 999999)
+        # Finds islands. Non-optimal solution.
+        # Still, while only doing this once on startup, it's not that expensive.
+        # The created look-up table for 0-islands makes up for the cost
+        pad(self.island_matrix, padding)
         id = 0
         for i in range(self.h + 1):
             for j in range(self.w + 1):
@@ -111,7 +117,6 @@ class Board:
         print("\nFound ", id, " islands!")
 
 
-        """
         # Creates a lookuptable of cells' neighboring islands
         c = [[[-1, -1], [-1, 0], [-1, 1]],
                [[0, -1], [0, 0], [0, 1]],
@@ -119,6 +124,7 @@ class Board:
 
         n_matrix = []
 
+        """
         # För varje cell
         for i in range(self.h):
             n_row = []
@@ -141,14 +147,11 @@ class Board:
                     n_row.append([0])
             n_matrix.append(n_row)
 
-        # self.nice_print(n_matrix)
-
         print()
         for n_row in n_matrix:
             print(n_row)"""
 
-
-    # find_islands_deep. recursive function
+    # find_islands_deep, recursive function
     def fid(self, id, x, y):
         if self.island_matrix[x][y] == 0:
             self.island_matrix[x][y] = id
@@ -161,18 +164,22 @@ class Board:
             self.fid(id, x + 1, y - 1)
             self.fid(id, x - 1, y + 1)
 
-
     def print_island(self):
         print("\nIsland Matrix:\n")
 
-        self.nice_print(self.island_matrix)
+        sea_before = -1
+        sea_after = "~"  # Unicode for black square
+
+        print_island_matrix = [["   " + sea_after if x == sea_before else x for x in row] for row in self.island_matrix]
+
+        print('\n'.join([''.join(['{:4}'.format(item) for item in row])
+                         for row in print_island_matrix]))
 
     def nice_print(self, A):
         print('\n'.join([''.join(['{:4}'.format(item) for item in row])
                          for row in A]))
 
     def print_bomb(self):
-
         print("\nBomb Matrix:\n")
         self.nice_print(self.bomb_matrix)
 
