@@ -5,7 +5,46 @@ from src.Board import Board
 
 
 def main():
-    full_screen = True
+
+    """
+    # Small 9 x 9
+    width = 9
+    height = 9
+    bombs = 10
+    tile_sz_px = 8
+    """
+
+    """
+    # Medium 16 x 16
+    width = 16
+    height = 16
+    bombs = 40
+    tile_sz_px = 8
+    """
+
+    """
+    # Large 30 x 16
+    width = 30
+    height = 16
+    bombs = 99
+    tile_sz_px = 8"""
+
+    # Whole screeen (HD)
+    width = 240
+    height = 135
+    bombs = 6694
+    tile_sz_px = 8
+
+
+    """
+    # Whole screeen (1440p)
+    width = 320
+    height = 180
+    bombs = 11900
+    tile_sz_px = 8
+    """
+
+    full_screen = False
     min_viewport = [120, 72]
     viewport = [2560, 1440]
     frame_rate = 60
@@ -16,16 +55,15 @@ def main():
 
     pygame.init()
 
-    # board = Board(9, 9, 10, 8)
-    # board = Board(30, 16, 99, 8)
-    board = Board(320, 180, 11900, 8)
+    board = Board(width, height, bombs, tile_sz_px)
     board.place_bombs()
     board.find_islands()
 
-    # viewport = board.calculate_screen_res()
+    if not full_screen:
+        viewport = board.calculate_screen_res()
     min_viewport = viewport
 
-    screen = pygame.display.set_mode(viewport, HWSURFACE | DOUBLEBUF | RESIZABLE)
+    screen = pygame.display.set_mode(viewport, HWSURFACE | DOUBLEBUF)
     if full_screen:
         pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
@@ -66,18 +104,16 @@ def main():
         # Handle exit and escape
         if event.type == pygame.QUIT:
             break
-        # Handle window resizing
-        elif event.type == VIDEORESIZE:
-            if not full_screen:
-                viewport[0], viewport[1] = event.size
-                if viewport[0] < min_viewport[0]:
-                    viewport[0] = min_viewport[0]
-                if viewport[1] < min_viewport[1]:
-                    viewport[1] = min_viewport[1]
-                screen = pygame.display.set_mode(viewport, HWSURFACE | DOUBLEBUF | RESIZABLE)
         elif event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 pygame.quit()
+            if event.key == K_r:
+                board = Board(width, height, bombs, tile_sz_px)
+                board.place_bombs()
+                board.find_islands()
+                board.set_screen(screen)
+                board.draw_start()
+                pygame.display.update()
         elif event.type == MOUSEBUTTONUP:
             button = event.button
             # left click
