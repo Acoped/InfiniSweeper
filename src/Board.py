@@ -1,4 +1,5 @@
 import random
+from src.matrix import *
 from src.Entity import Entity
 from copy import copy, deepcopy
 
@@ -100,37 +101,18 @@ class Board:
 
         self.print_island()
 
-        # pads the matrix left and right
-        padding = 999
-        for row in range(self.h):
-            self.island_matrix[row].insert(0, padding)
-            self.island_matrix[row].insert(self.w + 1, padding)
-        # pads matrix top and bottom
-        list_padding = [padding] * (self.w + 2)
-        self.island_matrix.insert(0, list_padding)
-        self.island_matrix.insert(self.h + 1, list_padding)
-
-        self.print_island()
-
         # finds islands
+        pad(self.island_matrix, 999)
         id = 0
         for i in range(self.h + 1):
             for j in range(self.w + 1):
                 if self.island_matrix[i][j] == 0:
                     id += 1
-                    # self.island_matrix = total
                     self.fid(id, i, j)
+        self.island_matrix = un_pad(self.island_matrix)
 
         self.print_island()
         print("Found ", id, " islands!")
-
-        # removes padding
-        self.island_matrix = self.island_matrix[1:-1]
-        self.print_island()
-        print("hej")
-        for i in range(self.h):
-            self.island_matrix[i] = self.island_matrix[i][1:-1]
-        self.print_island()
 
 
         """
