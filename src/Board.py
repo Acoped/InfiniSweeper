@@ -146,11 +146,39 @@ class Board:
 
         n_matrix = un_pad(n_matrix)
 
-        print()
+        print("\nBelong to field matrix:\n")
         for n_row in n_matrix:
             print(n_row)
 
         # todo: start working on lookup for 0-fields
+        look_up_zero_fields = []
+        for i in range(id):
+            look_up_zero_fields.append([])
+        fields = 0
+
+        print("\nLookup field matrix\n")
+        for row in look_up_zero_fields:
+            print(row)
+
+        # för varje cell
+        for i in range(self.h):
+            for j in range(self.w):
+                belong_to_list = n_matrix[i][j]
+
+                # för varje element i listan för vilka 0-fält cellen tillhör
+                for element in belong_to_list:
+                    # om id:t på 0-fältet redan har hittats
+                    if element <= fields:
+                        # ange koordinaterna till id:t på rätt plats
+                        look_up_zero_fields[element - 1].append([i, j - 1])
+                    # annars om de inte har hittats
+                    else:
+                        look_up_zero_fields[fields].append([])
+                        fields += 1
+
+        print("\nLookup field matrix\n")
+        for row in look_up_zero_fields:
+            print(row)
 
     # find_islands_deep, recursive function
     def fid(self, id, x, y):
