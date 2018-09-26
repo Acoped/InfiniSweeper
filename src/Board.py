@@ -85,10 +85,6 @@ class Board:
                 board_row.append(appendix)
             self.board_matrix.append(board_row)
 
-    # Creates a lookuptable of a cells neighboring islands
-    def fatten_islands(self):
-        pass
-
     # Finds the 0-islands and id:s them.
     # Also creates a lookup table for 0-islands and cells neighboring 0-islands for efficient opening of 0-islands.
     def find_islands(self):
@@ -124,14 +120,14 @@ class Board:
 
         n_matrix = []
 
-        """
         # För varje cell
-        for i in range(self.h):
+        self.island_matrix = pad(self.island_matrix, padding)
+        for i in range(self.h + 2):
             n_row = []
-            for j in range(self.w):
+            for j in range(self.w + 2):
                 # om inte padding och -1
                 cell = self.island_matrix[i][j]
-                if cell!= padding and cell == -1:
+                if cell!= padding:
                     # kolla alla grannar
                     n = []
                     for row in range(3):
@@ -140,16 +136,23 @@ class Board:
                             x_p = i + look[0]
                             y_p = j + look[1]
                             check = self.island_matrix[x_p][y_p]
-                            if check != -1 and check != 999 and check not in n:
+                            if check != -1 and check != padding and check not in n:
                                 n.append(check)
                     n_row.append(n)
                 else:
-                    n_row.append([0])
+                    n_row.append([cell])
             n_matrix.append(n_row)
+        self.island_matrix = un_pad(self.island_matrix)
+
+        n_matrix = un_pad(n_matrix)
 
         print()
         for n_row in n_matrix:
-            print(n_row)"""
+            print(n_row)
+
+        """
+        print('\n'.join([''.join(['{:4}'.format(item) for item in row])
+                         for row in n_matrix]))"""
 
     # find_islands_deep, recursive function
     def fid(self, id, x, y):
@@ -172,8 +175,7 @@ class Board:
 
         print_island_matrix = [["   " + sea_after if x == sea_before else x for x in row] for row in self.island_matrix]
 
-        print('\n'.join([''.join(['{:4}'.format(item) for item in row])
-                         for row in print_island_matrix]))
+        self.nice_print(print_island_matrix)
 
     def nice_print(self, A):
         print('\n'.join([''.join(['{:4}'.format(item) for item in row])
