@@ -90,19 +90,15 @@ class Board:
         pass
 
     def find_islands(self):
+
         self.island_matrix = deepcopy(self.board_matrix)
+        self.print_island()
 
-        # Simplifies the matrix for printout
-        for row in range(self.h):
-            for column in range(self.w):
-                cell = self.island_matrix[row][column]
-                if cell != 0:
-                    self.island_matrix[row][column] = -1
-
+        self.island_matrix = change_all_except(self.island_matrix, -1, 0)
         self.print_island()
 
         # finds islands
-        pad(self.island_matrix, 999)
+        pad(self.island_matrix, 999999)
         id = 0
         for i in range(self.h + 1):
             for j in range(self.w + 1):
@@ -112,7 +108,7 @@ class Board:
         self.island_matrix = un_pad(self.island_matrix)
 
         self.print_island()
-        print("Found ", id, " islands!")
+        print("\nFound ", id, " islands!")
 
 
         """

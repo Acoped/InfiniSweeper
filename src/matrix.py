@@ -27,6 +27,21 @@ def un_pad(m):
     return m
 
 
+# Changes all elements except 'dont_change' in a matrix 'm' to 'change_to'
+def change_all_except(m, change_to, dont_change):
+
+    h = len(m)
+    w = len(m[0])
+
+    for i in range(h):
+        for j in range(w):
+            cell = m[i][j]
+            if cell != dont_change:
+                m[i][j] = change_to
+
+    return m
+
+
 if __name__ == "__main__":
     test = [[4]]
     padded = pad(test, 8)
