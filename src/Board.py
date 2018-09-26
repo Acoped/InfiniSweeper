@@ -152,6 +152,7 @@ class Board:
 
         # todo: start working on lookup for 0-fields
         look_up_zero_fields = []
+
         for i in range(id):
             look_up_zero_fields.append([])
         fields = 0
@@ -170,7 +171,7 @@ class Board:
                     # om id:t på 0-fältet redan har hittats
                     if element <= fields:
                         # ange koordinaterna till id:t på rätt plats
-                        look_up_zero_fields[element - 1].append([i, j - 1])
+                        look_up_zero_fields[element - 1].append([i, j])
                     # annars om de inte har hittats
                     else:
                         look_up_zero_fields[fields].append([])
