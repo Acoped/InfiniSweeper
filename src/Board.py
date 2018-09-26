@@ -155,27 +155,15 @@ class Board:
 
         for i in range(id):
             look_up_zero_fields.append([])
-        fields = 0
-
-        print("\nLookup field matrix\n")
-        for row in look_up_zero_fields:
-            print(row)
 
         # för varje cell
         for i in range(self.h):
             for j in range(self.w):
                 belong_to_list = n_matrix[i][j]
-
                 # för varje element i listan för vilka 0-fält cellen tillhör
                 for element in belong_to_list:
-                    # om id:t på 0-fältet redan har hittats
-                    if element <= fields:
-                        # ange koordinaterna till id:t på rätt plats
-                        look_up_zero_fields[element - 1].append([i, j])
-                    # annars om de inte har hittats
-                    else:
-                        look_up_zero_fields[fields].append([])
-                        fields += 1
+                    # ange koordinaterna till id:t på rätt plats
+                    look_up_zero_fields[element - 1].append([i, j])
 
         print("\nLookup field matrix\n")
         for row in look_up_zero_fields:
