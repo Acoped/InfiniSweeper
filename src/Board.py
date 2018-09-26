@@ -21,11 +21,13 @@ class Board:
         self.lookup_matrix = []     # Matrix with coordinates to the fields that should be opened when a 0 is clicked
         self.flag_matrix = []       # Binary matrix. If tile is marked with a flag or not. Flag is 1
 
+        # Initiates opened_matrix
         for row in range(h):
             opened_row = []
             for column in range(w):
                 opened_row.append(0)
             self.opened_matrix.append(opened_row)
+        self.print_open_matrix()
 
         self.e = Entity("../resources/tiles/XS/0.png", 0, 0, self.side, self.side)
         self.e1 = Entity("../resources/tiles/XS/1.png", 0, 0, self.side, self.side)
@@ -211,9 +213,12 @@ class Board:
         self.nice_print(self.bomb_matrix)
 
     def print_board(self):
-
         print("\nBoard Matrix:\n")
         self.nice_print(self.board_matrix)
+
+    def print_open_matrix(self):
+        print("\nOpened Matrix:\n")
+        self.nice_print(self.opened_matrix)
 
     def draw(self):
         y = 0

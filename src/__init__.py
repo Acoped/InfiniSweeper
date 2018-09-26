@@ -6,13 +6,13 @@ from src.Board import Board
 
 def main():
 
-    """
+
     # Small 9 x 9
     width = 9
     height = 9
     bombs = 10
     tile_sz_px = 8
-    """
+
 
     """
     # Medium 16 x 16
@@ -27,14 +27,16 @@ def main():
     width = 30
     height = 16
     bombs = 99
-    tile_sz_px = 8"""
+    tile_sz_px = 8
+    """
 
+    """
     # Whole screeen (HD)
     width = 240
     height = 135
     bombs = 6694
     tile_sz_px = 8
-
+    """
 
     """
     # Whole screeen (1440p)
@@ -105,8 +107,10 @@ def main():
         if event.type == pygame.QUIT:
             break
         elif event.type == KEYDOWN:
+            # ESCAPE -> Quits the game
             if event.key == K_ESCAPE:
                 pygame.quit()
+            # R -> Restarts the game
             if event.key == K_r:
                 board = Board(width, height, bombs, tile_sz_px)
                 board.place_bombs()
@@ -116,21 +120,23 @@ def main():
                 pygame.display.update()
         elif event.type == MOUSEBUTTONUP:
             button = event.button
-            # left click
+            # LEFT CLICK -> Opens tile
             if button == 1:
                 change = True
                 mouse_pos = pygame.mouse.get_pos()
                 board.open_tile_from_mouse(mouse_pos)
-            # middle click
+            # MIDDLE CLICK
             elif button == 2:
                 pass
-            # right click
+            # RIGHT CLICK -> Marks as flag
             elif button == 3:
+                change = True
+
                 pass
-            # scroll up
+            # SCROLL UP
             elif button == 4:
                 pass
-            # scroll down
+            # SCROLL DOWN
             elif button == 5:
                 pass
         # Unhide the lines below later for "sunken effect" on held down unopened tiles
