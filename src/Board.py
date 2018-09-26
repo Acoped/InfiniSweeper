@@ -150,9 +150,7 @@ class Board:
         for n_row in n_matrix:
             print(n_row)
 
-        """
-        print('\n'.join([''.join(['{:4}'.format(item) for item in row])
-                         for row in n_matrix]))"""
+        # todo: start working on lookup for 0-fields
 
     # find_islands_deep, recursive function
     def fid(self, id, x, y):
