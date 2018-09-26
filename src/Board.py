@@ -8,17 +8,18 @@ class Board:
 
     def __init__(self, w, h, bombs, side):
 
-        self.screen = None  # Define later in set_screen
-        self.w = w
-        self.h = h
-        self.side = side
-        self.bombs = bombs
+        self.screen = None          # Define later in set_screen! Which screen to draw to.
+        self.w = w                  # Width of the Board in tiles.
+        self.h = h                  # Height of the Board in tiles
+        self.side = side            # Side of a tile in pixels
+        self.bombs = bombs          # Number of bombs
 
         self.bomb_matrix = []       # Binary matrix. If tile is bomb or not. Bomb is 1.
         self.board_matrix = []      # Integer matrix. Number of neighboring bombs 0-8. Bomb is 9.
         self.opened_matrix = []     # Binary matrix. If cell is opened or not. Opened is 1.
         self.island_matrix = []     # Integer matrix. ID's of connected "islands" of 0-fields.
         self.lookup_matrix = []     # Matrix with coordinates to the fields that should be opened when a 0 is clicked
+        self.flag_matrix = []       # Binary matrix. If tile is marked with a flag or not. Flag is 1
 
         for row in range(h):
             opened_row = []
