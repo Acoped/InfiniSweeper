@@ -89,6 +89,7 @@ class Board:
     # Also creates a lookup table for 0-islands and cells neighboring 0-islands for efficient opening of 0-islands.
     def find_islands(self):
 
+        # ----- FIND ISLANDS -----
         padding = 999999
 
         self.island_matrix = deepcopy(self.board_matrix)
@@ -111,8 +112,9 @@ class Board:
 
         self.print_island()
         print("\nFound ", id, " islands!")
+        # ----- /FIND ISLANDS -----
 
-
+        # ----- BELONGING TABLE -----
         # Creates a lookuptable of cells' neighboring islands
         c = [[[-1, -1], [-1, 0], [-1, 1]],
                [[0, -1], [0, 0], [0, 1]],
@@ -149,8 +151,9 @@ class Board:
         print("\nBelong to field matrix:\n")
         for n_row in n_matrix:
             print(n_row)
+        # ----- /BELONGING TABLE -----
 
-        # todo: start working on lookup for 0-fields
+        # ----- LOOKUP TABLE -----
         look_up_zero_fields = []
 
         for i in range(id):
@@ -168,6 +171,7 @@ class Board:
         print("\nLookup field matrix\n")
         for row in look_up_zero_fields:
             print(row)
+        # ----- /LOOKUP TABLE -----
 
     # find_islands_deep, recursive function
     def fid(self, id, x, y):
