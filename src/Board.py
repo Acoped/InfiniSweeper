@@ -7,15 +7,18 @@ from copy import copy, deepcopy
 class Board:
 
     def __init__(self, w, h, bombs, side):
+
         self.screen = None  # Define later in set_screen
         self.w = w
         self.h = h
         self.side = side
         self.bombs = bombs
-        self.bomb_matrix = []
-        self.board_matrix = []
-        self.opened_matrix = []
-        self.island_matrix = []
+
+        self.bomb_matrix = []       # Binary matrix. If tile is bomb or not. Bomb is 1.
+        self.board_matrix = []      # Integer matrix. Number of neighboring bombs 0-8. Bomb is 9.
+        self.opened_matrix = []     # Binary matrix. If cell is opened or not. Opened is 1.
+        self.island_matrix = []     # Integer matrix. ID's of connected "islands" of 0-fields.
+        self.lookup_matrix = []     # Matrix with coordinates to the fields that should be opened when a 0 is clicked
 
         for row in range(h):
             opened_row = []
@@ -171,6 +174,8 @@ class Board:
         print("\nLookup field matrix\n")
         for row in look_up_zero_fields:
             print(row)
+
+        self.lookup_matrix = look_up_zero_fields
         # ----- /LOOKUP TABLE -----
 
     # find_islands_deep, recursive function
@@ -267,11 +272,32 @@ class Board:
 
         return x, y
 
+    # Gets the ID of the clicked zero field
+    def get_zero_field(self, x, y):
+
+        print("get zero field", x, y)
+
+        field = self.island_matrix[y][x]
+
+        print(field)
+
+        return field
+
+    # Opens the zero field
+    def open_zero_field(self, field):
+        cells_to_open = self.lookup_matrix[field - 1]
+
+        for coord in cells_to_open:
+            x = coord[0]
+            y = coord[1]
+            print(coord)
+            self.open_tile_from_coords(y, x, False)
+
     def open_tile_from_mouse(self, mouse_pos):
         x, y = self.get_clicked_tile(mouse_pos)
         self.open_tile_from_coords(x,y)
 
-    def open_tile_from_coords(self, x, y):
+    def open_tile_from_coords(self, x, y, open_zero_field=True):
 
         cell = self.board_matrix[y][x]
 
@@ -286,38 +312,41 @@ class Board:
             else:
                 self.opened_matrix[y][x] == 1
 
-            x *= self.side
-            y *= self.side
+            xd = x * self.side
+            yd = y *self.side
 
             if cell == 0:
-                self.e.update(x, y)
+                self.e.update(xd, yd)
+                if open_zero_field:
+                    field = self.get_zero_field(x, y)
+                    self.open_zero_field(field)
                 self.e.draw(self.screen)
             elif cell == 1:
-                self.e1.update(x, y)
+                self.e1.update(xd, yd)
                 self.e1.draw(self.screen)
             elif cell == 2:
-                self.e2.update(x, y)
+                self.e2.update(xd, yd)
                 self.e2.draw(self.screen)
             elif cell == 3:
-                self.e3.update(x, y)
+                self.e3.update(xd, yd)
                 self.e3.draw(self.screen)
             elif cell == 4:
-                self.e4.update(x, y)
+                self.e4.update(xd, yd)
                 self.e4.draw(self.screen)
             elif cell == 5:
-                self.e5.update(x, y)
+                self.e5.update(xd, yd)
                 self.e5.draw(self.screen)
             elif cell == 6:
-                self.e6.update(x, y)
+                self.e6.update(xd, yd)
                 self.e6.draw(self.screen)
             elif cell == 7:
-                self.e7.update(x, y)
+                self.e7.update(xd, yd)
                 self.e7.draw(self.screen)
             elif cell == 8:
-                self.e8.update(x, y)
+                self.e8.update(xd, yd)
                 self.e8.draw(self.screen)
             elif cell == 9:
-                self.draw_bombs(x, y)
+                self.draw_bombs(xd, yd)
 
     def draw_bombs(self, x, y):
         # todo: draw flags

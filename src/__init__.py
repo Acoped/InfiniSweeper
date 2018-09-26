@@ -16,10 +16,13 @@ def main():
 
     pygame.init()
 
+    # board = Board(9, 9, 10, 8)
     # board = Board(30, 16, 99, 8)
     board = Board(320, 180, 11900, 8)
     board.place_bombs()
-    viewport = board.calculate_screen_res()
+    board.find_islands()
+
+    # viewport = board.calculate_screen_res()
     min_viewport = viewport
 
     screen = pygame.display.set_mode(viewport, HWSURFACE | DOUBLEBUF | RESIZABLE)
