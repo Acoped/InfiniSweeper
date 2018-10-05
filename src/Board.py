@@ -99,10 +99,10 @@ class Board:
         padding = 999999
 
         self.island_matrix = deepcopy(self.board_matrix)
-        self.print_island()
+        # self.print_island()
 
         self.island_matrix = change_all_except(self.island_matrix, -1, 0)
-        self.print_island()
+        # self.print_island()
 
         # Finds islands. Non-optimal solution.
         # Still, while only doing this once on startup, it's not that expensive.
@@ -116,8 +116,8 @@ class Board:
                     self.fid(id, i, j)
         self.island_matrix = un_pad(self.island_matrix)
 
-        self.print_island()
-        print("\nFound ", id, " islands!")
+        # self.print_island()
+        # print("\nFound ", id, " islands!")
         # ----- /FIND ISLANDS -----
 
         # ----- BELONGING TABLE -----
@@ -154,9 +154,9 @@ class Board:
 
         n_matrix = un_pad(n_matrix)
 
-        print("\nBelong to field matrix:\n")
-        for n_row in n_matrix:
-            print(n_row)
+        # print("\nBelong to field matrix:\n")
+        # for n_row in n_matrix:
+        #     print(n_row)
         # ----- /BELONGING TABLE -----
 
         # ----- LOOKUP TABLE -----
@@ -174,9 +174,11 @@ class Board:
                     # ange koordinaterna till id:t på rätt plats
                     look_up_zero_fields[element - 1].append([i, j])
 
+        """
         print("\nLookup field matrix\n")
         for row in look_up_zero_fields:
             print(row)
+        """
 
         self.lookup_matrix = look_up_zero_fields
         # ----- /LOOKUP TABLE -----
@@ -285,11 +287,11 @@ class Board:
     # Gets the ID of the clicked zero field
     def get_zero_field(self, x, y):
 
-        print("get zero field", x, y)
+        # print("get zero field", x, y)
 
         field = self.island_matrix[y][x]
 
-        print(field)
+        # print(field)
 
         return field
 
@@ -300,7 +302,7 @@ class Board:
         for coord in cells_to_open:
             x = coord[0]
             y = coord[1]
-            print(coord)
+            # print(coord)
             self.open_tile_from_coords(y, x, False)
 
     def open_tile_from_mouse(self, mouse_pos):
@@ -311,10 +313,10 @@ class Board:
 
         cell = self.board_matrix[y][x]
 
-        if self.opened_matrix[y][x] == 0:
+        if self.opened_matrix[y][x] == 0 and self.flag_matrix[y][x] == 0:
 
             xd = x * self.side
-            yd = y *self.side
+            yd = y * self.side
 
             if cell == 0:
                 self.e.update(xd, yd)
@@ -349,17 +351,17 @@ class Board:
             elif cell == 9:
                 self.draw_bombs(xd, yd)
 
-        # todo: finish this
-        # Mark cells as opened or not accordingly and check for game over
-        if cell == 0:
-            self.opened_matrix[y][x] = 1
-            # pass
-        elif cell == 9:
-            pass
-        else:
-            self.opened_matrix[y][x] = 1
+            # todo: finish this
+            # Mark cells as opened or not accordingly and check for game over
+            if cell == 0:
+                self.opened_matrix[y][x] = 1
+                # pass
+            elif cell == 9:
+                pass
+            else:
+                self.opened_matrix[y][x] = 1
 
-        self.print_open_matrix()
+        # self.print_open_matrix()
 
     def draw_bombs(self, x, y):
         # todo: draw flags
@@ -416,11 +418,12 @@ class Board:
                 self.f.draw(self.screen)
                 self.flag_matrix[y][x] = 1
             # if flagged
-            else:
+            elif self.flag_matrix[y][x] == 1:
                 self.u.update(xd, yd)
                 self.u.draw(self.screen)
                 self.flag_matrix[y][x] = 0
 
+        self.print_flag_matrix()
 
 
 # Returns a lookup matrix for neighboring cells.
