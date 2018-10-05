@@ -27,7 +27,13 @@ class Board:
             for column in range(w):
                 opened_row.append(0)
             self.opened_matrix.append(opened_row)
-        self.print_open_matrix()
+
+        # Initiates flag_matrix
+        for row in range(h):
+            opened_row = []
+            for column in range(w):
+                opened_row.append(0)
+            self.flag_matrix.append(opened_row)
 
         self.e = Entity("../resources/tiles/XS/0.png", 0, 0, self.side, self.side)
         self.e1 = Entity("../resources/tiles/XS/1.png", 0, 0, self.side, self.side)
@@ -44,12 +50,6 @@ class Board:
         self.f = Entity("../resources/tiles/XS/f.png", 0, 0, self.side, self.side)
         self.q = Entity("../resources/tiles/XS/q.png", 0, 0, self.side, self.side)
         self.u = Entity("../resources/tiles/XS/u.png", 0, 0, self.side, self.side)
-
-        """
-        # print opened_matrix
-        for row in range(h):
-            print(self.opened_matrix[row])
-        """
 
     def set_screen(self, screen):
         self.screen = screen
@@ -220,6 +220,10 @@ class Board:
         print("\nOpened Matrix:\n")
         self.nice_print(self.opened_matrix)
 
+    def print_flag_matrix(self):
+        print("\nFlag Matrix:\n")
+        self.nice_print(self.flag_matrix)
+
     def draw(self):
         y = 0
         for row in range(self.h):
@@ -309,15 +313,6 @@ class Board:
 
         if self.opened_matrix[y][x] == 0:
 
-            # todo: finish this
-            # Mark cells as opened or not accordingly and check for game over
-            if cell == 0:
-                pass
-            elif cell == 9:
-                pass
-            else:
-                self.opened_matrix[y][x] == 1
-
             xd = x * self.side
             yd = y *self.side
 
@@ -353,6 +348,18 @@ class Board:
                 self.e8.draw(self.screen)
             elif cell == 9:
                 self.draw_bombs(xd, yd)
+
+        # todo: finish this
+        # Mark cells as opened or not accordingly and check for game over
+        if cell == 0:
+            self.opened_matrix[y][x] = 1
+            # pass
+        elif cell == 9:
+            pass
+        else:
+            self.opened_matrix[y][x] = 1
+
+        self.print_open_matrix()
 
     def draw_bombs(self, x, y):
         # todo: draw flags
@@ -391,6 +398,29 @@ class Board:
 
     def calculate_screen_res(self):
         return [self.side * self.w, self.side * self.h]
+
+    def mark_from_mouse_pos(self, mouse_pos):
+        x, y = self.get_clicked_tile(mouse_pos)
+        self.mark(x, y)
+
+    def mark(self, x, y):
+
+        xd = x * self.side
+        yd = y * self.side
+
+        # if not opened
+        if self.opened_matrix[y][x] == 0:
+            # if not flagged
+            if self.flag_matrix[y][x] == 0:
+                self.f.update(xd, yd)
+                self.f.draw(self.screen)
+                self.flag_matrix[y][x] = 1
+            # if flagged
+            else:
+                self.u.update(xd, yd)
+                self.u.draw(self.screen)
+                self.flag_matrix[y][x] = 0
+
 
 
 # Returns a lookup matrix for neighboring cells.

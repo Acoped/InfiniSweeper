@@ -131,7 +131,8 @@ def main():
             # RIGHT CLICK -> Marks as flag
             elif button == 3:
                 change = True
-
+                mouse_pos = pygame.mouse.get_pos()
+                board.mark_from_mouse_pos(mouse_pos)
                 pass
             # SCROLL UP
             elif button == 4:
