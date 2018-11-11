@@ -313,6 +313,11 @@ class Board:
         x, y = self.get_clicked_tile(mouse_pos)
         flags = count_neighbor_flags(x, y, self.flag_matrix, get_neighbors(self.board_matrix, x, y))
         print(flags)
+        if flags == self.board_matrix[y][x]:
+            self.open_cells_not_flagged();
+
+    def open_cells_not_flagged(self):
+        print("OPEN CELLS NOT FLAGGED")
 
     def open_tile_from_coords(self, x, y, open_zero_field=True):
 
