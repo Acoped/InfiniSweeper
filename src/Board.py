@@ -314,10 +314,24 @@ class Board:
         flags = count_neighbor_flags(x, y, self.flag_matrix, get_neighbors(self.board_matrix, x, y))
         print(flags)
         if flags == self.board_matrix[y][x]:
-            self.open_cells_not_flagged();
+            self.open_cells_not_flagged(x, y);
 
-    def open_cells_not_flagged(self):
+    def open_cells_not_flagged(self, x, y):
         print("OPEN CELLS NOT FLAGGED")
+        lookup = get_neighbors(self.board_matrix, x, y)
+
+        coordinates = [[[-1, -1], [-1, 0], [-1, 1]],
+                       [[0, -1], [0, 0], [0, 1]],
+                       [[1, -1], [1, 0], [1, 1]]]
+
+        for row in range(3):
+            for column in range(3):
+                if lookup[row][column] == 1:
+                    look = coordinates[row][column]
+                    x_p = x + look[0]
+                    y_p = y + look[1]
+                    if self.flag_matrix[y_p][x_p] != 1:
+                        self.open_tile_from_coords(x_p, y_p)
 
     def open_tile_from_coords(self, x, y, open_zero_field=True):
 
