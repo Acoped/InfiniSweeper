@@ -423,7 +423,7 @@ class Board:
                 self.u.draw(self.screen)
                 self.flag_matrix[y][x] = 0
 
-        self.print_flag_matrix()
+        # self.print_flag_matrix()
 
 
 # Returns a lookup matrix for neighboring cells.

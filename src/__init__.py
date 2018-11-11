@@ -6,13 +6,13 @@ from src.Board import Board
 
 def main():
 
-
+    """
     # Small 9 x 9
     width = 9
     height = 9
     bombs = 10
     tile_sz_px = 8
-
+    """
 
     """
     # Medium 16 x 16
@@ -22,13 +22,13 @@ def main():
     tile_sz_px = 8
     """
 
-    """
+
     # Large 30 x 16
     width = 30
     height = 16
     bombs = 99
     tile_sz_px = 8
-    """
+
 
     """
     # Whole screeen (HD)
@@ -83,6 +83,9 @@ def main():
     start = True
     change = True
 
+    left_down = False       # whether left mouse button is being held down
+    right_down = False      # whether right mouse button is being held down
+
     # Game loop
     while True:
 
@@ -118,28 +121,56 @@ def main():
                 board.set_screen(screen)
                 board.draw_start()
                 pygame.display.update()
+
         elif event.type == MOUSEBUTTONUP:
             button = event.button
+
             # LEFT CLICK -> Opens tile
             if button == 1:
                 change = True
+
+                if check_both(left_down, right_down):
+                    print('double hold then released left')
+                left_down = False
+
                 mouse_pos = pygame.mouse.get_pos()
                 board.open_tile_from_mouse(mouse_pos)
+
             # MIDDLE CLICK
             elif button == 2:
                 pass
+
             # RIGHT CLICK -> Marks as flag
             elif button == 3:
                 change = True
+
+                if check_both(left_down, right_down):
+                    print('double hold then released right')
+                right_down = False
+
                 mouse_pos = pygame.mouse.get_pos()
                 board.mark_from_mouse_pos(mouse_pos)
-                pass
+
             # SCROLL UP
             elif button == 4:
                 pass
+
             # SCROLL DOWN
             elif button == 5:
                 pass
+
+        elif event.type == MOUSEBUTTONDOWN:
+
+            button = event.button
+
+            # LEFT HOLD DOWN STARTED
+            if button == 1:
+                left_down = True
+
+            # RIGHT HOLD DOWN STARTED
+            elif button == 3:
+                right_down = True
+
         # Unhide the lines below later for "sunken effect" on held down unopened tiles
         """
         elif pygame.mouse.get_pressed()[0]:
@@ -155,6 +186,14 @@ def main():
         # /EVENT HANDLING
 
         clock.tick(frame_rate)
+
+
+# Checks if both left and right mouse buttons are (were...) being held
+def check_both(left, right):
+    if left and right:
+        return True
+    else:
+        return False
 
 
 if __name__ == "__main__":
