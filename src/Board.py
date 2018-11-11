@@ -309,6 +309,11 @@ class Board:
         x, y = self.get_clicked_tile(mouse_pos)
         self.open_tile_from_coords(x,y)
 
+    def double_open_tile_from_mouse(self, mouse_pos):
+        x, y = self.get_clicked_tile(mouse_pos)
+        flags = count_neighbor_flags(x, y, self.flag_matrix, get_neighbors(self.board_matrix, x, y))
+        print(flags)
+
     def open_tile_from_coords(self, x, y, open_zero_field=True):
 
         cell = self.board_matrix[y][x]
@@ -490,6 +495,24 @@ def count_neighbor_bombs(x, y, matrix, lookup):
 
     return bombs
 
+
+def count_neighbor_flags(x, y, flag_matrix, lookup):
+    flags = 0
+
+    coordinates = [[[-1, -1], [-1, 0], [-1, 1]],
+                   [[0, -1], [0, 0], [0, 1]],
+                   [[1, -1], [1, 0], [1, 1]]]
+
+    for row in range(3):
+        for column in range(3):
+            if lookup[row][column] == 1:
+                look = coordinates[row][column]
+                x_p = x + look[0]
+                y_p = y + look[1]
+                if flag_matrix[y_p][x_p] == 1:
+                    flags += 1
+
+    return flags
 
 """
 if __name__ == "__main__":

@@ -129,11 +129,14 @@ def main():
             if button == 1:
                 change = True
 
+                mouse_pos = pygame.mouse.get_pos()
+
                 if check_both(left_down, right_down):
                     print('double hold then released left')
+                    board.double_open_tile_from_mouse(mouse_pos)
+
                 left_down = False
 
-                mouse_pos = pygame.mouse.get_pos()
                 board.open_tile_from_mouse(mouse_pos)
 
             # MIDDLE CLICK
@@ -144,11 +147,13 @@ def main():
             elif button == 3:
                 change = True
 
+                mouse_pos = pygame.mouse.get_pos()
+
                 if check_both(left_down, right_down):
                     print('double hold then released right')
+
                 right_down = False
 
-                mouse_pos = pygame.mouse.get_pos()
                 board.mark_from_mouse_pos(mouse_pos)
 
             # SCROLL UP
