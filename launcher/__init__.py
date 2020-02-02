@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import Tk, font, ttk
 import game
-import subprocess
 
 def newgame_callback():
     print("New Game button clicked")
@@ -37,8 +36,17 @@ def main():
 
     dimensions_radiobutton_var = IntVar()
     dimensions_radiobutton1 = Radiobutton(root, text="Game Mode", variable=dimensions_radiobutton_var, value=1)
-    dimensions_radiobutton2 = Radiobutton(root, text="Fullscreen Game", variable=dimensions_radiobutton_var, value=2)
+    dimensions_radiobutton2 = Radiobutton(root, text="Fullscreen Game (w? x h?)", variable=dimensions_radiobutton_var, value=2)
     dimensions_radiobutton3 = Radiobutton(root, text="Custom", variable=dimensions_radiobutton_var, value=3)
+
+    variable = StringVar(root)
+    variable.set("Small (? x ?)")  # default value
+
+    dimensions_optionmenu = OptionMenu(root, variable, "Small (w? x h?)", "Medium (w? x h?)", "Large (w? x h?)", "Classic Small (9 x 9)", "Classic Medium (16 x 30)", "Classic Large (30 x 16)")
+    dimensions_optionmenu.config(width=30)
+    dimensions_optionmenu.config(bg="LIGHTBLUE")
+    dimensions_optionmenu.config(activebackground="RED")
+    dimensions_optionmenu["menu"].config(bg="WHITE")
 
     # ----- /Dimensions submenu -----
 
@@ -62,7 +70,7 @@ def main():
     tilesize_separator = ttk.Separator(root, orient=HORIZONTAL)
 
     tilesize_var = StringVar()
-    tilesize_var.set("Tile Size:")
+    tilesize_var.set("Tile Set:")
     tilesize_label = Label(root, textvariable = tilesize_var)
 
     tilesize_separator_end = ttk.Separator(root, orient=HORIZONTAL)
@@ -116,6 +124,7 @@ def main():
     dimensions_separator_end.pack(fill="x")
 
     dimensions_radiobutton1.pack(anchor="w")
+    dimensions_optionmenu.pack(anchor="w")
     dimensions_radiobutton2.pack(anchor="w")
     dimensions_radiobutton3.pack(anchor="w")
 
