@@ -38,7 +38,7 @@ def main():
     dimensions_radiobutton_var = IntVar()
     dimensions_radiobutton1 = Radiobutton(root, text="Game Mode", variable=dimensions_radiobutton_var, value=1)
     dimensions_radiobutton2 = Radiobutton(root, text="Fullscreen Game (w? x h?)", variable=dimensions_radiobutton_var, value=2)
-    dimensions_radiobutton3 = Radiobutton(root, text="Custom", variable=dimensions_radiobutton_var, value=3)
+    dimensions_radiobutton3 = Radiobutton(root, text="Custom (____ x ____)", variable=dimensions_radiobutton_var, value=3)
 
     variable = StringVar(root)
     variable.set("Small (? x ?)")  # default value
@@ -62,8 +62,8 @@ def main():
 
     bombs_checkbutton_var = IntVar()
     bombs_radiobutton1 = Radiobutton(root, text="Standard (X % ratio)", variable=bombs_checkbutton_var, value=1)
-    bombs_radiobutton2 = Radiobutton(root, text="Number", variable=bombs_checkbutton_var, value=2)
-    bombs_radiobutton3 = Radiobutton(root, text="Ratio", variable=bombs_checkbutton_var, value=3)
+    bombs_radiobutton2 = Radiobutton(root, text="Number (____ bombs)", variable=bombs_checkbutton_var, value=2)
+    bombs_radiobutton3 = Radiobutton(root, text="Ratio (____ %)", variable=bombs_checkbutton_var, value=3)
 
     # ----- /Bombs submenu -----
 
@@ -87,10 +87,50 @@ def main():
     tilesize_radiobutton6 = Radiobutton(tilesize_frame, text="2 x 2 (pixel w/ border)", variable=tilesize_checkbutton_var, value=6)
     tilesize_radiobutton7 = Radiobutton(tilesize_frame, text="1 x 1 (pixel)", variable=tilesize_checkbutton_var, value=6)
 
-    image = Image.open("../resources/tiles/XS/0.png")
-    photo = ImageTk.PhotoImage(image)
-    label = Label(tilesize_frame, image=photo)
-    label.image = photo  # keep a reference!
+    XS0_image = Image.open("../resources/tiles/XS/0.png")
+    XS0_photo = ImageTk.PhotoImage(XS0_image)
+    XS0_label = Label(tilesize_frame, image=XS0_photo)
+    XS0_label.image = XS0_photo  # keep a reference!
+
+    XS1_image = Image.open("../resources/tiles/XS/1.png")
+    XS1_photo = ImageTk.PhotoImage(XS1_image)
+    XS1_label = Label(tilesize_frame, image=XS1_photo)
+    XS1_label.image = XS0_photo  # keep a reference!
+
+    XS2_image = Image.open("../resources/tiles/XS/2.png")
+    XS2_photo = ImageTk.PhotoImage(XS2_image)
+    XS2_label = Label(tilesize_frame, image=XS2_photo)
+    XS2_label.image = XS2_photo  # keep a reference!
+    
+    XS3_image = Image.open("../resources/tiles/XS/3.png")
+    XS3_photo = ImageTk.PhotoImage(XS3_image)
+    XS3_label = Label(tilesize_frame, image=XS3_photo)
+    XS3_label.image = XS0_photo  # keep a reference!
+    
+    XS4_image = Image.open("../resources/tiles/XS/4.png")
+    XS4_photo = ImageTk.PhotoImage(XS4_image)
+    XS4_label = Label(tilesize_frame, image=XS4_photo)
+    XS4_label.image = XS0_photo  # keep a reference!
+    
+    XS5_image = Image.open("../resources/tiles/XS/5.png")
+    XS5_photo = ImageTk.PhotoImage(XS5_image)
+    XS5_label = Label(tilesize_frame, image=XS5_photo)
+    XS5_label.image = XS0_photo  # keep a reference!
+    
+    XS6_image = Image.open("../resources/tiles/XS/6.png")
+    XS6_photo = ImageTk.PhotoImage(XS6_image)
+    XS6_label = Label(tilesize_frame, image=XS6_photo)
+    XS6_label.image = XS0_photo  # keep a reference!
+    
+    XS7_image = Image.open("../resources/tiles/XS/7.png")
+    XS7_photo = ImageTk.PhotoImage(XS7_image)
+    XS7_label = Label(tilesize_frame, image=XS7_photo)
+    XS7_label.image = XS0_photo  # keep a reference!
+    
+    XS8_image = Image.open("../resources/tiles/XS/8.png")
+    XS8_photo = ImageTk.PhotoImage(XS8_image)
+    XS8_label = Label(tilesize_frame, image=XS8_photo)
+    XS8_label.image = XS0_photo  # keep a reference!
 
     # ----- /Tilesize submenu -----
 
@@ -159,7 +199,21 @@ def main():
     tilesize_radiobutton6.grid(row=5, column=0, sticky="w")
     tilesize_radiobutton7.grid(row=6, column=0, sticky="w")
 
-    label.grid(row=3, column=1)
+    XS0_label.grid(row=3, column=1)
+    XS1_label.grid(row=3, column=2)
+    XS2_label.grid(row=3, column=3)
+    XS3_label.grid(row=3, column=4)
+    XS4_label.grid(row=3, column=5)
+    XS5_label.grid(row=3, column=6)
+    XS6_label.grid(row=3, column=7)
+    XS7_label.grid(row=3, column=8)
+    XS8_label.grid(row=3, column=9)
+    """
+    XS8_label.grid(row=3, column=10)
+    XS8_label.grid(row=3, column=11)
+    XS8_label.grid(row=3, column=12)
+    XS8_label.grid(row=3, column=13)
+    """
 
     fitsscreen_separator.pack(fill="x")
     fitsscreen_label.pack()
