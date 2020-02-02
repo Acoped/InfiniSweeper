@@ -224,7 +224,7 @@ def main():
 
     newgame_separator.pack(fill="x")
     newgame_button.pack(pady=8)
-    newgame_separator_end.pack(fill="x")
+    # newgame_separator_end.pack(fill="x")
 
     about_label.pack()
     # ----- /Packing (and gridding...) -----
