@@ -327,11 +327,15 @@ class Board:
                        [[1, -1], [1, 0], [1, 1]]]
 
         # ---- TEST ---
+        """
         self.print_board()
+        print('w', w, 'h', h)
+        """
+        # ---- /TEST ---
+
         w = len(self.board_matrix[0])
         h = len(self.board_matrix)
-        print('w', w, 'h', h)
-        # ---- /TEST ---
+
 
         for row in range(3):
             for column in range(3):
@@ -344,7 +348,7 @@ class Board:
                     try:
                         if self.flag_matrix[y_p][x_p] != 1:
                             self.open_tile_from_coords(x_p, y_p)
-                            print('o', x_p, y_p) # test
+                            # print('o', x_p, y_p) # test
                     except IndexError:
                         pass
 

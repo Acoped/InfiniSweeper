@@ -1,10 +1,12 @@
 from tkinter import *
 from tkinter import Tk, font, ttk
 import game
+import subprocess
 
 def newgame_callback():
     print("New Game button clicked")
-    game.main()
+
+    game.main()  # temporary solution
 
 def main():
     root = Tk()
