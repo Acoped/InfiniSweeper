@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import Tk, font, ttk
 import game
+from PIL import Image, ImageTk
 
 def newgame_callback():
     print("New Game button clicked")
@@ -75,13 +76,21 @@ def main():
 
     tilesize_separator_end = ttk.Separator(root, orient=HORIZONTAL)
 
+    tilesize_frame = Frame(root)
+
     tilesize_checkbutton_var = IntVar()
-    tilesize_radiobutton1 = Radiobutton(root, text="64 x 64 (large)", variable=tilesize_checkbutton_var, value=1)
-    tilesize_radiobutton2 = Radiobutton(root, text="32 x 32 (normal)", variable=tilesize_checkbutton_var, value=2)
-    tilesize_radiobutton3 = Radiobutton(root, text="16 x 16 (small)", variable=tilesize_checkbutton_var, value=3)
-    tilesize_radiobutton4 = Radiobutton(root, text="8 x 8 (ant)", variable=tilesize_checkbutton_var, value=4)
-    tilesize_radiobutton5 = Radiobutton(root, text="4 x 4 (binary)", variable=tilesize_checkbutton_var, value=5)
-    tilesize_radiobutton6 = Radiobutton(root, text="1 x 1 (pixel)", variable=tilesize_checkbutton_var, value=6)
+    tilesize_radiobutton1 = Radiobutton(tilesize_frame, text="64 x 64 (large)", variable=tilesize_checkbutton_var, value=1)
+    tilesize_radiobutton2 = Radiobutton(tilesize_frame, text="32 x 32 (normal)", variable=tilesize_checkbutton_var, value=2)
+    tilesize_radiobutton3 = Radiobutton(tilesize_frame, text="16 x 16 (small)", variable=tilesize_checkbutton_var, value=3)
+    tilesize_radiobutton4 = Radiobutton(tilesize_frame, text="8 x 8 (ant)", variable=tilesize_checkbutton_var, value=4)
+    tilesize_radiobutton5 = Radiobutton(tilesize_frame, text="4 x 4 (binary)", variable=tilesize_checkbutton_var, value=5)
+    tilesize_radiobutton6 = Radiobutton(tilesize_frame, text="2 x 2 (pixel w/ border)", variable=tilesize_checkbutton_var, value=6)
+    tilesize_radiobutton7 = Radiobutton(tilesize_frame, text="1 x 1 (pixel)", variable=tilesize_checkbutton_var, value=6)
+
+    image = Image.open("../resources/tiles/XS/0.png")
+    photo = ImageTk.PhotoImage(image)
+    label = Label(tilesize_frame, image=photo)
+    label.image = photo  # keep a reference!
 
     # ----- /Tilesize submenu -----
 
@@ -116,7 +125,7 @@ def main():
     about_label = Label(root, textvariable = about_var)
     # ----- /About submenu -----
 
-    # ----- Packing -----
+    # ----- Packing (and gridding...) -----
     title_label.pack()
 
     dimensions_separator.pack(fill="x")
@@ -140,12 +149,17 @@ def main():
     tilesize_label.pack()
     tilesize_separator_end.pack(fill="x")
 
-    tilesize_radiobutton1.pack(anchor="w")
-    tilesize_radiobutton2.pack(anchor="w")
-    tilesize_radiobutton3.pack(anchor="w")
-    tilesize_radiobutton4.pack(anchor="w")
-    tilesize_radiobutton5.pack(anchor="w")
-    tilesize_radiobutton6.pack(anchor="w")
+    tilesize_frame.pack()
+
+    tilesize_radiobutton1.grid(row=0, column=0, sticky="w")
+    tilesize_radiobutton2.grid(row=1, column=0, sticky="w")
+    tilesize_radiobutton3.grid(row=2, column=0, sticky="w")
+    tilesize_radiobutton4.grid(row=3, column=0, sticky="w")
+    tilesize_radiobutton5.grid(row=4, column=0, sticky="w")
+    tilesize_radiobutton6.grid(row=5, column=0, sticky="w")
+    tilesize_radiobutton7.grid(row=6, column=0, sticky="w")
+
+    label.grid(row=3, column=1)
 
     fitsscreen_separator.pack(fill="x")
     fitsscreen_label.pack()
@@ -159,7 +173,7 @@ def main():
     newgame_separator_end.pack(fill="x")
 
     about_label.pack()
-    # ----- /Packing -----
+    # ----- /Packing (and gridding...) -----
 
     root.mainloop()
 
