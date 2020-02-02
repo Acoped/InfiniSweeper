@@ -1,6 +1,9 @@
 from tkinter import *
 from tkinter import Tk, font, ttk
 
+def newgame_callback():
+    print("New Game button clicked")
+
 def main():
     root = Tk()
     root.title("Launcher")
@@ -49,6 +52,12 @@ def main():
     fitsscreen_label = Label(root, textvariable = fitsscreen_var)
     # ----- /Fitsscreen submenu -----
 
+    # ----- Newgame submenu -----
+    newgame_separator = ttk.Separator(root, orient=HORIZONTAL)
+
+    newgame_button = Button(root, text ="New Game", command = newgame_callback)
+    # ----- /Newgame submenu -----
+
     # ----- Packing -----
     title_label.pack()
 
@@ -63,6 +72,9 @@ def main():
 
     fitsscreen_separator.pack(fill="x")
     fitsscreen_label.pack()
+
+    newgame_separator.pack(fill="x")
+    newgame_button.pack()
     # ----- /Packing -----
 
     root.mainloop()
