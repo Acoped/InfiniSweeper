@@ -316,7 +316,7 @@ class Board:
 
 
         if flags == self.board_matrix[y][x]:
-            self.open_cells_not_flagged(x, y);
+            self.open_cells_not_flagged(x, y)
 
     def open_cells_not_flagged(self, x, y):
         print("OPEN CELLS NOT FLAGGED")
@@ -326,16 +326,27 @@ class Board:
                        [[0, -1], [0, 0], [0, 1]],
                        [[1, -1], [1, 0], [1, 1]]]
 
+        # ---- TEST ---
+        self.print_board()
+        w = len(self.board_matrix[0])
+        h = len(self.board_matrix)
+        print('w', w, 'h', h)
+        # ---- /TEST ---
+
         for row in range(3):
             for column in range(3):
                 look = coordinates[row][column]
                 x_p = x + look[0]
                 y_p = y + look[1]
-                try:
-                    if self.flag_matrix[y_p][x_p] != 1:
-                        self.open_tile_from_coords(x_p, y_p)
-                except IndexError:
-                    pass
+
+                # if-sats här som kontrollerar att rutan inte 'går runt' planen
+                if x_p >= 0 and x_p <= w and y_p >= 0 and y_p <= h:
+                    try:
+                        if self.flag_matrix[y_p][x_p] != 1:
+                            self.open_tile_from_coords(x_p, y_p)
+                            print('o', x_p, y_p) # test
+                    except IndexError:
+                        pass
 
     def open_tile_from_coords(self, x, y, open_zero_field=True):
 

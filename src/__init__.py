@@ -22,13 +22,13 @@ def main():
     tile_sz_px = 8
     """
 
-    """
+
     # Large 30 x 16
     width = 30
     height = 16
     bombs = 99
     tile_sz_px = 8
-    """
+
 
     """
     # Whole screeen (HD)
@@ -38,15 +38,16 @@ def main():
     tile_sz_px = 8
     """
 
-
+    """
     # Whole screeen (1440p)
     width = 320
     height = 180
     bombs = 11900
     tile_sz_px = 8
+    """
 
+    full_screen = False
 
-    full_screen = True
     min_viewport = [120, 72]
     viewport = [2560, 1440]
     frame_rate = 60
