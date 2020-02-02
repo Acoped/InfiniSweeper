@@ -1,4 +1,4 @@
-from src.Board import Board
+from game.Board import Board
 
 
 def main():

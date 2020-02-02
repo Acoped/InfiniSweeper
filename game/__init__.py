@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
-from src.Entity import Entity
-from src.Board import Board
+from game.Entity import Entity
+from game.Board import Board
 
 
 def main():

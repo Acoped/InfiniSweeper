@@ -1,6 +1,6 @@
 import random
-from src.matrix import *
-from src.Entity import Entity
+from game.matrix import *
+from game.Entity import Entity
 from copy import copy, deepcopy
 
 # A class describing the game board

@@ -1,8 +1,10 @@
 from tkinter import *
 from tkinter import Tk, font, ttk
+import game
 
 def newgame_callback():
     print("New Game button clicked")
+    game.main()
 
 def main():
     root = Tk()
