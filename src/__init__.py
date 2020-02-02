@@ -6,13 +6,13 @@ from src.Board import Board
 
 def main():
 
-    """
+
     # Small 9 x 9
     width = 9
     height = 9
     bombs = 10
     tile_sz_px = 8
-    """
+
 
     """
     # Medium 16 x 16
@@ -22,13 +22,13 @@ def main():
     tile_sz_px = 8
     """
 
-
+    """
     # Large 30 x 16
     width = 30
     height = 16
     bombs = 99
     tile_sz_px = 8
-
+    """
 
     """
     # Whole screeen (HD)
