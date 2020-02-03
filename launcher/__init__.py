@@ -144,6 +144,12 @@ def main():
     about_label = Label(root, textvariable = about_var)
     # ----- /About submenu -----
 
+    # ----- Defaults -----
+    dimensions_radiobutton1.select()
+    bombs_radiobutton1.select()
+    tilesize_radiobutton4.select()
+    # ----- /Defaults -----
+
     # ----- Packing (and gridding...) -----
     title_label.pack()
 
