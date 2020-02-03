@@ -60,10 +60,12 @@ def main():
 
     bombs_separator_end = ttk.Separator(root, orient=HORIZONTAL)
 
+    bombs_frame = Frame(root)
+
     bombs_checkbutton_var = IntVar()
-    bombs_radiobutton1 = Radiobutton(root, text="Standard (X % ratio)", variable=bombs_checkbutton_var, value=1)
-    bombs_radiobutton2 = Radiobutton(root, text="Number (____ bombs)", variable=bombs_checkbutton_var, value=2)
-    bombs_radiobutton3 = Radiobutton(root, text="Ratio (____ %)", variable=bombs_checkbutton_var, value=3)
+    bombs_radiobutton1 = Radiobutton(bombs_frame, text="Standard (X % ratio)", variable=bombs_checkbutton_var, value=1)
+    bombs_radiobutton2 = Radiobutton(bombs_frame, text="Number (____ bombs)", variable=bombs_checkbutton_var, value=2)
+    bombs_radiobutton3 = Radiobutton(bombs_frame, text="Ratio (____ %)", variable=bombs_checkbutton_var, value=3)
 
     # ----- /Bombs submenu -----
 
@@ -158,9 +160,11 @@ def main():
     bombs_label.pack()
     bombs_separator_end.pack(fill="x")
 
-    bombs_radiobutton1.pack(anchor="w")
-    bombs_radiobutton2.pack(anchor="w")
-    bombs_radiobutton3.pack(anchor="w")
+    bombs_frame.pack()
+
+    bombs_radiobutton1.grid(sticky="w")
+    bombs_radiobutton2.grid(sticky="w")
+    bombs_radiobutton3.grid(sticky="w")
 
     tilesize_separator.pack(fill="x")
     tilesize_label.pack()
