@@ -70,9 +70,9 @@ def main():
     # ----- Tilesize submenu -----
     tilesize_separator = ttk.Separator(root, orient=HORIZONTAL)
 
-    tilesize_var = StringVar()
-    tilesize_var.set("Tile Set:")
-    tilesize_label = Label(root, textvariable = tilesize_var)
+    tilesize_checkbutton_var = StringVar()
+    tilesize_checkbutton_var.set("Tile Set:")
+    tilesize_label = Label(root, textvariable = tilesize_checkbutton_var)
 
     tilesize_separator_end = ttk.Separator(root, orient=HORIZONTAL)
 
@@ -84,25 +84,30 @@ def main():
     tilesize_radiobutton3 = Radiobutton(tilesize_frame, text="16 x 16 (Inhuman)", variable=tilesize_in_pixels, value=16)
     tilesize_radiobutton4 = Radiobutton(tilesize_frame, text="8 x 8 (Ant)", variable=tilesize_in_pixels, value=8)
 
-    L_image = Image.open("../resources/tiles/L/YYY.png")
+    L_image = Image.open("../resources/tiles/standard/L/YYY.png")
     L_photo = ImageTk.PhotoImage(L_image)
     L_label = Label(tilesize_frame, image=L_photo)
     L_label.image = L_photo  # keep a reference!
 
-    M_image = Image.open("../resources/tiles/M/YYY.png")
+    M_image = Image.open("../resources/tiles/standard/M/YYY.png")
     M_photo = ImageTk.PhotoImage(M_image)
     M_label = Label(tilesize_frame, image=M_photo)
     M_label.image = M_photo  # keep a reference!
 
-    S_image = Image.open("../resources/tiles/S/YYY.png")
+    S_image = Image.open("../resources/tiles/standard/S/YYY.png")
     S_photo = ImageTk.PhotoImage(S_image)
     S_label = Label(tilesize_frame, image=S_photo)
     S_label.image = S_photo  # keep a reference!
 
-    XS_image = Image.open("../resources/tiles/XS/YYY.png")
+    XS_image = Image.open("../resources/tiles/standard/XS/YYY.png")
     XS_photo = ImageTk.PhotoImage(XS_image)
     XS_label = Label(tilesize_frame, image=XS_photo)
     XS_label.image = XS_photo  # keep a reference!
+
+    tilesize_checkbutton_var = IntVar()
+    tilesize_checkbutton = Checkbutton(
+        tilesize_frame, text="Increased border",
+        variable=tilesize_checkbutton_var)
 
     # ----- /Tilesize submenu -----
 
@@ -167,6 +172,7 @@ def main():
     tilesize_radiobutton2.grid(row=1, column=0, sticky="w")
     tilesize_radiobutton3.grid(row=2, column=0, sticky="w")
     tilesize_radiobutton4.grid(row=3, column=0, sticky="w")
+    tilesize_checkbutton.grid(row=4, column=1, sticky="w")
 
     L_label.grid(row=0, column=1, sticky="w")
     M_label.grid(row=1, column=1, sticky="w")
