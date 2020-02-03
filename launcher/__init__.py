@@ -5,12 +5,12 @@ from PIL import Image, ImageTk
 
 class Launcher():
 
-    def newgame_callback(self, width, height, fullscreen, increased_border, tile_sz_px):
+    def newgame_callback(self, width, height, bombs, fullscreen, increased_border, tile_sz_px):
         print("New Game button clicked")
 
         print(width, height)
 
-        game.main(width, height, 9, tile_sz_px, fullscreen, increased_border, [120, 72], [2560, 1440], 60, "InfiniSweeper")  # temporary solution
+        game.main(width, height, bombs, tile_sz_px, fullscreen, increased_border, [120, 72], [2560, 1440], 60, "InfiniSweeper")  # temporary solution
 
     def callback(self, sv):
         print(sv.get())
@@ -153,7 +153,7 @@ class Launcher():
         # ----- Newgame submenu -----
         newgame_separator = ttk.Separator(root, orient=HORIZONTAL)
 
-        newgame_button = Button(root, text ="New Game", command= lambda: self.newgame_callback(int(dimensions_entry_width.get()), int(dimensions_entry_height.get()), dimensions_checkbutton_var.get(), tilesize_checkbutton_var.get(), tilesize_in_pixels.get()), font=title_font)
+        newgame_button = Button(root, text ="New Game", command= lambda: self.newgame_callback(int(dimensions_entry_width.get()), int(dimensions_entry_height.get()), int(self.bombs_entry_number.get()), dimensions_checkbutton_var.get(), tilesize_checkbutton_var.get(), tilesize_in_pixels.get()), font=title_font)
         newgame_separator_end = ttk.Separator(root, orient=HORIZONTAL)
         # ----- /Newgame submenu -----
 
@@ -167,8 +167,8 @@ class Launcher():
         bombs_radiobutton2.select()
         tilesize_radiobutton4.select()
 
-        self.bombs_entry_number.delete(0, "end")
-        self.bombs_entry_number.insert(0, 16)
+        # self.bombs_entry_number.delete(0, "end")
+        # self.bombs_entry_number.insert(0, 16)
 
         # bombs_entry_number.config(state="disabled")
 
