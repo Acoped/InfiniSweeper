@@ -106,7 +106,7 @@ def main():
 
     tilesize_checkbutton_var = IntVar()
     tilesize_checkbutton = Checkbutton(
-        tilesize_frame, text="Increased increased_border",
+        tilesize_frame, text="Increased border",
         variable=tilesize_checkbutton_var)
 
     # ----- /Tilesize submenu -----
