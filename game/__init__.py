@@ -28,7 +28,7 @@ def main():
     width = 30
     height = 16
     bombs = 99
-    tile_sz_px = 8
+    tile_sz_px = 16
 
 
     """
