@@ -82,15 +82,14 @@ def main():
     bombs_frame = Frame(root)
 
     bombs_checkbutton_var = IntVar()
-    bombs_radiobutton1 = Radiobutton(bombs_frame, text="Standard", variable=bombs_checkbutton_var, value=1)
-    bombs_radiobutton2 = Radiobutton(bombs_frame, text="Number", variable=bombs_checkbutton_var, value=2)
-    bombs_radiobutton3 = Radiobutton(bombs_frame, text="Ratio", variable=bombs_checkbutton_var, value=3)
+    bombs_radiobutton1 = Radiobutton(bombs_frame, text="Number", variable=bombs_checkbutton_var, value=1)
+    bombs_radiobutton2 = Radiobutton(bombs_frame, text="Ratio", variable=bombs_checkbutton_var, value=2)
 
     bombs_entry_number_label = Label(bombs_frame, text="bombs")
-    bombs_entry_number = Entry(bombs_frame, bd=5)
+    bombs_entry_number = Spinbox(bombs_frame, from_=0, to_=1000000)
 
     bombs_entry_ratio_label = Label(bombs_frame, text="%")
-    bombs_entry_ratio = Entry(bombs_frame, bd=5)
+    bombs_entry_ratio = Spinbox(bombs_frame, from_=0, to_=100, format="%.1f", increment=0.1)
 
     # ----- /Bombs submenu -----
 
@@ -170,8 +169,16 @@ def main():
     # ----- /About submenu -----
 
     # ----- Defaults -----
-    bombs_radiobutton1.select()
+    bombs_radiobutton2.select()
     tilesize_radiobutton4.select()
+
+    bombs_entry_number.delete(0, "end")
+    bombs_entry_number.insert(0, 16)
+
+    bombs_entry_number.config(state="disabled")
+
+    bombs_entry_ratio.delete(0, "end")
+    bombs_entry_ratio.insert(0, 20.0)
     # ----- /Defaults -----
 
     # ----- Packing (and gridding...) -----
@@ -202,13 +209,12 @@ def main():
 
     bombs_radiobutton1.grid(row=0, column=0, sticky="w")
     bombs_radiobutton2.grid(row=1, column=0, sticky="w")
-    bombs_radiobutton3.grid(row=2, column=0, sticky="w")
 
-    bombs_entry_number.grid(row=1, column=1, sticky="e", padx=30)
-    bombs_entry_number_label.grid(row=1, column=2, sticky="w")
+    bombs_entry_number.grid(row=0, column=1, sticky="e", padx=30)
+    bombs_entry_number_label.grid(row=0, column=2, sticky="w")
 
-    bombs_entry_ratio.grid(row=2, column=1, sticky="e", padx=30)
-    bombs_entry_ratio_label.grid(row=2, column=2, sticky="w")
+    bombs_entry_ratio.grid(row=1, column=1, sticky="e", padx=30)
+    bombs_entry_ratio_label.grid(row=1, column=2, sticky="w")
 
     tilesize_separator.pack(fill="x")
     tilesize_label.pack()
