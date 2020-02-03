@@ -119,7 +119,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 pygame.quit()
             # R -> Restarts the game
             if event.key == K_r:
-                board = Board(width, height, bombs, tile_sz_px)
+                board = Board(width, height, bombs, tile_sz_px, increased_border=increased_border)
                 board.place_bombs()
                 board.find_islands()
                 board.set_screen(screen)
