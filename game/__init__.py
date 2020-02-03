@@ -3,10 +3,7 @@ from pygame.locals import *
 from game.Entity import Entity
 from game.Board import Board
 
-
-def main():
-
-
+def launch_from_init():
     """
     # Small 9 x 9
     width = 9
@@ -54,6 +51,10 @@ def main():
     frame_rate = 60
     title = "InfiniSweeper"
 
+    main(width, height, bombs, tile_sz_px, full_screen, min_viewport, viewport, frame_rate, title)
+
+
+def main(width, height, bombs, tile_sz_px, full_screen, min_viewport, viewport, frame_rate, title):
     black = (0, 0, 0)
     white = (255, 255, 255)
 
@@ -204,4 +205,4 @@ def check_both(left, right):
 
 
 if __name__ == "__main__":
-    main()
+    launch_from_init()
