@@ -35,6 +35,22 @@ def main():
 
     dimensions_separator_end = ttk.Separator(root, orient=HORIZONTAL)
 
+    dimensions_frame = Frame(root)
+
+    dimensions_entry_width_label = Label(dimensions_frame, text="Width:")
+    dimensions_entry_width = Entry(dimensions_frame, bd=5)
+    dimensions_entry_width_cells_label = Label(dimensions_frame, text="cells")
+
+    dimensions_entry_height_label = Label(dimensions_frame, text="Height:")
+    dimensions_entry_height = Entry(dimensions_frame, bd=5)
+    dimensions_entry_height_cells_label = Label(dimensions_frame, text="cells")
+
+    dimensions_checkbutton_var = IntVar()
+    dimensions_checkbutton = Checkbutton(
+        dimensions_frame, text="Full Screen",
+        variable=dimensions_checkbutton_var)
+
+    """
     dimensions_radiobutton_var = IntVar()
     dimensions_radiobutton1 = Radiobutton(root, text="Game Mode", variable=dimensions_radiobutton_var, value=1)
     dimensions_radiobutton2 = Radiobutton(root, text="Fullscreen Game (w? x h?)", variable=dimensions_radiobutton_var, value=2)
@@ -48,6 +64,7 @@ def main():
     dimensions_optionmenu.config(bg="LIGHTBLUE")
     dimensions_optionmenu.config(activebackground="RED")
     dimensions_optionmenu["menu"].config(bg="WHITE")
+    """
 
     # ----- /Dimensions submenu -----
 
@@ -151,7 +168,6 @@ def main():
     # ----- /About submenu -----
 
     # ----- Defaults -----
-    dimensions_radiobutton1.select()
     bombs_radiobutton1.select()
     tilesize_radiobutton4.select()
     # ----- /Defaults -----
@@ -163,10 +179,18 @@ def main():
     dimensions_label.pack()
     dimensions_separator_end.pack(fill="x")
 
-    dimensions_radiobutton1.pack(anchor="w")
-    dimensions_optionmenu.pack(anchor="w")
-    dimensions_radiobutton2.pack(anchor="w")
-    dimensions_radiobutton3.pack(anchor="w")
+    dimensions_frame.pack()
+
+    dimensions_entry_width_label.grid(row=0, column=0)
+    dimensions_entry_width.grid(row=0, column=1, sticky="e", padx=30)
+    dimensions_entry_width_cells_label.grid(row=0, column=2, sticky="w")
+
+    dimensions_entry_height_label.grid(row=1, column=0)
+    dimensions_entry_height.grid(row=1, column=1, sticky="e", padx=30)
+    dimensions_entry_height_cells_label.grid(row=1, column=2, sticky="w")
+
+    dimensions_checkbutton.grid(row=2, column=1)
+
 
     bombs_separator.pack(fill="x")
     bombs_label.pack()
