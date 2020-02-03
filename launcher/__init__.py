@@ -3,10 +3,12 @@ from tkinter import Tk, font, ttk
 import game
 from PIL import Image, ImageTk
 
-def newgame_callback(increased_border, tile_sz_px):
+def newgame_callback(width, height, fullscreen, increased_border, tile_sz_px):
     print("New Game button clicked")
 
-    game.main(30, 16, 99, tile_sz_px, False, increased_border, [120, 72], [2560, 1440], 60, "InfiniSweeper")  # temporary solution
+    print(width, height)
+
+    game.main(width, height, 9, tile_sz_px, fullscreen, increased_border, [120, 72], [2560, 1440], 60, "InfiniSweeper")  # temporary solution
 
 def main():
     root = Tk()
@@ -38,11 +40,11 @@ def main():
     dimensions_frame = Frame(root)
 
     dimensions_entry_width_label = Label(dimensions_frame, text="Width:")
-    dimensions_entry_width = Entry(dimensions_frame, bd=5)
+    dimensions_entry_width = Spinbox(dimensions_frame, from_=9, to_=1000)
     dimensions_entry_width_cells_label = Label(dimensions_frame, text="cells")
 
     dimensions_entry_height_label = Label(dimensions_frame, text="Height:")
-    dimensions_entry_height = Entry(dimensions_frame, bd=5)
+    dimensions_entry_height = Spinbox(dimensions_frame, from_=9, to_=1000)
     dimensions_entry_height_cells_label = Label(dimensions_frame, text="cells")
 
     dimensions_checkbutton_var = IntVar()
@@ -157,7 +159,7 @@ def main():
     # ----- Newgame submenu -----
     newgame_separator = ttk.Separator(root, orient=HORIZONTAL)
 
-    newgame_button = Button(root, text ="New Game", command= lambda: newgame_callback(tilesize_checkbutton_var.get(), tilesize_in_pixels.get()), font=title_font)
+    newgame_button = Button(root, text ="New Game", command= lambda: newgame_callback(int(dimensions_entry_width.get()), int(dimensions_entry_height.get()), dimensions_checkbutton_var.get(), tilesize_checkbutton_var.get(), tilesize_in_pixels.get()), font=title_font)
     newgame_separator_end = ttk.Separator(root, orient=HORIZONTAL)
     # ----- /Newgame submenu -----
 
