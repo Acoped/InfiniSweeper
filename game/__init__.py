@@ -45,16 +45,17 @@ def launch_from_init():
     """
 
     full_screen = False
+    increased_border = False
 
     min_viewport = [120, 72]
     viewport = [2560, 1440]
     frame_rate = 60
     title = "InfiniSweeper"
 
-    main(width, height, bombs, tile_sz_px, full_screen, min_viewport, viewport, frame_rate, title)
+    main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title)
 
 
-def main(width, height, bombs, tile_sz_px, full_screen, min_viewport, viewport, frame_rate, title):
+def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title):
     black = (0, 0, 0)
     white = (255, 255, 255)
 
