@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 def newgame_callback():
     print("New Game button clicked")
 
-    game.main()  # temporary solution
+    game.main(30, 16, 99, 64, False, [120, 72], [2560, 1440], 60, "InfiniSweeper")  # temporary solution
 
 def main():
     root = Tk()
