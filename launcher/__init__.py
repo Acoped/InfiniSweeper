@@ -14,6 +14,9 @@ class Launcher():
 
     def callback(self, sv):
         print(sv.get())
+        # Need to get width and height here, to calculate number of total cells, then ratio of that, rounded up!
+        self.bombs_entry_number.delete(0, "end")
+        self.bombs_entry_number.insert(0, sv.get())
 
     def main(self):
         root = Tk()
@@ -75,7 +78,7 @@ class Launcher():
         bombs_radiobutton2 = Radiobutton(bombs_frame, text="Ratio", variable=bombs_checkbutton_var, value=2)
 
         bombs_entry_number_label = Label(bombs_frame, text="bombs")
-        bombs_entry_number = Spinbox(bombs_frame, from_=0, to_=1000000)
+        self.bombs_entry_number = Spinbox(bombs_frame, from_=0, to_=1000000)
 
         sv = StringVar()
         sv.trace("w", lambda name, index, mode, sv=sv: self.callback(sv))
@@ -164,8 +167,8 @@ class Launcher():
         bombs_radiobutton2.select()
         tilesize_radiobutton4.select()
 
-        bombs_entry_number.delete(0, "end")
-        bombs_entry_number.insert(0, 16)
+        self.bombs_entry_number.delete(0, "end")
+        self.bombs_entry_number.insert(0, 16)
 
         # bombs_entry_number.config(state="disabled")
 
@@ -202,7 +205,7 @@ class Launcher():
         bombs_radiobutton1.grid(row=0, column=0, sticky="w")
         bombs_radiobutton2.grid(row=1, column=0, sticky="w")
 
-        bombs_entry_number.grid(row=0, column=1, sticky="e", padx=30)
+        self.bombs_entry_number.grid(row=0, column=1, sticky="e", padx=30)
         bombs_entry_number_label.grid(row=0, column=2, sticky="w")
 
         bombs_entry_ratio.grid(row=1, column=1, sticky="e", padx=30)
