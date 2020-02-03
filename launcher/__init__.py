@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import Tk, font, ttk
 import game
 from PIL import Image, ImageTk
+import math
 
 class Launcher():
 
@@ -13,10 +14,17 @@ class Launcher():
         game.main(width, height, bombs, tile_sz_px, fullscreen, increased_border, [120, 72], [2560, 1440], 60, "InfiniSweeper")  # temporary solution
 
     def callback(self, sv):
-        print(sv.get())
+        ratio = float(sv.get())
         # Need to get width and height here, to calculate number of total cells, then ratio of that, rounded up!
+        w = int(self.dimensions_entry_width.get())
+        h = int(self.dimensions_entry_height.get())
+        bombs =  math.ceil(ratio * 0.01 * w * h)
+
+        print(ratio, w, h)
+
         self.bombs_entry_number.delete(0, "end")
-        self.bombs_entry_number.insert(0, sv.get())
+
+        self.bombs_entry_number.insert(0, str(bombs))
 
     def main(self):
         root = Tk()
@@ -48,11 +56,11 @@ class Launcher():
         dimensions_frame = Frame(root)
 
         dimensions_entry_width_label = Label(dimensions_frame, text="Width:")
-        dimensions_entry_width = Spinbox(dimensions_frame, from_=9, to_=1000)
+        self.dimensions_entry_width = Spinbox(dimensions_frame, from_=9, to_=1000)
         dimensions_entry_width_cells_label = Label(dimensions_frame, text="cells")
 
         dimensions_entry_height_label = Label(dimensions_frame, text="Height:")
-        dimensions_entry_height = Spinbox(dimensions_frame, from_=9, to_=1000)
+        self.dimensions_entry_height = Spinbox(dimensions_frame, from_=9, to_=1000)
         dimensions_entry_height_cells_label = Label(dimensions_frame, text="cells")
 
         dimensions_checkbutton_var = IntVar()
@@ -153,7 +161,7 @@ class Launcher():
         # ----- Newgame submenu -----
         newgame_separator = ttk.Separator(root, orient=HORIZONTAL)
 
-        newgame_button = Button(root, text ="New Game", command= lambda: self.newgame_callback(int(dimensions_entry_width.get()), int(dimensions_entry_height.get()), int(self.bombs_entry_number.get()), dimensions_checkbutton_var.get(), tilesize_checkbutton_var.get(), tilesize_in_pixels.get()), font=title_font)
+        newgame_button = Button(root, text ="New Game", command= lambda: self.newgame_callback(int(self.dimensions_entry_width.get()), int(self.dimensions_entry_height.get()), int(self.bombs_entry_number.get()), dimensions_checkbutton_var.get(), tilesize_checkbutton_var.get(), tilesize_in_pixels.get()), font=title_font)
         newgame_separator_end = ttk.Separator(root, orient=HORIZONTAL)
         # ----- /Newgame submenu -----
 
@@ -186,11 +194,11 @@ class Launcher():
         dimensions_frame.pack()
 
         dimensions_entry_width_label.grid(row=0, column=0)
-        dimensions_entry_width.grid(row=0, column=1, sticky="e", padx=30)
+        self.dimensions_entry_width.grid(row=0, column=1, sticky="e", padx=30)
         dimensions_entry_width_cells_label.grid(row=0, column=2, sticky="w")
 
         dimensions_entry_height_label.grid(row=1, column=0)
-        dimensions_entry_height.grid(row=1, column=1, sticky="e", padx=30)
+        self.dimensions_entry_height.grid(row=1, column=1, sticky="e", padx=30)
         dimensions_entry_height_cells_label.grid(row=1, column=2, sticky="w")
 
         dimensions_checkbutton.grid(row=2, column=1)
