@@ -63,9 +63,15 @@ def main():
     bombs_frame = Frame(root)
 
     bombs_checkbutton_var = IntVar()
-    bombs_radiobutton1 = Radiobutton(bombs_frame, text="Standard (X % ratio)", variable=bombs_checkbutton_var, value=1)
-    bombs_radiobutton2 = Radiobutton(bombs_frame, text="Number (____ bombs)", variable=bombs_checkbutton_var, value=2)
-    bombs_radiobutton3 = Radiobutton(bombs_frame, text="Ratio (____ %)", variable=bombs_checkbutton_var, value=3)
+    bombs_radiobutton1 = Radiobutton(bombs_frame, text="Standard", variable=bombs_checkbutton_var, value=1)
+    bombs_radiobutton2 = Radiobutton(bombs_frame, text="Number", variable=bombs_checkbutton_var, value=2)
+    bombs_radiobutton3 = Radiobutton(bombs_frame, text="Ratio", variable=bombs_checkbutton_var, value=3)
+
+    bombs_entry_number_label = Label(bombs_frame, text="bombs")
+    bombs_entry_number = Entry(bombs_frame, bd=5)
+
+    bombs_entry_ratio_label = Label(bombs_frame, text="%")
+    bombs_entry_ratio = Entry(bombs_frame, bd=5)
 
     # ----- /Bombs submenu -----
 
@@ -168,9 +174,15 @@ def main():
 
     bombs_frame.pack()
 
-    bombs_radiobutton1.grid(sticky="w")
-    bombs_radiobutton2.grid(sticky="w")
-    bombs_radiobutton3.grid(sticky="w")
+    bombs_radiobutton1.grid(row=0, column=0, sticky="w")
+    bombs_radiobutton2.grid(row=1, column=0, sticky="w")
+    bombs_radiobutton3.grid(row=2, column=0, sticky="w")
+
+    bombs_entry_number.grid(row=1, column=1, sticky="e", padx=30)
+    bombs_entry_number_label.grid(row=1, column=2, sticky="w")
+
+    bombs_entry_ratio.grid(row=2, column=1, sticky="e", padx=30)
+    bombs_entry_ratio_label.grid(row=2, column=2, sticky="w")
 
     tilesize_separator.pack(fill="x")
     tilesize_label.pack()
