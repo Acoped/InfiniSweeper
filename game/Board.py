@@ -40,6 +40,36 @@ class Board:
     # Sets the 'Entity' or texture for the squares, based on chosen resolution
     def set_entities(self, side_in_px):
 
+        if side_in_px < 128:
+            self.e = Entity("../resources/tiles/L/0.png", 0, 0, self.side, self.side)
+            self.e1 = Entity("../resources/tiles/L/1.png", 0, 0, self.side, self.side)
+            self.e2 = Entity("../resources/tiles/L/2.png", 0, 0, self.side, self.side)
+            self.e3 = Entity("../resources/tiles/L/3.png", 0, 0, self.side, self.side)
+            self.e4 = Entity("../resources/tiles/L/4.png", 0, 0, self.side, self.side)
+            self.e5 = Entity("../resources/tiles/L/5.png", 0, 0, self.side, self.side)
+            self.e6 = Entity("../resources/tiles/L/6.png", 0, 0, self.side, self.side)
+            self.e7 = Entity("../resources/tiles/L/7.png", 0, 0, self.side, self.side)
+            self.e8 = Entity("../resources/tiles/L/8.png", 0, 0, self.side, self.side)
+            self.e9 = Entity("../resources/tiles/L/b.png", 0, 0, self.side, self.side)
+            self.br = Entity("../resources/tiles/L/br.png", 0, 0, self.side, self.side)
+            self.f = Entity("../resources/tiles/L/f.png", 0, 0, self.side, self.side)
+            self.q = Entity("../resources/tiles/L/q.png", 0, 0, self.side, self.side)
+            self.u = Entity("../resources/tiles/L/u.png", 0, 0, self.side, self.side)
+        if side_in_px < 64:
+            self.e = Entity("../resources/tiles/M/0.png", 0, 0, self.side, self.side)
+            self.e1 = Entity("../resources/tiles/M/1.png", 0, 0, self.side, self.side)
+            self.e2 = Entity("../resources/tiles/M/2.png", 0, 0, self.side, self.side)
+            self.e3 = Entity("../resources/tiles/M/3.png", 0, 0, self.side, self.side)
+            self.e4 = Entity("../resources/tiles/M/4.png", 0, 0, self.side, self.side)
+            self.e5 = Entity("../resources/tiles/M/5.png", 0, 0, self.side, self.side)
+            self.e6 = Entity("../resources/tiles/M/6.png", 0, 0, self.side, self.side)
+            self.e7 = Entity("../resources/tiles/M/7.png", 0, 0, self.side, self.side)
+            self.e8 = Entity("../resources/tiles/M/8.png", 0, 0, self.side, self.side)
+            self.e9 = Entity("../resources/tiles/M/b.png", 0, 0, self.side, self.side)
+            self.br = Entity("../resources/tiles/M/br.png", 0, 0, self.side, self.side)
+            self.f = Entity("../resources/tiles/M/f.png", 0, 0, self.side, self.side)
+            self.q = Entity("../resources/tiles/M/q.png", 0, 0, self.side, self.side)
+            self.u = Entity("../resources/tiles/M/u.png", 0, 0, self.side, self.side)
         if side_in_px < 32:
             self.e = Entity("../resources/tiles/S/0.png", 0, 0, self.side, self.side)
             self.e1 = Entity("../resources/tiles/S/1.png", 0, 0, self.side, self.side)
