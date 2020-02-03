@@ -10,6 +10,9 @@ def newgame_callback(width, height, fullscreen, increased_border, tile_sz_px):
 
     game.main(width, height, 9, tile_sz_px, fullscreen, increased_border, [120, 72], [2560, 1440], 60, "InfiniSweeper")  # temporary solution
 
+def callback(sv):
+    print(sv.get())
+
 def main():
     root = Tk()
     root.title("Launcher")
@@ -88,8 +91,11 @@ def main():
     bombs_entry_number_label = Label(bombs_frame, text="bombs")
     bombs_entry_number = Spinbox(bombs_frame, from_=0, to_=1000000)
 
+    sv = StringVar()
+    sv.trace("w", lambda name, index, mode, sv=sv: callback(sv))
+
     bombs_entry_ratio_label = Label(bombs_frame, text="%")
-    bombs_entry_ratio = Spinbox(bombs_frame, from_=0, to_=100, format="%.1f", increment=0.1)
+    bombs_entry_ratio = Spinbox(bombs_frame, from_=0, to_=100, format="%.1f", increment=0.1, textvariable=sv)
 
     # ----- /Bombs submenu -----
 
@@ -175,7 +181,7 @@ def main():
     bombs_entry_number.delete(0, "end")
     bombs_entry_number.insert(0, 16)
 
-    bombs_entry_number.config(state="disabled")
+    # bombs_entry_number.config(state="disabled")
 
     bombs_entry_ratio.delete(0, "end")
     bombs_entry_ratio.insert(0, 20.0)
