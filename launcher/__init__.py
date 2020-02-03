@@ -132,6 +132,31 @@ def main():
     XS8_label = Label(tilesize_frame, image=XS8_photo)
     XS8_label.image = XS0_photo  # keep a reference!
 
+    XS9_image = Image.open("../resources/tiles/XS/b.png")
+    XS9_photo = ImageTk.PhotoImage(XS9_image)
+    XS9_label = Label(tilesize_frame, image=XS9_photo)
+    XS9_label.image = XS0_photo  # keep a reference!
+    
+    XS10_image = Image.open("../resources/tiles/XS/br.png")
+    XS10_photo = ImageTk.PhotoImage(XS10_image)
+    XS10_label = Label(tilesize_frame, image=XS10_photo)
+    XS10_label.image = XS0_photo  # keep a reference!
+    
+    XS11_image = Image.open("../resources/tiles/XS/f.png")
+    XS11_photo = ImageTk.PhotoImage(XS11_image)
+    XS11_label = Label(tilesize_frame, image=XS11_photo)
+    XS11_label.image = XS0_photo  # keep a reference!
+    
+    XS12_image = Image.open("../resources/tiles/XS/q.png")
+    XS12_photo = ImageTk.PhotoImage(XS12_image)
+    XS12_label = Label(tilesize_frame, image=XS12_photo)
+    XS12_label.image = XS0_photo  # keep a reference!
+    
+    XS13_image = Image.open("../resources/tiles/XS/u.png")
+    XS13_photo = ImageTk.PhotoImage(XS13_image)
+    XS13_label = Label(tilesize_frame, image=XS13_photo)
+    XS13_label.image = XS0_photo  # keep a reference!
+
     # ----- /Tilesize submenu -----
 
     # ----- Fitsscreen submenu -----
@@ -208,12 +233,11 @@ def main():
     XS6_label.grid(row=3, column=7)
     XS7_label.grid(row=3, column=8)
     XS8_label.grid(row=3, column=9)
-    """
-    XS8_label.grid(row=3, column=10)
-    XS8_label.grid(row=3, column=11)
-    XS8_label.grid(row=3, column=12)
-    XS8_label.grid(row=3, column=13)
-    """
+    XS9_label.grid(row=3, column=10)
+    XS10_label.grid(row=3, column=11)
+    XS11_label.grid(row=3, column=12)
+    XS12_label.grid(row=3, column=13)
+    XS13_label.grid(row=3, column=14)
 
     fitsscreen_separator.pack(fill="x")
     fitsscreen_label.pack()
