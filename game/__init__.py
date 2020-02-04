@@ -116,7 +116,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
     font = pygame.font.SysFont("monospace", 12)
 
-    transparent_background = pygame.Surface((board.w * tile_sz_px, board.h * tile_sz_px))  # the size of your rect
+    transparent_background = pygame.Surface((200, 150))  # the size of your rect
     transparent_background.set_alpha(128)  # alpha level
     transparent_background.fill((255, 255, 255))  # this fills the entire surface
 
