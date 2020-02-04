@@ -161,6 +161,23 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 pygame.display.update()
 
         if not board.win:
+            # Example on how to show clock on TAB press while playing, although this is REALLY inefficient
+            """
+            if event.type == KEYDOWN:
+                if event.key == K_TAB:
+                    # menu with clock here!
+                    screen.blit(transparent_background, (0, 0))
+                    timer_text = font.render(
+                        "Your time: " + datetime.datetime.utcfromtimestamp(timer.tick() // 1000).strftime("%H:%M:%S"), 1,
+                        maroon)
+                    screen.blit(timer_text, (0, 0))
+                    pygame.display.update()
+            if event.type == KEYUP:
+                if event.key == K_TAB:
+                    # redraw the entire board?
+                    # board.draw_start()
+                    pygame.display.update()
+            """
             if event.type == MOUSEBUTTONUP:
 
                 if not timer_started:
