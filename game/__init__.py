@@ -5,13 +5,13 @@ from game.Board import Board
 
 def launch_from_init():
 
-    """
+
     # Very small 4 x 4 (for testing purposes)
     width = 4
     height = 4
     bombs = 2
     tile_sz_px = 32
-    """
+
 
     """
     # Small 9 x 9
@@ -21,13 +21,13 @@ def launch_from_init():
     tile_sz_px = 32
     """
 
-
+    """
     # Medium 16 x 16
     width = 16
     height = 16
     bombs = 40
     tile_sz_px = 16
-
+    """
 
     """
     # Large 30 x 16
@@ -61,7 +61,7 @@ def launch_from_init():
     tile_sz_px = 4
     """
 
-    full_screen = False
+    full_screen = True
     increased_border = False
 
     min_viewport = [120, 72]
@@ -110,7 +110,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
     left_down = False       # whether left mouse button is being held down
     right_down = False      # whether right mouse button is being held down
 
-    font = pygame.font.SysFont("monospace", 20)
+    font = pygame.font.SysFont("monospace", 9)
 
     transparent_background = pygame.Surface((viewport[0], viewport[1]))  # the size of your rect
     transparent_background.set_alpha(128)  # alpha level
@@ -168,7 +168,8 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
                 left_down = False
 
-                board.open_tile_from_mouse(mouse_pos)
+                if mouse_pos[0] < (board.w * tile_sz_px) and mouse_pos[1] < (board.h * tile_sz_px):
+                    board.open_tile_from_mouse(mouse_pos)
 
             # MIDDLE CLICK
             elif button == 2:
