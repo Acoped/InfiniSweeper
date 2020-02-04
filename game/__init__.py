@@ -168,22 +168,20 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 board.draw_start()
                 pygame.display.update()
             if not full_screen:
-                if event.key == K_DOWN:
-                    window_y += tile_sz_px
-                    print(type(screen))
+                if event.key == K_DOWN or event.key == K_UP or event.key == K_LEFT or event.key == K_RIGHT:
                     init_size_tuple = pygame.display.get_surface().get_size()
                     before_screen = pygame.image.tostring(screen, "RGBA")
+                    if event.key == K_DOWN:
+                        window_y += tile_sz_px
+                    if event.key == K_UP:
+                        window_y -= tile_sz_px
+                    if event.key == K_LEFT:
+                        window_x -= tile_sz_px
+                    if event.key == K_RIGHT:
+                        window_x += tile_sz_px
                     move_window(window_x, window_y)
                     screen.blit(pygame.image.fromstring(before_screen, init_size_tuple, "RGBA"), (0, 0))
                     pygame.display.flip()
-                """
-                if event.key == K_UP:
-                    window_y -= tile_sz_px
-                if event.key == K_LEFT:
-                    window_x -= tile_sz_px
-                if event.key == K_RIGHT:
-                    window_x += tile_sz_px
-                """
 
         if not board.win:
             # Example on how to show clock on TAB press while playing, although this is REALLY inefficient
