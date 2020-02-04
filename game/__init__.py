@@ -75,7 +75,9 @@ def launch_from_init():
 def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title):
     black = (0, 0, 0)
     white = (255, 255, 255)
+    yellow = (255, 255, 0)
     blue = (0, 0, 255)
+    maroon = (128, 0, 0)
 
     pygame.init()
 
@@ -109,6 +111,10 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
     right_down = False      # whether right mouse button is being held down
 
     font = pygame.font.SysFont("monospace", 20)
+
+    transparent_background = pygame.Surface((viewport[0], viewport[1]))  # the size of your rect
+    transparent_background.set_alpha(128)  # alpha level
+    transparent_background.fill((255, 255, 255))  # this fills the entire surface
 
     # Game loop
     while True:
@@ -217,8 +223,18 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
         # win
         if board.win:
-            text1 = font.render("WIN!!!", 1, blue)
-            screen.blit(text1, (10, 10))
+            screen.blit(transparent_background, (0, 0))
+            win_color = maroon
+            win_text1 = font.render("You Win! :D", 1, win_color)
+            win_text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " cells", 1, win_color)
+            win_text3 = font.render(str(board.bombs) + " bombs", 1, win_color)
+            win_text4 = font.render("Your time: HH:MM:SS", 1, win_color)
+            win_text5 = font.render("Press R for a new board", 1, win_color)
+            screen.blit(win_text1, (10, 10))
+            screen.blit(win_text2, (10, 30))
+            screen.blit(win_text3, (10, 50))
+            screen.blit(win_text4, (10, 70))
+            screen.blit(win_text5, (10, 110))
 
         clock.tick(frame_rate)
 
