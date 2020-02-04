@@ -160,80 +160,80 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 board.draw_start()
                 pygame.display.update()
 
-        elif event.type == MOUSEBUTTONUP:
+        if not board.win:
+            if event.type == MOUSEBUTTONUP:
 
-            if not timer_started:
-                timer_started = True
-                timer.tick()
+                if not timer_started:
+                    timer_started = True
+                    timer.tick()
 
-            button = event.button
+                button = event.button
 
-            # LEFT CLICK -> Opens tile
-            if button == 1:
+                # LEFT CLICK -> Opens tile
+                if button == 1:
+                    change = True
+
+                    mouse_pos = pygame.mouse.get_pos()
+
+                    if check_both(left_down, right_down):
+                        print('double hold then released left')
+                        board.double_open_tile_from_mouse(mouse_pos)
+
+                    left_down = False
+
+                    if mouse_pos[0] < (board.w * tile_sz_px) and mouse_pos[1] < (board.h * tile_sz_px):
+                        board.open_tile_from_mouse(mouse_pos)
+
+                # MIDDLE CLICK
+                elif button == 2:
+                    pass
+
+                # RIGHT CLICK -> Marks as flag
+                elif button == 3:
+                    change = True
+
+                    mouse_pos = pygame.mouse.get_pos()
+
+                    if check_both(left_down, right_down):
+                        print('double hold then released right')
+
+                    right_down = False
+
+                    board.mark_from_mouse_pos(mouse_pos)
+
+                # SCROLL UP
+                elif button == 4:
+                    pass
+
+                # SCROLL DOWN
+                elif button == 5:
+                    pass
+
+            elif event.type == MOUSEBUTTONDOWN:
+
+                button = event.button
+
+                # LEFT HOLD DOWN STARTED
+                if button == 1:
+                    left_down = True
+
+                # RIGHT HOLD DOWN STARTED
+                elif button == 3:
+                    right_down = True
+
+            # Unhide the lines below later for "sunken effect" on held down unopened tiles
+            """
+            elif pygame.mouse.get_pressed()[0]:
                 change = True
-
                 mouse_pos = pygame.mouse.get_pos()
-
-                if check_both(left_down, right_down):
-                    print('double hold then released left')
-                    board.double_open_tile_from_mouse(mouse_pos)
-
-                left_down = False
-
-                if mouse_pos[0] < (board.w * tile_sz_px) and mouse_pos[1] < (board.h * tile_sz_px):
-                    board.open_tile_from_mouse(mouse_pos)
-
-            # MIDDLE CLICK
-            elif button == 2:
-                pass
-
-            # RIGHT CLICK -> Marks as flag
-            elif button == 3:
+                board.draw_hold(mouse_pos)
+            """
+            """
+            elif event.type == MOUSEBUTTONDOWN:
                 change = True
-
                 mouse_pos = pygame.mouse.get_pos()
-
-                if check_both(left_down, right_down):
-                    print('double hold then released right')
-
-                right_down = False
-
-                board.mark_from_mouse_pos(mouse_pos)
-
-            # SCROLL UP
-            elif button == 4:
-                pass
-
-            # SCROLL DOWN
-            elif button == 5:
-                pass
-
-        elif event.type == MOUSEBUTTONDOWN:
-
-            button = event.button
-
-            # LEFT HOLD DOWN STARTED
-            if button == 1:
-                left_down = True
-
-            # RIGHT HOLD DOWN STARTED
-            elif button == 3:
-                right_down = True
-
-        # Unhide the lines below later for "sunken effect" on held down unopened tiles
-        """
-        elif pygame.mouse.get_pressed()[0]:
-            change = True
-            mouse_pos = pygame.mouse.get_pos()
-            board.draw_hold(mouse_pos)
-        """
-        """
-        elif event.type == MOUSEBUTTONDOWN:
-            change = True
-            mouse_pos = pygame.mouse.get_pos()
-            board.draw_hold(mouse_pos)"""
-        # /EVENT HANDLING
-
+                board.draw_hold(mouse_pos)"""
+            # /EVENT HANDLING
         # win
         if board.win:
             ms = timer.tick()
