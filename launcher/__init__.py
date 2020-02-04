@@ -18,6 +18,38 @@ class Launcher():
     def help_callback(self):
         print("Helpbutton clicked")
 
+        window = Toplevel(self.root)
+        window.resizable(width=False, height=False)
+        window.title("How to play InfiniSweeper")
+
+        help_frame = Frame(window, width=500, height=400)
+
+        how_text = Text(help_frame, width=80, height=47)
+        how_text.insert(INSERT,
+                        "How to play:\n\n" +
+                        "Open all the tiles that are not bombs to win the game. The number in a tile tells you how many bombs are surrounding it. Click on a bomb and you lose! It's minesweeper!\n\n" +
+                        "--------------------------------------------------------------------------------\n\n" +
+                        "Controls:\n\n" +
+                        "LEFT CLICK to open tile\n\n" +
+                        "RIGHT CLICK to flag/unflag tile\n\n" +
+                        "LEFT AND RIGHT CLICK at the same time to open all non-flagged surrounding tiles if number of surrounding flags is equal to the tile number\n\n" +
+                        "ARROW KEYS to move the game window, if not in fullscreen mode\n\n" +
+                        "R to restart a (new) board with the same settings\n\n" +
+                        "ESCAPE to quit\n\n" +
+                        "--------------------------------------------------------------------------------\n\n" +
+                        "Trivia:\n\n"
+                        "This game can genarate insanely large boards of minesweeper, as I have improved a lot of algorithms, but most importantly an algorithm that reduces the time complexity of an important calculation from O(n) to O(1).\n\n"
+                        "Actually, the Guinness World record board for largest minesweeper is (718 x 262 = 188,116 tiles), it was set in 2015. Just for fun, I tried to generate a 10 times larger board (!) of (1,372 x 1,372 = 1,882,384 tiles) and it's fully working!Those boards will take some time to generate, though, and some even larger boards introduces a few bugs, but I do not exactly know where the limit is!\n\n" +
+                        "If you want to generate huge boards of that caliber, for performance reasons, I advise you to:\n"
+                        "(1) Choose as small tile set as possible\n"
+                        "(2) Make sure not to have too few bombs, as the recursion depth when generating the board will be too big\n"
+                        "(3) Check that the arrow key window movement works, before starting to play\n\n" +
+                        "Have Fun, I hope you have a lot of spare time!\n\n" +
+                        "Andreas Kuoppa")
+
+        help_frame.pack()
+        how_text.pack()
+
     def fullscreen_callback(self):
         fullscreen = self.resolutions_checkbutton_var.get()
         if fullscreen:
@@ -55,10 +87,10 @@ class Launcher():
 
 
     def main(self):
-        root = Tk()
-        root.title("InfiniSweeper Launcher")
-        # root.geometry("500x500")
-        root.resizable(width=False, height=False)
+        self.root = Tk()
+        self.root.title("InfiniSweeper Launcher")
+        # self.root.geometry("500x500")
+        self.root.resizable(width=False, height=False)
 
         # ----- Fonts -----
         title_font = font.Font(size=21, weight="normal")
@@ -70,21 +102,21 @@ class Launcher():
         # ----- Title -----
         title_var = StringVar()
         title_var.set("InfiniSweeper")
-        title_label = Label(root, textvariable = title_var, font=title_font)
+        title_label = Label(self.root, textvariable = title_var, font=title_font)
 
-        help_button = Button(root, text="How to Play?", command=self.help_callback)
+        help_button = Button(self.root, text="How to Play?", command=self.help_callback)
         # ----- /Title -----
 
         # ----- resolutions submenu -----
-        resolutions_separator = ttk.Separator(root, orient=HORIZONTAL)
+        resolutions_separator = ttk.Separator(self.root, orient=HORIZONTAL)
 
         resolutions_var = StringVar()
         resolutions_var.set("Screen Resolution (for fullscreen mode):")
-        resolutions_label = Label(root, textvariable = resolutions_var, font=separator_font)
+        resolutions_label = Label(self.root, textvariable = resolutions_var, font=separator_font)
 
-        resolutions_separator_end = ttk.Separator(root, orient=HORIZONTAL)
+        resolutions_separator_end = ttk.Separator(self.root, orient=HORIZONTAL)
 
-        resolutions_frame = Frame(root)
+        resolutions_frame = Frame(self.root)
 
         resolutions_entry_width_label = Label(resolutions_frame, text="Width:")
         self.resolutions_entry_width = Spinbox(resolutions_frame, from_=0, to_=999999)
@@ -101,15 +133,15 @@ class Launcher():
         # ----- /resolutions submenu -----
 
         # ----- Dimensions submenu -----
-        dimensions_separator = ttk.Separator(root, orient=HORIZONTAL)
+        dimensions_separator = ttk.Separator(self.root, orient=HORIZONTAL)
 
         dimensions_var = StringVar()
         dimensions_var.set("Dimensions:")
-        dimensions_label = Label(root, textvariable = dimensions_var, font=separator_font)
+        dimensions_label = Label(self.root, textvariable = dimensions_var, font=separator_font)
 
-        dimensions_separator_end = ttk.Separator(root, orient=HORIZONTAL)
+        dimensions_separator_end = ttk.Separator(self.root, orient=HORIZONTAL)
 
-        dimensions_frame = Frame(root)
+        dimensions_frame = Frame(self.root)
 
         dimensions_entry_width_label = Label(dimensions_frame, text="Width:")
         self.dimensions_entry_width = Spinbox(dimensions_frame, from_=9, to_=1000, command=self.bombs_callback)
@@ -121,15 +153,15 @@ class Launcher():
         # ----- /Dimensions submenu -----
 
         # ----- Bombs submenu -----
-        bombs_separator = ttk.Separator(root, orient=HORIZONTAL)
+        bombs_separator = ttk.Separator(self.root, orient=HORIZONTAL)
 
         bombs_var = StringVar()
         bombs_var.set("Bombs:")
-        bombs_label = Label(root, textvariable = bombs_var, font=separator_font)
+        bombs_label = Label(self.root, textvariable = bombs_var, font=separator_font)
 
-        bombs_separator_end = ttk.Separator(root, orient=HORIZONTAL)
+        bombs_separator_end = ttk.Separator(self.root, orient=HORIZONTAL)
 
-        bombs_frame = Frame(root)
+        bombs_frame = Frame(self.root)
 
         bombs_radiobutton1 = Label(bombs_frame, text="Number")
         bombs_radiobutton2 = Label(bombs_frame, text="Ratio")
@@ -146,15 +178,15 @@ class Launcher():
         # ----- /Bombs submenu -----
 
         # ----- Tilesize submenu -----
-        tilesize_separator = ttk.Separator(root, orient=HORIZONTAL)
+        tilesize_separator = ttk.Separator(self.root, orient=HORIZONTAL)
 
         tilesize_checkbutton_var = StringVar()
         tilesize_checkbutton_var.set("Tile Set:")
-        tilesize_label = Label(root, textvariable = tilesize_checkbutton_var, font=separator_font)
+        tilesize_label = Label(self.root, textvariable = tilesize_checkbutton_var, font=separator_font)
 
-        tilesize_separator_end = ttk.Separator(root, orient=HORIZONTAL)
+        tilesize_separator_end = ttk.Separator(self.root, orient=HORIZONTAL)
 
-        tilesize_frame = Frame(root)
+        tilesize_frame = Frame(self.root)
 
         tilesize_in_pixels = IntVar()
         tilesize_radiobutton1 = Radiobutton(tilesize_frame, text="64 x 64 (Child/Retiree)", variable=tilesize_in_pixels, value=64)
@@ -196,34 +228,34 @@ class Launcher():
         # ----- /Tilesize submenu -----
 
         # ----- Fitsscreen submenu -----
-        fitsscreen_separator = ttk.Separator(root, orient=HORIZONTAL)
+        fitsscreen_separator = ttk.Separator(self.root, orient=HORIZONTAL)
 
         fitsscreen_var = StringVar()
         fitsscreen_var.set("Fits Screen?")
-        fitsscreen_label = Label(root, textvariable = fitsscreen_var, font=separator_font)
+        fitsscreen_label = Label(self.root, textvariable = fitsscreen_var, font=separator_font)
 
-        fitsscreen_separator_end = ttk.Separator(root, orient=HORIZONTAL)
+        fitsscreen_separator_end = ttk.Separator(self.root, orient=HORIZONTAL)
 
         fit_var = StringVar()
         fit_var.set("YES, the board fits the screen! (to be implemented later...)")
-        fit_label = Label(root, textvariable = fit_var, font=fit_font)
+        fit_label = Label(self.root, textvariable = fit_var, font=fit_font)
 
         nofit_var = StringVar()
         nofit_var.set("NO, the board does NOT fit the screen! (to be implemented later...)")
-        nofit_label = Label(root, textvariable = nofit_var, font=nofit_font)
+        nofit_label = Label(self.root, textvariable = nofit_var, font=nofit_font)
         # ----- /Fitsscreen submenu -----
 
         # ----- Newgame submenu -----
-        newgame_separator = ttk.Separator(root, orient=HORIZONTAL)
+        newgame_separator = ttk.Separator(self.root, orient=HORIZONTAL)
 
-        newgame_button = Button(root, text ="New Game", command= lambda: self.newgame_callback(int(self.dimensions_entry_width.get()), int(self.dimensions_entry_height.get()), int(self.bombs_entry_number.get()), self.resolutions_checkbutton_var.get(), self.resolutions_entry_width.get(), self.resolutions_entry_height.get(), tilesize_checkbutton_var.get(), tilesize_in_pixels.get()), font=title_font)
-        newgame_separator_end = ttk.Separator(root, orient=HORIZONTAL)
+        newgame_button = Button(self.root, text ="New Game", command= lambda: self.newgame_callback(int(self.dimensions_entry_width.get()), int(self.dimensions_entry_height.get()), int(self.bombs_entry_number.get()), self.resolutions_checkbutton_var.get(), self.resolutions_entry_width.get(), self.resolutions_entry_height.get(), tilesize_checkbutton_var.get(), tilesize_in_pixels.get()), font=title_font)
+        newgame_separator_end = ttk.Separator(self.root, orient=HORIZONTAL)
         # ----- /Newgame submenu -----
 
         # ----- About submenu -----
         about_var = StringVar()
         about_var.set("\u00A9 2020 Andreas Kuoppa")
-        about_label = Label(root, textvariable = about_var)
+        about_label = Label(self.root, textvariable = about_var)
         # ----- /About submenu -----
 
         # ----- Defaults -----
@@ -329,7 +361,7 @@ class Launcher():
         about_label.pack()
         # ----- /Packing (and gridding...) -----
 
-        root.mainloop()
+        self.root.mainloop()
 
 
 if __name__ == "__main__":
