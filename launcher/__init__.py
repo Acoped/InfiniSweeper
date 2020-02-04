@@ -15,6 +15,9 @@ class Launcher():
 
         game.main(width, height, bombs, tile_sz_px, fullscreen, increased_border, [120, 72], [int(screen_width), int(screen_height)], 60, "InfiniSweeper")  # temporary solution
 
+    def help_callback(self):
+        print("Helpbutton clicked")
+
     def fullscreen_callback(self):
         fullscreen = self.resolutions_checkbutton_var.get()
         if fullscreen:
@@ -53,7 +56,7 @@ class Launcher():
 
     def main(self):
         root = Tk()
-        root.title("Launcher")
+        root.title("InfiniSweeper Launcher")
         # root.geometry("500x500")
         root.resizable(width=False, height=False)
 
@@ -68,6 +71,8 @@ class Launcher():
         title_var = StringVar()
         title_var.set("InfiniSweeper")
         title_label = Label(root, textvariable = title_var, font=title_font)
+
+        help_button = Button(root, text="How to Play?", command=self.help_callback)
         # ----- /Title -----
 
         # ----- resolutions submenu -----
@@ -239,7 +244,9 @@ class Launcher():
 
         # ----- Packing (and gridding...) -----
         title_label.pack()
-        
+
+        help_button.pack(pady="8")
+
         resolutions_separator.pack(fill="x")
         resolutions_label.pack()
         resolutions_separator_end.pack(fill="x")

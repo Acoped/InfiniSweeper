@@ -14,7 +14,8 @@ def launch_from_init():
     height = 4
     bombs = 3
     tile_sz_px = 32
-
+    arrowkey_movement_cells = 3
+    full_screen = False
 
     """
     # Small 9 x 9
@@ -22,6 +23,8 @@ def launch_from_init():
     height = 9
     bombs = 10
     tile_sz_px = 32
+    arrowkey_movement_cells = 1
+    full_screen = False
     """
 
     """
@@ -30,6 +33,8 @@ def launch_from_init():
     height = 16
     bombs = 40
     tile_sz_px = 16
+    arrowkey_movement_cells = 1
+    full_screen = False
     """
 
     """
@@ -38,6 +43,8 @@ def launch_from_init():
     height = 16
     bombs = 99
     tile_sz_px = 64
+    arrowkey_movement_cells = 1
+    full_screen = False
     """
 
     """
@@ -46,6 +53,8 @@ def launch_from_init():
     height = 135
     bombs = 6694
     tile_sz_px = 8
+    arrowkey_movement_cells = 1
+    full_screen = True
     """
 
     """
@@ -54,6 +63,8 @@ def launch_from_init():
     height = 180
     bombs = 11900
     tile_sz_px = 8
+    arrowkey_movement_cells = 1
+    full_screen = True
     """
 
     """
@@ -62,9 +73,10 @@ def launch_from_init():
     height = 360
     bombs = 47600
     tile_sz_px = 4
+    arrowkey_movement_cells = 1
+    full_screen = True
     """
 
-    full_screen = True
     increased_border = False
 
     min_viewport = [120, 72]
@@ -72,10 +84,10 @@ def launch_from_init():
     frame_rate = 60
     title = "InfiniSweeper"
 
-    main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title)
+    main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title, arrowkey_movement_cells)
 
 
-def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title):
+def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title, arrow_key_movement_cells=4):
     black = (0, 0, 0)
     white = (255, 255, 255)
     yellow = (255, 255, 0)
@@ -172,13 +184,13 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                     init_size_tuple = pygame.display.get_surface().get_size()
                     before_screen = pygame.image.tostring(screen, "RGBA")
                     if event.key == K_DOWN:
-                        window_y += tile_sz_px
+                        window_y += tile_sz_px * arrow_key_movement_cells
                     if event.key == K_UP:
-                        window_y -= tile_sz_px
+                        window_y -= tile_sz_px * arrow_key_movement_cells
                     if event.key == K_LEFT:
-                        window_x -= tile_sz_px
+                        window_x -= tile_sz_px * arrow_key_movement_cells
                     if event.key == K_RIGHT:
-                        window_x += tile_sz_px
+                        window_x += tile_sz_px * arrow_key_movement_cells
                     move_window(window_x, window_y)
                     screen.blit(pygame.image.fromstring(before_screen, init_size_tuple, "RGBA"), (0, 0))
                     pygame.display.flip()
