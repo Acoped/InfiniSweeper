@@ -139,10 +139,13 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
         event = pygame.event.poll()
         # Handle exit and escape
         if event.type == pygame.QUIT:
+            pygame.display.quit()
+            pygame.quit()
             break
         elif event.type == KEYDOWN:
             # ESCAPE -> Quits the game
             if event.key == K_ESCAPE:
+                pygame.display.quit()
                 pygame.quit()
             # R -> Restarts the game
             if event.key == K_r:
