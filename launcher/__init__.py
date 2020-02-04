@@ -1,10 +1,8 @@
 from tkinter import *
-from tkinter import Tk, font, ttk
+from tkinter import Tk, font, ttk, messagebox
 import game
 from PIL import Image, ImageTk
 import math
-
-
 
 class Launcher():
 
@@ -13,7 +11,10 @@ class Launcher():
 
         print(width, height)
 
-        game.main(width, height, bombs, tile_sz_px, fullscreen, increased_border, [120, 72], [int(screen_width), int(screen_height)], 60, "InfiniSweeper")  # temporary solution
+        try:
+            game.main(width, height, bombs, tile_sz_px, fullscreen, increased_border, [120, 72], [int(screen_width), int(screen_height)], 60, "InfiniSweeper")  # temporary solution
+        except RecursionError:
+            messagebox.showinfo("Recursion depth exceeded", "Try increasing the number of bombs!\n(>15 % or therabouts should always work)")
 
     def help_callback(self):
         print("Helpbutton clicked")
@@ -46,7 +47,6 @@ class Launcher():
                         "(3) Check that the arrow key window movement works, before starting to play\n\n" +
                         "Have Fun, I hope you have a lot of spare time!\n\n" +
                         "Andreas Kuoppa")
-
         help_frame.pack()
         how_text.pack()
 
@@ -111,7 +111,7 @@ class Launcher():
         resolutions_separator = ttk.Separator(self.root, orient=HORIZONTAL)
 
         resolutions_var = StringVar()
-        resolutions_var.set("Screen Resolution (for fullscreen mode):")
+        resolutions_var.set("Screen Resolution for fullscreen mode (which is not scrollable):")
         resolutions_label = Label(self.root, textvariable = resolutions_var, font=separator_font)
 
         resolutions_separator_end = ttk.Separator(self.root, orient=HORIZONTAL)
