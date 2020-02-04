@@ -102,6 +102,21 @@ class Board:
                 self.f = Entity("../resources/tiles/increased_border/XS/f.png", 0, 0, self.side, self.side)
                 self.q = Entity("../resources/tiles/increased_border/XS/q.png", 0, 0, self.side, self.side)
                 self.u = Entity("../resources/tiles/increased_border/XS/u.png", 0, 0, self.side, self.side)
+            if side_in_px < 8:
+                self.e = Entity("../resources/tiles/increased_border/XXS/0.png", 0, 0, self.side, self.side)
+                self.e1 = Entity("../resources/tiles/increased_border/XXS/1.png", 0, 0, self.side, self.side)
+                self.e2 = Entity("../resources/tiles/increased_border/XXS/2.png", 0, 0, self.side, self.side)
+                self.e3 = Entity("../resources/tiles/increased_border/XXS/3.png", 0, 0, self.side, self.side)
+                self.e4 = Entity("../resources/tiles/increased_border/XXS/4.png", 0, 0, self.side, self.side)
+                self.e5 = Entity("../resources/tiles/increased_border/XXS/5.png", 0, 0, self.side, self.side)
+                self.e6 = Entity("../resources/tiles/increased_border/XXS/6.png", 0, 0, self.side, self.side)
+                self.e7 = Entity("../resources/tiles/increased_border/XXS/7.png", 0, 0, self.side, self.side)
+                self.e8 = Entity("../resources/tiles/increased_border/XXS/8.png", 0, 0, self.side, self.side)
+                self.e9 = Entity("../resources/tiles/increased_border/XXS/b.png", 0, 0, self.side, self.side)
+                self.br = Entity("../resources/tiles/increased_border/XXS/br.png", 0, 0, self.side, self.side)
+                self.f = Entity("../resources/tiles/increased_border/XXS/f.png", 0, 0, self.side, self.side)
+                self.q = Entity("../resources/tiles/increased_border/XXS/q.png", 0, 0, self.side, self.side)
+                self.u = Entity("../resources/tiles/increased_border/XXS/u.png", 0, 0, self.side, self.side)
         else:
             if side_in_px < 128:
                 self.e = Entity("../resources/tiles/standard/L/0.png", 0, 0, self.side, self.side)
@@ -163,7 +178,22 @@ class Board:
                 self.f = Entity("../resources/tiles/standard/XS/f.png", 0, 0, self.side, self.side)
                 self.q = Entity("../resources/tiles/standard/XS/q.png", 0, 0, self.side, self.side)
                 self.u = Entity("../resources/tiles/standard/XS/u.png", 0, 0, self.side, self.side)
-
+            if side_in_px < 8:
+                self.e = Entity("../resources/tiles/standard/XXS/0.png", 0, 0, self.side, self.side)
+                self.e1 = Entity("../resources/tiles/standard/XXS/1.png", 0, 0, self.side, self.side)
+                self.e2 = Entity("../resources/tiles/standard/XXS/2.png", 0, 0, self.side, self.side)
+                self.e3 = Entity("../resources/tiles/standard/XXS/3.png", 0, 0, self.side, self.side)
+                self.e4 = Entity("../resources/tiles/standard/XXS/4.png", 0, 0, self.side, self.side)
+                self.e5 = Entity("../resources/tiles/standard/XXS/5.png", 0, 0, self.side, self.side)
+                self.e6 = Entity("../resources/tiles/standard/XXS/6.png", 0, 0, self.side, self.side)
+                self.e7 = Entity("../resources/tiles/standard/XXS/7.png", 0, 0, self.side, self.side)
+                self.e8 = Entity("../resources/tiles/standard/XXS/8.png", 0, 0, self.side, self.side)
+                self.e9 = Entity("../resources/tiles/standard/XXS/b.png", 0, 0, self.side, self.side)
+                self.br = Entity("../resources/tiles/standard/XXS/br.png", 0, 0, self.side, self.side)
+                self.f = Entity("../resources/tiles/standard/XXS/f.png", 0, 0, self.side, self.side)
+                self.q = Entity("../resources/tiles/standard/XXS/q.png", 0, 0, self.side, self.side)
+                self.u = Entity("../resources/tiles/standard/XXS/u.png", 0, 0, self.side, self.side)
+                
     def set_screen(self, screen):
         self.screen = screen
 

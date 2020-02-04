@@ -20,13 +20,13 @@ def launch_from_init():
     tile_sz_px = 8
     """
 
-
+    """
     # Large 30 x 16
     width = 30
     height = 16
     bombs = 99
     tile_sz_px = 64
-
+    """
 
     """
     # Whole screeen (HD)
@@ -44,7 +44,13 @@ def launch_from_init():
     tile_sz_px = 8
     """
 
-    full_screen = False
+    # Whole screeen (1440p) WORLD RECORD!
+    width = 640
+    height = 360
+    bombs = 47600
+    tile_sz_px = 4
+
+    full_screen = True
     increased_border = False
 
     min_viewport = [120, 72]
