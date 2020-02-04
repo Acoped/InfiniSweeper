@@ -4,14 +4,16 @@ import game
 from PIL import Image, ImageTk
 import math
 
+
+
 class Launcher():
 
-    def newgame_callback(self, width, height, bombs, fullscreen, increased_border, tile_sz_px):
+    def newgame_callback(self, width, height, bombs, fullscreen, screen_width, screen_height, increased_border, tile_sz_px):
         print("New Game button clicked")
 
         print(width, height)
 
-        game.main(width, height, bombs, tile_sz_px, fullscreen, increased_border, [120, 72], [2560, 1440], 60, "InfiniSweeper")  # temporary solution
+        game.main(width, height, bombs, tile_sz_px, fullscreen, increased_border, [120, 72], [int(screen_width), int(screen_height)], 60, "InfiniSweeper")  # temporary solution
 
     def callback(self, sv):
         ratio = float(sv.get())
@@ -36,20 +38,46 @@ class Launcher():
         title_font = font.Font(size=21, weight="normal")
         fit_font = font.Font(size=12, weight="normal")
         nofit_font = font.Font(size=12, weight="normal")
+        separator_font = font.Font(weight="normal")
         # ----- /Fonts -----
 
         # ----- Title -----
         title_var = StringVar()
-        title_var.set("A MineSweeper made for Ants")
+        title_var.set("InfiniSweeper")
         title_label = Label(root, textvariable = title_var, font=title_font)
         # ----- /Title -----
+
+        # ----- resolutions submenu -----
+        resolutions_separator = ttk.Separator(root, orient=HORIZONTAL)
+
+        resolutions_var = StringVar()
+        resolutions_var.set("Screen Resolution (for fullscreen mode):")
+        resolutions_label = Label(root, textvariable = resolutions_var, font=separator_font)
+
+        resolutions_separator_end = ttk.Separator(root, orient=HORIZONTAL)
+
+        resolutions_frame = Frame(root)
+
+        resolutions_entry_width_label = Label(resolutions_frame, text="Width:")
+        self.resolutions_entry_width = Spinbox(resolutions_frame, from_=0, to_=999999)
+        resolutions_entry_width_cells_label = Label(resolutions_frame, text="px")
+
+        resolutions_entry_height_label = Label(resolutions_frame, text="Height:")
+        self.resolutions_entry_height = Spinbox(resolutions_frame, from_=0, to_=999999)
+        resolutions_entry_height_cells_label = Label(resolutions_frame, text="px")
+
+        resolutions_checkbutton_var = IntVar()
+        resolutions_checkbutton = Checkbutton(
+            resolutions_frame, text="Full Screen",
+            variable=resolutions_checkbutton_var)
+        # ----- /resolutions submenu -----
 
         # ----- Dimensions submenu -----
         dimensions_separator = ttk.Separator(root, orient=HORIZONTAL)
 
         dimensions_var = StringVar()
         dimensions_var.set("Dimensions:")
-        dimensions_label = Label(root, textvariable = dimensions_var)
+        dimensions_label = Label(root, textvariable = dimensions_var, font=separator_font)
 
         dimensions_separator_end = ttk.Separator(root, orient=HORIZONTAL)
 
@@ -62,12 +90,6 @@ class Launcher():
         dimensions_entry_height_label = Label(dimensions_frame, text="Height:")
         self.dimensions_entry_height = Spinbox(dimensions_frame, from_=9, to_=1000)
         dimensions_entry_height_cells_label = Label(dimensions_frame, text="cells")
-
-        dimensions_checkbutton_var = IntVar()
-        dimensions_checkbutton = Checkbutton(
-            dimensions_frame, text="Full Screen",
-            variable=dimensions_checkbutton_var)
-
         # ----- /Dimensions submenu -----
 
         # ----- Bombs submenu -----
@@ -75,7 +97,7 @@ class Launcher():
 
         bombs_var = StringVar()
         bombs_var.set("Bombs:")
-        bombs_label = Label(root, textvariable = bombs_var)
+        bombs_label = Label(root, textvariable = bombs_var, font=separator_font)
 
         bombs_separator_end = ttk.Separator(root, orient=HORIZONTAL)
 
@@ -100,7 +122,7 @@ class Launcher():
 
         tilesize_checkbutton_var = StringVar()
         tilesize_checkbutton_var.set("Tile Set:")
-        tilesize_label = Label(root, textvariable = tilesize_checkbutton_var)
+        tilesize_label = Label(root, textvariable = tilesize_checkbutton_var, font=separator_font)
 
         tilesize_separator_end = ttk.Separator(root, orient=HORIZONTAL)
 
@@ -140,7 +162,7 @@ class Launcher():
 
         tilesize_checkbutton_var = IntVar()
         tilesize_checkbutton = Checkbutton(
-            tilesize_frame, text="Increased border",
+            tilesize_frame, text="Increased border sharpness (16 x 16 px and larger only)",
             variable=tilesize_checkbutton_var)
 
         # ----- /Tilesize submenu -----
@@ -150,7 +172,7 @@ class Launcher():
 
         fitsscreen_var = StringVar()
         fitsscreen_var.set("Fits Screen?")
-        fitsscreen_label = Label(root, textvariable = fitsscreen_var)
+        fitsscreen_label = Label(root, textvariable = fitsscreen_var, font=separator_font)
 
         fitsscreen_separator_end = ttk.Separator(root, orient=HORIZONTAL)
 
@@ -166,7 +188,7 @@ class Launcher():
         # ----- Newgame submenu -----
         newgame_separator = ttk.Separator(root, orient=HORIZONTAL)
 
-        newgame_button = Button(root, text ="New Game", command= lambda: self.newgame_callback(int(self.dimensions_entry_width.get()), int(self.dimensions_entry_height.get()), int(self.bombs_entry_number.get()), dimensions_checkbutton_var.get(), tilesize_checkbutton_var.get(), tilesize_in_pixels.get()), font=title_font)
+        newgame_button = Button(root, text ="New Game", command= lambda: self.newgame_callback(int(self.dimensions_entry_width.get()), int(self.dimensions_entry_height.get()), int(self.bombs_entry_number.get()), resolutions_checkbutton_var.get(), self.resolutions_entry_width.get(), self.resolutions_entry_height.get(), tilesize_checkbutton_var.get(), tilesize_in_pixels.get()), font=title_font)
         newgame_separator_end = ttk.Separator(root, orient=HORIZONTAL)
         # ----- /Newgame submenu -----
 
@@ -177,7 +199,13 @@ class Launcher():
         # ----- /About submenu -----
 
         # ----- Defaults -----
-        tilesize_radiobutton4.select()
+        tilesize_radiobutton2.select()
+
+        self.resolutions_entry_width.delete(0, "end")
+        self.resolutions_entry_width.insert(0, 1920)
+
+        self.resolutions_entry_height.delete(0, "end")
+        self.resolutions_entry_height.insert(0, 1080)
 
         bombs_entry_ratio.delete(0, "end")
         bombs_entry_ratio.insert(0, 20.0)
@@ -185,6 +213,22 @@ class Launcher():
 
         # ----- Packing (and gridding...) -----
         title_label.pack()
+        
+        resolutions_separator.pack(fill="x")
+        resolutions_label.pack()
+        resolutions_separator_end.pack(fill="x")
+        
+        resolutions_frame.pack()
+
+        resolutions_entry_width_label.grid(row=0, column=0)
+        self.resolutions_entry_width.grid(row=0, column=1, sticky="e", padx=30)
+        resolutions_entry_width_cells_label.grid(row=0, column=2, sticky="w")
+
+        resolutions_entry_height_label.grid(row=1, column=0)
+        self.resolutions_entry_height.grid(row=1, column=1, sticky="e", padx=30)
+        resolutions_entry_height_cells_label.grid(row=1, column=2, sticky="w")
+
+        resolutions_checkbutton.grid(row=2, column=1)
 
         dimensions_separator.pack(fill="x")
         dimensions_label.pack()
@@ -199,8 +243,6 @@ class Launcher():
         dimensions_entry_height_label.grid(row=1, column=0)
         self.dimensions_entry_height.grid(row=1, column=1, sticky="e", padx=30)
         dimensions_entry_height_cells_label.grid(row=1, column=2, sticky="w")
-
-        dimensions_checkbutton.grid(row=2, column=1)
 
 
         bombs_separator.pack(fill="x")
@@ -238,12 +280,14 @@ class Launcher():
         XS_label.grid(row=3, column=1, sticky="w")
         XXS_label.grid(row=4, column=1, sticky="w")
 
+        """
         fitsscreen_separator.pack(fill="x")
         fitsscreen_label.pack()
         fitsscreen_separator_end.pack(fill="x")
 
         fit_label.pack()
         nofit_label.pack()
+        """
 
         newgame_separator.pack(fill="x")
         newgame_button.pack(pady=8)
