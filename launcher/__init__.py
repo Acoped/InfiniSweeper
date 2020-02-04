@@ -15,8 +15,8 @@ class Launcher():
 
         game.main(width, height, bombs, tile_sz_px, fullscreen, increased_border, [120, 72], [int(screen_width), int(screen_height)], 60, "InfiniSweeper")  # temporary solution
 
-    def callback(self, sv):
-        ratio = float(sv.get())
+    def bombs_callback(self, sv=None):
+        ratio = float(self.sv.get())
         # Need to get width and height here, to calculate number of total cells, then ratio of that, rounded up!
         w = int(self.dimensions_entry_width.get())
         h = int(self.dimensions_entry_height.get())
@@ -84,11 +84,11 @@ class Launcher():
         dimensions_frame = Frame(root)
 
         dimensions_entry_width_label = Label(dimensions_frame, text="Width:")
-        self.dimensions_entry_width = Spinbox(dimensions_frame, from_=9, to_=1000)
+        self.dimensions_entry_width = Spinbox(dimensions_frame, from_=9, to_=1000, command=self.bombs_callback)
         dimensions_entry_width_cells_label = Label(dimensions_frame, text="cells")
 
         dimensions_entry_height_label = Label(dimensions_frame, text="Height:")
-        self.dimensions_entry_height = Spinbox(dimensions_frame, from_=9, to_=1000)
+        self.dimensions_entry_height = Spinbox(dimensions_frame, from_=9, to_=1000, command=self.bombs_callback)
         dimensions_entry_height_cells_label = Label(dimensions_frame, text="cells")
         # ----- /Dimensions submenu -----
 
@@ -109,11 +109,11 @@ class Launcher():
         bombs_entry_number_label = Label(bombs_frame, text="bombs")
         self.bombs_entry_number = Spinbox(bombs_frame, from_=0, to_=1000000)
 
-        sv = StringVar()
-        sv.trace("w", lambda name, index, mode, sv=sv: self.callback(sv))
+        self.sv = StringVar()
+        self.sv.trace("w", lambda name, index, mode, sv=self.sv: self.bombs_callback(sv))
 
         bombs_entry_ratio_label = Label(bombs_frame, text="%")
-        bombs_entry_ratio = Spinbox(bombs_frame, from_=0, to_=100, format="%.1f", increment=0.1, textvariable=sv)
+        bombs_entry_ratio = Spinbox(bombs_frame, from_=0, to_=100, format="%.1f", increment=0.1, textvariable=self.sv)
 
         # ----- /Bombs submenu -----
 
