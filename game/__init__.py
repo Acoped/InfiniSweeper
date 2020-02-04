@@ -3,6 +3,7 @@ from pygame.locals import *
 from game.Entity import Entity
 from game.Board import Board
 import datetime
+import os
 
 def launch_from_init():
 
@@ -120,6 +121,11 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
     transparent_background.set_alpha(128)  # alpha level
     transparent_background.fill((255, 255, 255))  # this fills the entire surface
 
+    window_x = 0
+    window_y = 30
+
+    window_pos = os.environ['SDL_VIDEO_WINDOW_POS'] = '%d,%d' % (window_x, window_y)
+
     # Game loop
     while True:
 
@@ -138,6 +144,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
             change = False
 
         # ALL DRAW CODE SHOULD GO ABOVE THIS COMMENT
+
 
         # EVENT HANDLING
         event = pygame.event.poll()
@@ -159,6 +166,20 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 board.set_screen(screen)
                 board.draw_start()
                 pygame.display.update()
+            if not full_screen:
+                if event.key == K_UP:
+                    window_y -= tile_sz_px
+                    move_window(full_screen, window_x, window_y)
+                if event.key == K_DOWN:
+                    window_y += tile_sz_px
+                    move_window(full_screen, window_x, window_y)
+                if event.key == K_LEFT:
+                    window_x -= tile_sz_px
+                    move_window(full_screen, window_x, window_y)
+                if event.key == K_RIGHT:
+                    window_x += tile_sz_px
+                    move_window(full_screen, window_x, window_y)
+
 
         if not board.win:
             # Example on how to show clock on TAB press while playing, although this is REALLY inefficient
@@ -271,6 +292,24 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
         clock.tick(frame_rate)
 
+def move_window(fullscreen, x, y):
+    # Set where the display will move to
+    os.environ['SDL_VIDEO_WINDOW_POS'] = '%d,%d' % (x, y)
+
+    # resize the screen causing it to move to x y set by environ
+    # pygame.display.set_mode((101, 100))
+    # set the size back to normal
+    # pygame.display.set_mode((100, 100))
+
+    # pygame.display.set_caption("test")
+    # pygame.display.set_gamma(255, 255, 255)
+
+    init_size_tuple = pygame.display.get_surface().get_size()
+    init_size = list(init_size_tuple)
+    init_size[0] += 1
+    pygame.display.set_mode((init_size[0], init_size[1]))
+    init_size[0] -= 1
+    pygame.display.set_mode((init_size[0], init_size[1]))
 
 # Checks if both left and right mouse buttons are (were...) being held
 def check_both(left, right):
