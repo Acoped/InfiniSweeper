@@ -8,9 +8,9 @@ def launch_from_init():
 
 
     # Very small 4 x 4 (for testing purposes)
-    width = 4
+    width = 5
     height = 4
-    bombs = 2
+    bombs = 3
     tile_sz_px = 32
 
 
@@ -116,7 +116,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
     font = pygame.font.SysFont("monospace", 12)
 
-    transparent_background = pygame.Surface((viewport[0], viewport[1]))  # the size of your rect
+    transparent_background = pygame.Surface((board.w * tile_sz_px, board.h * tile_sz_px))  # the size of your rect
     transparent_background.set_alpha(128)  # alpha level
     transparent_background.fill((255, 255, 255))  # this fills the entire surface
 
@@ -243,12 +243,14 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
             win_text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " cells", 1, win_color)
             win_text3 = font.render(str(board.bombs) + " bombs", 1, win_color)
             win_text4 = font.render("Your time: " + datetime.datetime.utcfromtimestamp(ms//1000).strftime("%H:%M:%S"), 1, win_color)
-            win_text5 = font.render("Press R to restart", 1, win_color)
+            win_text5 = font.render("R to restart", 1, win_color)
+            win_text6 = font.render("ESC to quit", 1, win_color)
             screen.blit(win_text1, (10, 10))
             screen.blit(win_text2, (10, 30))
             screen.blit(win_text3, (10, 50))
             screen.blit(win_text4, (10, 70))
-            screen.blit(win_text5, (10, 110))
+            screen.blit(win_text5, (10, 90))
+            screen.blit(win_text6, (10, 110))
 
         clock.tick(frame_rate)
 
