@@ -30,7 +30,7 @@ class Launcher():
         root = Tk()
         root.title("Launcher")
         # root.geometry("500x500")
-        # root.resizable(width=False, height=False)
+        root.resizable(width=False, height=False)
 
         # ----- Fonts -----
         title_font = font.Font(size=21, weight="normal")
@@ -81,9 +81,8 @@ class Launcher():
 
         bombs_frame = Frame(root)
 
-        bombs_checkbutton_var = IntVar()
-        bombs_radiobutton1 = Radiobutton(bombs_frame, text="Number", variable=bombs_checkbutton_var, value=1)
-        bombs_radiobutton2 = Radiobutton(bombs_frame, text="Ratio", variable=bombs_checkbutton_var, value=2)
+        bombs_radiobutton1 = Label(bombs_frame, text="Number")
+        bombs_radiobutton2 = Label(bombs_frame, text="Ratio")
 
         bombs_entry_number_label = Label(bombs_frame, text="bombs")
         self.bombs_entry_number = Spinbox(bombs_frame, from_=0, to_=1000000)
@@ -112,6 +111,7 @@ class Launcher():
         tilesize_radiobutton2 = Radiobutton(tilesize_frame, text="32 x 32 (Human)", variable=tilesize_in_pixels, value=32)
         tilesize_radiobutton3 = Radiobutton(tilesize_frame, text="16 x 16 (Inhuman)", variable=tilesize_in_pixels, value=16)
         tilesize_radiobutton4 = Radiobutton(tilesize_frame, text="8 x 8 (Ant)", variable=tilesize_in_pixels, value=8)
+        tilesize_radiobutton5 = Radiobutton(tilesize_frame, text="4 x 4 (Super-Ant!)", variable=tilesize_in_pixels, value=4)
 
         L_image = Image.open("../resources/tiles/standard/L/YYY.png")
         L_photo = ImageTk.PhotoImage(L_image)
@@ -132,6 +132,11 @@ class Launcher():
         XS_photo = ImageTk.PhotoImage(XS_image)
         XS_label = Label(tilesize_frame, image=XS_photo)
         XS_label.image = XS_photo  # keep a reference!
+        
+        XXS_image = Image.open("../resources/tiles/standard/XXS/YYY.png")
+        XXS_photo = ImageTk.PhotoImage(XXS_image)
+        XXS_label = Label(tilesize_frame, image=XXS_photo)
+        XXS_label.image = XXS_photo  # keep a reference!
 
         tilesize_checkbutton_var = IntVar()
         tilesize_checkbutton = Checkbutton(
@@ -150,11 +155,11 @@ class Launcher():
         fitsscreen_separator_end = ttk.Separator(root, orient=HORIZONTAL)
 
         fit_var = StringVar()
-        fit_var.set("YES, the board fits the screen!")
+        fit_var.set("YES, the board fits the screen! (to be implemented later...)")
         fit_label = Label(root, textvariable = fit_var, font=fit_font)
 
         nofit_var = StringVar()
-        nofit_var.set("NO, the board does NOT fit the screen!")
+        nofit_var.set("NO, the board does NOT fit the screen! (to be implemented later...)")
         nofit_label = Label(root, textvariable = nofit_var, font=nofit_font)
         # ----- /Fitsscreen submenu -----
 
@@ -172,13 +177,7 @@ class Launcher():
         # ----- /About submenu -----
 
         # ----- Defaults -----
-        bombs_radiobutton2.select()
         tilesize_radiobutton4.select()
-
-        # self.bombs_entry_number.delete(0, "end")
-        # self.bombs_entry_number.insert(0, 16)
-
-        # bombs_entry_number.config(state="disabled")
 
         bombs_entry_ratio.delete(0, "end")
         bombs_entry_ratio.insert(0, 20.0)
@@ -229,12 +228,15 @@ class Launcher():
         tilesize_radiobutton2.grid(row=1, column=0, sticky="w")
         tilesize_radiobutton3.grid(row=2, column=0, sticky="w")
         tilesize_radiobutton4.grid(row=3, column=0, sticky="w")
-        tilesize_checkbutton.grid(row=4, column=1, sticky="w")
+        tilesize_radiobutton5.grid(row=4, column=0, sticky="w")
+        tilesize_checkbutton.grid(row=5, column=1, sticky="w")
+
 
         L_label.grid(row=0, column=1, sticky="w")
         M_label.grid(row=1, column=1, sticky="w")
         S_label.grid(row=2, column=1, sticky="w")
         XS_label.grid(row=3, column=1, sticky="w")
+        XXS_label.grid(row=4, column=1, sticky="w")
 
         fitsscreen_separator.pack(fill="x")
         fitsscreen_label.pack()
