@@ -230,7 +230,7 @@ class Board:
                 current_cell = self.bomb_matrix[row][column]
                 if current_cell != 9:
                     lookup = get_neighbors(self.bomb_matrix, row, column)
-                    neighboring_bombs = count_neighbor_bombs(row, column, self.bomb_matrix, lookup)
+                    neighboring_bombs = self.count_neighbor_bombs(row, column, self.bomb_matrix, lookup)
                     appendix = neighboring_bombs
                 else:
                     appendix = 9
@@ -457,7 +457,7 @@ class Board:
 
     def double_open_tile_from_mouse(self, mouse_pos):
         x, y = self.get_clicked_tile(mouse_pos)
-        flags = count_neighbor_flags(x, y, self.flag_matrix)
+        flags = self.count_neighbor_flags(x, y, self.flag_matrix)
         print(flags)
 
 
@@ -550,7 +550,7 @@ class Board:
                 if not self.lose:
                     self.game_won()
 
-            print('cells_open ', self.cells_opened)
+            # print('cells_open ', self.cells_opened)
             # self.print_open_matrix()
 
     def game_won(self):
@@ -624,6 +624,50 @@ class Board:
         # self.print_flag_matrix()
 
 
+    # Counts the neighbors which are bombs
+    def count_neighbor_bombs(self, x, y, matrix, lookup):
+        bombs = 0
+
+        coordinates = [[[-1, -1], [-1, 0], [-1, 1]],
+                       [[0, -1], [0, 0], [0, 1]],
+                       [[1, -1], [1, 0], [1, 1]]]
+
+        for row in range(3):
+            for column in range(3):
+                if lookup[row][column] == 1:
+                    look = coordinates[row][column]
+                    x_p = x + look[0]
+                    y_p = y + look[1]
+                    if matrix[x_p][y_p] == 9:
+                        bombs += 1
+
+        return bombs
+
+
+    def count_neighbor_flags(self, x, y, flag_matrix):
+
+        flags = 0
+        coordinates = [[[-1, -1], [-1, 0], [-1, 1]],
+                       [[0, -1], [0, 0], [0, 1]],
+                       [[1, -1], [1, 0], [1, 1]]]
+
+        for row in range(3):
+            for column in range(3):
+                look = coordinates[row][column]
+                x_p = x + look[0]
+                y_p = y + look[1]
+                try:
+                    if (0 <= x_p <= self.w) and (0 <= y_p <= self.h):
+                        if flag_matrix[y_p][x_p] == 1:
+                            print('flag_x', x_p, 'flag_y', y_p)
+                            flags += 1
+                except IndexError:
+                    pass
+
+        print("neighboring flags: ", flags)
+
+        return flags
+
 # Returns a lookup matrix for neighboring cells.
 def get_neighbors(matrix, x, y):
     h = len(matrix) - 1
@@ -668,46 +712,6 @@ def get_neighbors(matrix, x, y):
 
     return lookup
 
-
-# Counts the neighbors which are bombs
-def count_neighbor_bombs(x, y, matrix, lookup):
-    bombs = 0
-
-    coordinates = [[[-1, -1], [-1, 0], [-1, 1]],
-                   [[0, -1], [0, 0], [0, 1]],
-                   [[1, -1], [1, 0], [1, 1]]]
-
-    for row in range(3):
-        for column in range(3):
-            if lookup[row][column] == 1:
-                look = coordinates[row][column]
-                x_p = x + look[0]
-                y_p = y + look[1]
-                if matrix[x_p][y_p] == 9:
-                    bombs += 1
-
-    return bombs
-
-
-def count_neighbor_flags(x, y, flag_matrix):
-
-    flags = 0
-    coordinates = [[[-1, -1], [-1, 0], [-1, 1]],
-                   [[0, -1], [0, 0], [0, 1]],
-                   [[1, -1], [1, 0], [1, 1]]]
-
-    for row in range(3):
-        for column in range(3):
-            look = coordinates[row][column]
-            x_p = x + look[0]
-            y_p = y + look[1]
-            try:
-                if flag_matrix[y_p][x_p] == 1:
-                    flags += 1
-            except IndexError:
-                pass
-
-    return flags
 
 """
 if __name__ == "__main__":
