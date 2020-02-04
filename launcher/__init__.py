@@ -15,21 +15,28 @@ class Launcher():
 
         game.main(width, height, bombs, tile_sz_px, fullscreen, increased_border, [120, 72], [int(screen_width), int(screen_height)], 60, "InfiniSweeper")  # temporary solution
 
+    def fullscreen_callback(self):
+        pass
+
     def ratio_callback(self):
         pass
 
     def bombs_callback(self):
-        ratio = float(self.sv.get())
-        # Need to get width and height here, to calculate number of total cells, then ratio of that, rounded up!
-        w = int(self.dimensions_entry_width.get())
-        h = int(self.dimensions_entry_height.get())
-        bombs =  math.ceil(ratio * 0.01 * w * h)
+        try:
+            ratio = float(self.sv.get())
+            # Need to get width and height here, to calculate number of total cells, then ratio of that, rounded up!
+            w = int(self.dimensions_entry_width.get())
+            h = int(self.dimensions_entry_height.get())
+            bombs = math.ceil(ratio * 0.01 * w * h)
 
-        print(ratio, w, h)
+            print(ratio, w, h)
 
-        self.bombs_entry_number.delete(0, "end")
+            self.bombs_entry_number.delete(0, "end")
 
-        self.bombs_entry_number.insert(0, str(bombs))
+            self.bombs_entry_number.insert(0, str(bombs))
+        except ValueError:
+            print("ValueError that should only be thrown on startup!")
+
 
     def main(self):
         root = Tk()
