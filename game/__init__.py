@@ -4,20 +4,19 @@ from game.Entity import Entity
 from game.Board import Board
 
 def launch_from_init():
-    """
+
     # Small 9 x 9
     width = 9
     height = 9
     bombs = 10
-    tile_sz_px = 8
-    """
+    tile_sz_px = 32
 
     """
     # Medium 16 x 16
     width = 16
     height = 16
     bombs = 40
-    tile_sz_px = 8
+    tile_sz_px = 16
     """
 
     """
@@ -44,13 +43,15 @@ def launch_from_init():
     tile_sz_px = 8
     """
 
-    # Whole screeen (1440p) WORLD RECORD!
+    """
+    # Whole screeen (1440p) WORLD RECORD SIZE!
     width = 640
     height = 360
     bombs = 47600
     tile_sz_px = 4
+    """
 
-    full_screen = True
+    full_screen = False
     increased_border = False
 
     min_viewport = [120, 72]

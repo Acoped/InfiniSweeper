@@ -14,6 +14,7 @@ class Board:
         self.side = side            # Side of a tile in pixels
         self.bombs = bombs          # Number of bombs
         self.increased_border = increased_border      # Whether increased increased_border is selected or not
+        self.cells_opened = 0       # number of opened cells
 
         self.bomb_matrix = []       # Binary matrix. If tile is bomb or not. Bomb is 1.
         self.board_matrix = []      # Integer matrix. Number of neighboring bombs 0-8. Bomb is 9.
@@ -539,15 +540,16 @@ class Board:
 
             # todo: finish this
             # Mark cells as opened or not accordingly and check for game over
-            if cell == 0:
+            if not cell == 9:
                 self.opened_matrix[y][x] = 1
-                # pass
-            elif cell == 9:
-                pass
-            else:
-                self.opened_matrix[y][x] = 1
+                self.cells_opened += 1
+                if self.w * self.h - self.bombs == self.cells_opened:
+                    self.game_won()
 
         # self.print_open_matrix()
+
+    def game_won(self):
+        print("GAME WON!")
 
     def draw_bombs(self, x, y):
         # todo: draw flags
