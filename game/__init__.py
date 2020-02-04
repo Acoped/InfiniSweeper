@@ -5,11 +5,21 @@ from game.Board import Board
 
 def launch_from_init():
 
+    """
+    # Very small 4 x 4 (for testing purposes)
+    width = 4
+    height = 4
+    bombs = 2
+    tile_sz_px = 32
+    """
+
+
     # Small 9 x 9
     width = 9
     height = 9
     bombs = 10
     tile_sz_px = 32
+
 
     """
     # Medium 16 x 16
@@ -65,6 +75,7 @@ def launch_from_init():
 def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title):
     black = (0, 0, 0)
     white = (255, 255, 255)
+    blue = (0, 0, 255)
 
     pygame.init()
 
@@ -97,6 +108,8 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
     left_down = False       # whether left mouse button is being held down
     right_down = False      # whether right mouse button is being held down
 
+    font = pygame.font.SysFont("monospace", 20)
+
     # Game loop
     while True:
 
@@ -113,6 +126,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 start = False
             pygame.display.update()
             change = False
+
         # ALL DRAW CODE SHOULD GO ABOVE THIS COMMENT
 
         # EVENT HANDLING
@@ -200,6 +214,11 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
             mouse_pos = pygame.mouse.get_pos()
             board.draw_hold(mouse_pos)"""
         # /EVENT HANDLING
+
+        # win
+        if board.win:
+            text1 = font.render("WIN!!!", 1, blue)
+            screen.blit(text1, (10, 10))
 
         clock.tick(frame_rate)
 
