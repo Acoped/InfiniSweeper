@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from game.Entity import Entity
 from game.Board import Board
+import datetime
 
 def launch_from_init():
 
@@ -99,6 +100,9 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
     clock = pygame.time.Clock()
 
+    timer = pygame.time.Clock()
+    timer_started = False
+
     # xs = load_sprite("../resources/tiles/XS/XS.png", 0, 0)
     # xs = Entity("../resources/tiles/XS/XS.png", 0, 0, 72, 72)
     # xs2 = xs.__copy__()
@@ -110,7 +114,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
     left_down = False       # whether left mouse button is being held down
     right_down = False      # whether right mouse button is being held down
 
-    font = pygame.font.SysFont("monospace", 9)
+    font = pygame.font.SysFont("monospace", 12)
 
     transparent_background = pygame.Surface((viewport[0], viewport[1]))  # the size of your rect
     transparent_background.set_alpha(128)  # alpha level
@@ -157,6 +161,11 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 pygame.display.update()
 
         elif event.type == MOUSEBUTTONUP:
+
+            if not timer_started:
+                timer_started = True
+                timer.tick()
+
             button = event.button
 
             # LEFT CLICK -> Opens tile
@@ -227,12 +236,13 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
         # win
         if board.win:
+            ms = timer.tick()
             screen.blit(transparent_background, (0, 0))
             win_color = maroon
             win_text1 = font.render("You Win! :D", 1, win_color)
             win_text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " cells", 1, win_color)
             win_text3 = font.render(str(board.bombs) + " bombs", 1, win_color)
-            win_text4 = font.render("Your time: HH:MM:SS", 1, win_color)
+            win_text4 = font.render("Your time: " + datetime.datetime.utcfromtimestamp(ms//1000).strftime("%H:%M:%S"), 1, win_color)
             win_text5 = font.render("Press R to restart", 1, win_color)
             screen.blit(win_text1, (10, 10))
             screen.blit(win_text2, (10, 30))
