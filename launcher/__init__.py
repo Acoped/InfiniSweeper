@@ -16,10 +16,25 @@ class Launcher():
         game.main(width, height, bombs, tile_sz_px, fullscreen, increased_border, [120, 72], [int(screen_width), int(screen_height)], 60, "InfiniSweeper")  # temporary solution
 
     def fullscreen_callback(self):
-        pass
+        fullscreen = self.resolutions_checkbutton_var.get()
+        print('fullscreen? ', fullscreen)
+        if fullscreen:
+            self.resolutions_entry_width.config(state="normal")
+            self.resolutions_entry_height.config(state="normal")
+        else:
+            self.resolutions_entry_width.config(state="disabled")
+            self.resolutions_entry_height.config(state="disabled")
 
+    """
     def ratio_callback(self):
-        pass
+        bombs = int(self.bombs_entry_number.get())
+        w = int(self.dimensions_entry_width.get())
+        h = int(self.dimensions_entry_height.get())
+        ratio = bombs / (w * h)
+
+        self.bombs_entry_ratio.delete(0, "end")
+        self.bombs_entry_ratio.insert(0, ratio)
+    """
 
     def bombs_callback(self):
         try:
@@ -32,7 +47,6 @@ class Launcher():
             print(ratio, w, h)
 
             self.bombs_entry_number.delete(0, "end")
-
             self.bombs_entry_number.insert(0, str(bombs))
         except ValueError:
             print("ValueError that should only be thrown on startup!")
@@ -68,11 +82,6 @@ class Launcher():
 
         resolutions_frame = Frame(root)
 
-        resolutions_checkbutton_var = IntVar()
-        resolutions_checkbutton = Checkbutton(
-            resolutions_frame, text="Full Screen",
-            variable=resolutions_checkbutton_var)
-
         resolutions_entry_width_label = Label(resolutions_frame, text="Width:")
         self.resolutions_entry_width = Spinbox(resolutions_frame, from_=0, to_=999999)
         resolutions_entry_width_cells_label = Label(resolutions_frame, text="px")
@@ -80,6 +89,11 @@ class Launcher():
         resolutions_entry_height_label = Label(resolutions_frame, text="Height:")
         self.resolutions_entry_height = Spinbox(resolutions_frame, from_=0, to_=999999)
         resolutions_entry_height_cells_label = Label(resolutions_frame, text="px")
+
+        self.resolutions_checkbutton_var = IntVar()
+        resolutions_checkbutton = Checkbutton(
+            resolutions_frame, text="Full Screen",
+            variable=self.resolutions_checkbutton_var, command=self.fullscreen_callback)
         # ----- /resolutions submenu -----
 
         # ----- Dimensions submenu -----
@@ -117,13 +131,13 @@ class Launcher():
         bombs_radiobutton2 = Label(bombs_frame, text="Ratio")
 
         bombs_entry_number_label = Label(bombs_frame, text="bombs")
-        self.bombs_entry_number = Spinbox(bombs_frame, from_=0, to_=1000000)
+        self.bombs_entry_number = Spinbox(bombs_frame, from_=0, to_=1000000, command=None) # self.entry_ratio_callback?
 
         self.sv = StringVar()
         self.sv.trace("w", lambda name, index, mode, sv=self.sv: self.bombs_callback())
 
         bombs_entry_ratio_label = Label(bombs_frame, text="%")
-        bombs_entry_ratio = Spinbox(bombs_frame, from_=0, to_=100, format="%.1f", increment=0.1, textvariable=self.sv)
+        self.bombs_entry_ratio = Spinbox(bombs_frame, from_=0, to_=100, format="%.1f", increment=0.1, textvariable=self.sv)
 
         # ----- /Bombs submenu -----
 
@@ -140,10 +154,10 @@ class Launcher():
 
         tilesize_in_pixels = IntVar()
         tilesize_radiobutton1 = Radiobutton(tilesize_frame, text="64 x 64 (Child/Retiree)", variable=tilesize_in_pixels, value=64)
-        tilesize_radiobutton2 = Radiobutton(tilesize_frame, text="32 x 32 (Human)", variable=tilesize_in_pixels, value=32)
-        tilesize_radiobutton3 = Radiobutton(tilesize_frame, text="16 x 16 (Inhuman)", variable=tilesize_in_pixels, value=16)
+        tilesize_radiobutton2 = Radiobutton(tilesize_frame, text="32 x 32 (Man)", variable=tilesize_in_pixels, value=32)
+        tilesize_radiobutton3 = Radiobutton(tilesize_frame, text="16 x 16 (Superman)", variable=tilesize_in_pixels, value=16)
         tilesize_radiobutton4 = Radiobutton(tilesize_frame, text="8 x 8 (Ant)", variable=tilesize_in_pixels, value=8)
-        tilesize_radiobutton5 = Radiobutton(tilesize_frame, text="4 x 4 (Super-Ant!)", variable=tilesize_in_pixels, value=4)
+        tilesize_radiobutton5 = Radiobutton(tilesize_frame, text="4 x 4 (Superant)", variable=tilesize_in_pixels, value=4)
 
         L_image = Image.open("../resources/tiles/standard/L/YYY.png")
         L_photo = ImageTk.PhotoImage(L_image)
@@ -217,8 +231,11 @@ class Launcher():
         self.resolutions_entry_height.delete(0, "end")
         self.resolutions_entry_height.insert(0, 1080)
 
-        bombs_entry_ratio.delete(0, "end")
-        bombs_entry_ratio.insert(0, 20.0)
+        self.resolutions_entry_width.config(state="disabled")
+        self.resolutions_entry_height.config(state="disabled")
+
+        self.bombs_entry_ratio.delete(0, "end")
+        self.bombs_entry_ratio.insert(0, 20.0)
         # ----- /Defaults -----
 
         # ----- Packing (and gridding...) -----
@@ -267,7 +284,7 @@ class Launcher():
         self.bombs_entry_number.grid(row=0, column=1, sticky="e", padx=30)
         bombs_entry_number_label.grid(row=0, column=2, sticky="w")
 
-        bombs_entry_ratio.grid(row=1, column=1, sticky="e", padx=30)
+        self.bombs_entry_ratio.grid(row=1, column=1, sticky="e", padx=30)
         bombs_entry_ratio_label.grid(row=1, column=2, sticky="w")
 
         tilesize_separator.pack(fill="x")
