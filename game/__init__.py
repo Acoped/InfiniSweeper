@@ -179,14 +179,10 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 """
                 if event.key == K_UP:
                     window_y -= tile_sz_px
-                    before_surface = move_window(screen, window_x, window_y)
-                    screen.blit(before_surface, (0,0))
                 if event.key == K_LEFT:
                     window_x -= tile_sz_px
-                    before_surface = move_window(screen, window_x, window_y)
                 if event.key == K_RIGHT:
                     window_x += tile_sz_px
-                    before_surface = move_window(screen, window_x, window_y)
                 """
 
         if not board.win:
