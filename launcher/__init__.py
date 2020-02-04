@@ -17,7 +17,6 @@ class Launcher():
 
     def fullscreen_callback(self):
         fullscreen = self.resolutions_checkbutton_var.get()
-        print('fullscreen? ', fullscreen)
         if fullscreen:
             self.resolutions_entry_width.config(state="normal")
             self.resolutions_entry_height.config(state="normal")
@@ -212,7 +211,7 @@ class Launcher():
         # ----- Newgame submenu -----
         newgame_separator = ttk.Separator(root, orient=HORIZONTAL)
 
-        newgame_button = Button(root, text ="New Game", command= lambda: self.newgame_callback(int(self.dimensions_entry_width.get()), int(self.dimensions_entry_height.get()), int(self.bombs_entry_number.get()), resolutions_checkbutton_var.get(), self.resolutions_entry_width.get(), self.resolutions_entry_height.get(), tilesize_checkbutton_var.get(), tilesize_in_pixels.get()), font=title_font)
+        newgame_button = Button(root, text ="New Game", command= lambda: self.newgame_callback(int(self.dimensions_entry_width.get()), int(self.dimensions_entry_height.get()), int(self.bombs_entry_number.get()), self.resolutions_checkbutton_var.get(), self.resolutions_entry_width.get(), self.resolutions_entry_height.get(), tilesize_checkbutton_var.get(), tilesize_in_pixels.get()), font=title_font)
         newgame_separator_end = ttk.Separator(root, orient=HORIZONTAL)
         # ----- /Newgame submenu -----
 
