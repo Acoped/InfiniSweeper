@@ -4,6 +4,7 @@ from game.Entity import Entity
 from game.Board import Board
 import datetime
 import os
+import copy
 
 def launch_from_init():
 
@@ -170,7 +171,11 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 if event.key == K_DOWN:
                     window_y += tile_sz_px
                     print(type(screen))
+                    init_size_tuple = pygame.display.get_surface().get_size()
+                    before_screen = pygame.image.tostring(screen, "RGBA")
                     move_window(window_x, window_y)
+                    screen.blit(pygame.image.fromstring(before_screen, init_size_tuple, "RGBA"), (0, 0))
+                    pygame.display.flip()
                 """
                 if event.key == K_UP:
                     window_y -= tile_sz_px
