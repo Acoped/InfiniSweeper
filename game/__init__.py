@@ -13,21 +13,21 @@ def launch_from_init():
     tile_sz_px = 32
     """
 
-
+    """
     # Small 9 x 9
     width = 9
     height = 9
     bombs = 10
     tile_sz_px = 32
-
-
     """
+
+
     # Medium 16 x 16
     width = 16
     height = 16
     bombs = 40
     tile_sz_px = 16
-    """
+
 
     """
     # Large 30 x 16
@@ -229,7 +229,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
             win_text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " cells", 1, win_color)
             win_text3 = font.render(str(board.bombs) + " bombs", 1, win_color)
             win_text4 = font.render("Your time: HH:MM:SS", 1, win_color)
-            win_text5 = font.render("Press R for a new board", 1, win_color)
+            win_text5 = font.render("Press R to restart", 1, win_color)
             screen.blit(win_text1, (10, 10))
             screen.blit(win_text2, (10, 30))
             screen.blit(win_text3, (10, 50))
