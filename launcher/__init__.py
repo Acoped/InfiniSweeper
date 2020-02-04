@@ -15,7 +15,10 @@ class Launcher():
 
         game.main(width, height, bombs, tile_sz_px, fullscreen, increased_border, [120, 72], [int(screen_width), int(screen_height)], 60, "InfiniSweeper")  # temporary solution
 
-    def bombs_callback(self, sv=None):
+    def ratio_callback(self):
+        pass
+
+    def bombs_callback(self):
         ratio = float(self.sv.get())
         # Need to get width and height here, to calculate number of total cells, then ratio of that, rounded up!
         w = int(self.dimensions_entry_width.get())
@@ -58,6 +61,11 @@ class Launcher():
 
         resolutions_frame = Frame(root)
 
+        resolutions_checkbutton_var = IntVar()
+        resolutions_checkbutton = Checkbutton(
+            resolutions_frame, text="Full Screen",
+            variable=resolutions_checkbutton_var)
+
         resolutions_entry_width_label = Label(resolutions_frame, text="Width:")
         self.resolutions_entry_width = Spinbox(resolutions_frame, from_=0, to_=999999)
         resolutions_entry_width_cells_label = Label(resolutions_frame, text="px")
@@ -65,11 +73,6 @@ class Launcher():
         resolutions_entry_height_label = Label(resolutions_frame, text="Height:")
         self.resolutions_entry_height = Spinbox(resolutions_frame, from_=0, to_=999999)
         resolutions_entry_height_cells_label = Label(resolutions_frame, text="px")
-
-        resolutions_checkbutton_var = IntVar()
-        resolutions_checkbutton = Checkbutton(
-            resolutions_frame, text="Full Screen",
-            variable=resolutions_checkbutton_var)
         # ----- /resolutions submenu -----
 
         # ----- Dimensions submenu -----
@@ -110,7 +113,7 @@ class Launcher():
         self.bombs_entry_number = Spinbox(bombs_frame, from_=0, to_=1000000)
 
         self.sv = StringVar()
-        self.sv.trace("w", lambda name, index, mode, sv=self.sv: self.bombs_callback(sv))
+        self.sv.trace("w", lambda name, index, mode, sv=self.sv: self.bombs_callback())
 
         bombs_entry_ratio_label = Label(bombs_frame, text="%")
         bombs_entry_ratio = Spinbox(bombs_frame, from_=0, to_=100, format="%.1f", increment=0.1, textvariable=self.sv)
@@ -220,15 +223,15 @@ class Launcher():
         
         resolutions_frame.pack()
 
-        resolutions_entry_width_label.grid(row=0, column=0)
-        self.resolutions_entry_width.grid(row=0, column=1, sticky="e", padx=30)
-        resolutions_entry_width_cells_label.grid(row=0, column=2, sticky="w")
+        resolutions_checkbutton.grid(row=0, column=1)
 
-        resolutions_entry_height_label.grid(row=1, column=0)
-        self.resolutions_entry_height.grid(row=1, column=1, sticky="e", padx=30)
-        resolutions_entry_height_cells_label.grid(row=1, column=2, sticky="w")
+        resolutions_entry_width_label.grid(row=1, column=0)
+        self.resolutions_entry_width.grid(row=1, column=1, sticky="e", padx=30)
+        resolutions_entry_width_cells_label.grid(row=1, column=2, sticky="w")
 
-        resolutions_checkbutton.grid(row=2, column=1)
+        resolutions_entry_height_label.grid(row=2, column=0)
+        self.resolutions_entry_height.grid(row=2, column=1, sticky="e", padx=30)
+        resolutions_entry_height_cells_label.grid(row=2, column=2, sticky="w")
 
         dimensions_separator.pack(fill="x")
         dimensions_label.pack()
