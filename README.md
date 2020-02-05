@@ -32,5 +32,6 @@ This project uses PyInstaller
     **Figure 3** Permissions for \_\_init__.exe  (more detailed)
 
 13. Rename the '\_\_init__.exe' file to 'InfiniSweeper.exe' for good looks
-14. The build file should then work for any Windows machine. Distribute it via the version name folder. __TEST IT__ on another machine before you commit in git and push the new build to Github!
+14. The build file should then work for any Windows machine. __TEST IT__ on another machine before you commit in git and push the new build to Github!
+15. Upload the compressed .zip directory to Github, with the appropriate naming conventions. 
 
