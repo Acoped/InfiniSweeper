@@ -21,7 +21,6 @@ This project uses PyInstaller
     ![alt text](permissions.png "Permissions for __init__.exe")
     
     **Figure 1** Permissions for \_\_init__.exe
-
 12. Move only the relevant files from the project unto its own folder (for example on the desktop). The working build for version 0_0_1, has the structure as follows:
 
     ![alt text](tree_brief.png "Permissions for __init__.exe")
@@ -32,5 +31,6 @@ This project uses PyInstaller
     
     **Figure 3** Permissions for \_\_init__.exe  (more detailed)
 
-13. The build file should then work for any Windows machine. Distribute it via the version name folder. __TEST IT__ on another machine before you commit in git and push the new build to Github!
+13. Rename the '\_\_init__.exe' file to 'InfiniSweeper.exe' for good looks
+14. The build file should then work for any Windows machine. Distribute it via the version name folder. __TEST IT__ on another machine before you commit in git and push the new build to Github!
 
