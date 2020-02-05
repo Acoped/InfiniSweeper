@@ -128,6 +128,8 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
     left_down = False       # whether left mouse button is being held down
     right_down = False      # whether right mouse button is being held down
     shift_down = False      # whether shift button is being held down
+    double_click_timer = 0  # Timer for detecting left mouse button double clicks
+    dt = 0                  # delta for left mouse button double click timer
 
     font = pygame.font.SysFont("monospace", 12)
 
@@ -286,6 +288,17 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 if button == 1:
                     left_down = True
 
+                    mouse_pos = pygame.mouse.get_pos()
+
+                    # Detecting double click:
+                    if double_click_timer == 0:  # First mouse click.
+                        double_click_timer = 0.001  # Start the timer.
+                    # Click again before 0.5 seconds to double click.
+                    elif double_click_timer < 0.5:
+                        print('double click')
+                        board.double_open_tile_from_mouse(mouse_pos)
+                        double_click_timer = 0
+
                 # RIGHT HOLD DOWN STARTED
                 elif button == 3:
                     right_down = True
@@ -303,6 +316,13 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 mouse_pos = pygame.mouse.get_pos()
                 board.draw_hold(mouse_pos)"""
             # /EVENT HANDLING
+            # Increase timer after mouse was pressed the first time.
+            if double_click_timer != 0:
+                double_click_timer += dt
+                # Reset after 0.5 seconds.
+                if double_click_timer >= 0.5:
+                    print('too late')
+                    double_click_timer = 0
         # win
         if board.win:
             ms = timer.tick()
@@ -321,7 +341,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
             screen.blit(win_text5, (10, 90))
             screen.blit(win_text6, (10, 110))
 
-        clock.tick(frame_rate)
+        dt = clock.tick(frame_rate) / 1000
 
 def move_window(x, y):
     # Set where the display will move to
