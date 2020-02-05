@@ -127,6 +127,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
     left_down = False       # whether left mouse button is being held down
     right_down = False      # whether right mouse button is being held down
+    shift_down = False      # whether shift button is being held down
 
     font = pygame.font.SysFont("monospace", 12)
 
@@ -217,6 +218,14 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                     # board.draw_start()
                     pygame.display.update()
             """
+            if event.type == KEYDOWN:
+                if event.key == K_RSHIFT or event.key == K_LSHIFT:
+                    shift_down = True
+                    print("shift down")
+            if event.type == KEYUP:
+                if event.key == K_RSHIFT or event.key == K_LSHIFT:
+                    shift_down = False
+                    print("shift up")
             if event.type == MOUSEBUTTONUP:
 
                 if not timer_started:
@@ -227,11 +236,14 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
                 # LEFT CLICK -> Opens tile
                 if button == 1:
+
+                    print(left_down, right_down, shift_down)
+
                     change = True
 
                     mouse_pos = pygame.mouse.get_pos()
 
-                    if check_both(left_down, right_down):
+                    if check_both(left_down, right_down, shift_down):
                         print('double hold then released left')
                         board.double_open_tile_from_mouse(mouse_pos)
 
@@ -250,7 +262,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
                     mouse_pos = pygame.mouse.get_pos()
 
-                    if check_both(left_down, right_down):
+                    if check_both(left_down, right_down, shift_down):
                         print('double hold then released right')
 
                     right_down = False
@@ -323,9 +335,11 @@ def move_window(x, y):
     pygame.display.set_mode((init_size[0], init_size[1]))
 
 
-# Checks if both left and right mouse buttons are (were...) being held
-def check_both(left, right):
+# Checks if both left and right mouse buttons are (were...) being held (double click (release...)), also accounts for shift click (release)!
+def check_both(left, right, shift):
     if left and right:
+        return True
+    elif shift and left:
         return True
     else:
         return False
