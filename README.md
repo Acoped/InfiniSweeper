@@ -26,11 +26,11 @@ This project uses PyInstaller
 
     ![alt text](tree_brief.png "Permissions for __init__.exe")
     
-    **Figure 2** Permissions for \_\_init__.exe
+    **Figure 2** Permissions for \_\_init__.exe (directories only)
     
     ![alt text](tree_detailed.png "Permissions for __init__.exe")
     
-    **Figure 3** Permissions for \_\_init__.exe
+    **Figure 3** Permissions for \_\_init__.exe  (more detailed)
 
 13. The build file should then work for any Windows machine. Distribute it via the version name folder. __TEST IT__ on another machine before you commit in git and push the new build to Github!
 
