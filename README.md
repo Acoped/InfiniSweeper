@@ -2,7 +2,11 @@
 
 A minesweeper clone allowing for insanely large minesweeper boards (>10 times the current Guiness World Record from 2015!). I might attempt multiplayer functionality too at a later date.
 
-## Building a standalone .exe instructions
+## Running a relase
+
+Unzip the release and look for the 'InfiniSweeper.exe' file and run it.
+
+## Building a standalone .exe instructions (for release)
 
 This project uses PyInstaller
 
