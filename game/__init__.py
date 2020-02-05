@@ -264,6 +264,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
                     if check_both(left_down, right_down, shift_down):
                         print('double hold then released right')
+                        board.double_open_tile_from_mouse(mouse_pos)
 
                     right_down = False
 
