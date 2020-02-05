@@ -11,7 +11,7 @@ This project uses PyInstaller
 3. Make sure PyInstaller is installed, if you are unsure, simply run 'pip install pyinstaller' 
 4. Run the command 'set PATH=%PATH%;C:\Windows\System32\downlevel;'
 5. Run the command 'pyinstaller --onefile \_\_init__.py'
-6. The directories 'build' and 'dist' should have appeared, as well as the file '\_\_init__.spec', move those files to the project's 'build' directory, under the version number sub-directory, for example '0_0_1'
+6. The directories 'build' and 'dist' should have appeared, as well as the file '\_\_init__.spec', move those files to the project's 'builds' directory, under a new sub-directory with the version number, for example '0_0_1'
 7. Copy the 'resource' folder and place it in the directory above the '\_\_init__.exe' file
 8. Test that the build works. __IMPORTANT:__ Even if it probably works to just run the file 'dist/\_\_init__.exe' now, it will only work for the current computer.
 9. Right click '\_\_init__.exe' and select 'Properties' ('Egenskaper'), then 'Security' ('Säkerhet')
