@@ -3,6 +3,7 @@ from tkinter import Tk, font, ttk, messagebox
 import game
 from PIL import Image, ImageTk
 import math
+import pygame
 
 class Launcher():
 
@@ -14,7 +15,14 @@ class Launcher():
         try:
             game.main(width, height, bombs, tile_sz_px, fullscreen, increased_border, [120, 72], [int(screen_width), int(screen_height)], 60, "InfiniSweeper")  # temporary solution
         except RecursionError:
-            messagebox.showinfo("Recursion depth exceeded", "Try increasing the number of bombs!\n(>15 % or therabouts should always work)")
+            messagebox.showinfo("Recursion depth exceeded", "Recursion depth exceeded!\nTry increasing the number of bombs!\n(>15 % or therabouts should always work)")
+        except pygame.error as e:
+            print(e)
+            message = str(e)
+            print(message)
+            if message == "Couldn't create DIB section":
+                messagebox.showinfo("Game Board too big", "Game Board too big! Try:\n(1) lowering the Tile Set resolution (for example to 4 x 4)\n(2) lowering the board Dimensions (Width x Height)")
+
 
     def help_callback(self):
         print("Helpbutton clicked")
