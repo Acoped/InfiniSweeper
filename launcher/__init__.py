@@ -36,7 +36,7 @@ class Launcher():
 
         help_frame = Frame(window, width=500, height=400)
 
-        how_text = Text(help_frame, width=80, height=49)
+        how_text = Text(help_frame, width=80, height=50)
         how_text.insert(INSERT,
                         "How to play:\n\n" +
                         "Open all the tiles that are not bombs to win the game. The number in a tile tells you how many bombs are surrounding it. Click on a bomb and you lose! It's minesweeper!\n\n" +
@@ -44,7 +44,7 @@ class Launcher():
                         "Controls:\n\n" +
                         "LEFT CLICK to open tile\n\n" +
                         "RIGHT CLICK to flag/unflag tile\n\n" +
-                        "LEFT AND RIGHT CLICK at the same time to open all non-flagged surrounding tiles if number of surrounding flags is equal to the tile number\n\n" +
+                        "LEFT AND RIGHT CLICK, or DOUBLE CLICK, or SHIFT + CLICK at the same time to open all non-flagged surrounding tiles if number of surrounding flags is equal to the tile number\n\n" +
                         "ARROW KEYS to move the game window, if not in fullscreen mode\n\n" +
                         "R to restart a (new) board with the same settings\n\n" +
                         "P to take a screenshot of the current board\n\n" +
