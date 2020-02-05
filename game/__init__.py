@@ -179,6 +179,10 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 board.set_screen(screen)
                 board.draw_start()
                 pygame.display.update()
+            # P -> Screenshot
+            if event.key == K_p:
+                pygame.image.save(screen, "screenshot.png")
+            # Arrow Keys -> Window movement, if not in fullscreen
             if not full_screen:
                 if event.key == K_DOWN or event.key == K_UP or event.key == K_LEFT or event.key == K_RIGHT:
                     init_size_tuple = pygame.display.get_surface().get_size()
