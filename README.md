@@ -1,6 +1,6 @@
 # Infinisweeper
 
-A mineweeper clone allowing for insanely large minesweeper boards (>10 times the current Guiness World Record from 2015!). I might attempt multiplayer functionality too at a later date.
+A minesweeper clone allowing for insanely large minesweeper boards (>10 times the current Guiness World Record from 2015!). I might attempt multiplayer functionality too at a later date.
 
 ## Building a standalone .exe instructions
 
