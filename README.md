@@ -6,6 +6,8 @@ A minesweeper clone allowing for insanely large minesweeper boards (>10 times th
 
 Unzip the release and look for the 'InfiniSweeper.exe' file and run it.
 
+Also, make sure that your antivirus software does not interfere. You may need to disable it.
+
 ## Building a standalone .exe instructions (for release)
 
 This project uses PyInstaller
