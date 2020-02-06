@@ -17,6 +17,7 @@ class Board:
         self.cells_opened = 0       # number of opened cells
         self.lose = False           # if game is lost or not
         self.win = False            # if game is won or not
+        self.last_held = [None, None] # last held down tile
 
         self.bomb_matrix = []       # Binary matrix. If tile is bomb or not. Bomb is 1.
         self.board_matrix = []      # Integer matrix. Number of neighboring bombs 0-8. Bomb is 9.
@@ -499,6 +500,8 @@ class Board:
 
     def open_tile_from_coords(self, x, y, open_zero_field=True):
 
+        self.last_held = [None, None]
+
         cell = self.board_matrix[y][x]
 
         if self.opened_matrix[y][x] == 0 and self.flag_matrix[y][x] == 0:
@@ -579,7 +582,6 @@ class Board:
         self.br.update(x, y)
         self.br.draw(self.screen)
 
-    """
     # Unhide this method later for "sunken effect" on held down unopened tiles
     def draw_hold(self, mouse_pos):
 
@@ -590,10 +592,20 @@ class Board:
         y = int(my / self.side)
         print(x, y)
 
-        if self.opened_matrix[y][x] == 0:
-            self.e.update(x * self.side, y * self.side)
-            self.e.draw(self.screen)
-    """
+        if self.opened_matrix[y][x] == 0 and self.flag_matrix[y][x] == 0:
+            self.q.update(x * self.side, y * self.side)
+            self.q.draw(self.screen)
+
+        last_x = self.last_held[0]
+        last_y = self.last_held[1]
+        if last_x is not None:
+            if not (x == last_x and y == last_y):
+                if self.opened_matrix[y][x] == 0 and self.flag_matrix[y][x] == 0:
+                    if self.opened_matrix[last_y][last_x] == 0:
+                        self.e8.update(self.last_held[0] * self.side, self.last_held[1] * self.side)
+                        self.e8.draw(self.screen)
+
+        self.last_held = [x, y]
 
     def calculate_screen_res(self):
         return [self.side * self.w, self.side * self.h]

@@ -9,12 +9,12 @@ import copy
 def launch_from_init():
 
 
-    # Very small 4 x 4 (for testing purposes)
-    width = 5
-    height = 4
-    bombs = 3
+    # For testing purposes
+    width = 30
+    height = 16
+    bombs = 75
     tile_sz_px = 32
-    arrowkey_movement_cells = 3
+    arrowkey_movement_cells = 8
     full_screen = False
 
     """
@@ -310,17 +310,15 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                     right_down = True
 
             # Unhide the lines below later for "sunken effect" on held down unopened tiles
-            """
             elif pygame.mouse.get_pressed()[0]:
                 change = True
                 mouse_pos = pygame.mouse.get_pos()
                 board.draw_hold(mouse_pos)
-            """
-            """
             elif event.type == MOUSEBUTTONDOWN:
                 change = True
                 mouse_pos = pygame.mouse.get_pos()
-                board.draw_hold(mouse_pos)"""
+                board.draw_hold(mouse_pos)
+
             # /EVENT HANDLING
             # Increase timer after mouse was pressed the first time.
             if double_click_timer != 0:
