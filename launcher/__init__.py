@@ -47,7 +47,7 @@ class Launcher():
                         "LEFT AND RIGHT CLICK, or DOUBLE CLICK, or SHIFT + CLICK to open all non-flagged surrounding tiles if number of surrounding flags is equal to the tile number\n\n" +
                         "ARROW KEYS to move the game window, if not in fullscreen mode\n\n" +
                         "R to restart (a new board with the same settings)\n\n" +
-                        "P to take a screenshot of the current board\n\n" +
+                        "P to take a screenshot of the current board (they are saved with the executable)\n\n" +
                         "ESCAPE to quit\n\n" +
                         "--------------------------------------------------------------------------------\n\n" +
                         "Trivia:\n\n"

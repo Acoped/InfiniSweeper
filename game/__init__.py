@@ -87,7 +87,7 @@ def launch_from_init():
     main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title, arrowkey_movement_cells)
 
 
-def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title, arrow_key_movement_cells=4):
+def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title, arrow_key_movement_cells=8):
     black = (0, 0, 0)
     white = (255, 255, 255)
     yellow = (255, 255, 0)
@@ -179,6 +179,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 pygame.quit()
             # R -> Restarts the game
             if event.key == K_r:
+                game_over = False
                 board = Board(width, height, bombs, tile_sz_px, increased_border=increased_border)
                 board.place_bombs()
                 board.find_islands()
@@ -353,7 +354,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 screen.blit(text7, (10, 130))
                 game_over = True
             # Win screen
-            elif board.win:
+            if board.win:
                 ms = timer.tick()
                 final_time = str(datetime.datetime.utcfromtimestamp(ms//1000).strftime("%H:%M:%S"))
                 screen.blit(transparent_background, (0, 0))
@@ -373,6 +374,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 screen.blit(text6, (10, 110))
                 screen.blit(text7, (10, 130))
                 game_over = True
+                # pygame.image.save(screen, "most_recent_win.png")
 
         dt = clock.tick(frame_rate) / 1000      # delta for double click
 
