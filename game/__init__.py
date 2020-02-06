@@ -10,10 +10,10 @@ def launch_from_init():
 
 
     # For testing purposes
-    width = 30
-    height = 16
-    bombs = 75
-    tile_sz_px = 32
+    width = 80
+    height = 50
+    bombs = 600
+    tile_sz_px = 16
     arrowkey_movement_cells = 8
     full_screen = False
 
