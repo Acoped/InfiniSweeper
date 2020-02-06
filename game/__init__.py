@@ -81,7 +81,7 @@ def launch_from_init():
 
     min_viewport = [120, 72]
     viewport = [2560, 1440]
-    frame_rate = 60
+    frame_rate = 60              # does this need to be  high?
     title = "InfiniSweeper"
 
     main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title, arrowkey_movement_cells)
@@ -298,6 +298,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                         print('double click')
                         board.double_open_tile_from_mouse(mouse_pos)
                         double_click_timer = 0
+                        change = True
 
                 # RIGHT HOLD DOWN STARTED
                 elif button == 3:
@@ -342,7 +343,6 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
             screen.blit(win_text5, (10, 90))
             screen.blit(win_text6, (10, 110))
             screen.blit(win_text7, (10, 130))
-            pygame.display.update() # Update screen on win, needed for the double click mode
 
         dt = clock.tick(frame_rate) / 1000
 
