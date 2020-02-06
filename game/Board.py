@@ -460,7 +460,6 @@ class Board:
         flags = self.count_neighbor_flags(x, y, self.flag_matrix)
         print(flags)
 
-
         if flags == self.board_matrix[y][x]:
             self.open_cells_not_flagged(x, y)
 
@@ -550,7 +549,7 @@ class Board:
                 if not self.lose:
                     self.game_won()
 
-            # print('cells_open ', self.cells_opened)
+            print('cells_open ', self.cells_opened)
             # self.print_open_matrix()
 
     def game_won(self):

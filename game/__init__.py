@@ -134,7 +134,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
     font = pygame.font.SysFont("monospace", 12)
 
     transparent_background = pygame.Surface((200, 150))  # the size of your rect
-    transparent_background.set_alpha(128)  # alpha level
+    transparent_background.set_alpha(192)  # alpha level
     transparent_background.fill((255, 255, 255))  # this fills the entire surface
 
     window_x = 0
@@ -327,19 +327,22 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
         if board.win:
             ms = timer.tick()
             screen.blit(transparent_background, (0, 0))
-            win_color = maroon
-            win_text1 = font.render("You Win! :D", 1, win_color)
+            win_color = black
+            win_text1 = font.render("You WIN! :D", 1, win_color)
             win_text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " cells", 1, win_color)
             win_text3 = font.render(str(board.bombs) + " bombs", 1, win_color)
             win_text4 = font.render("Your time: " + datetime.datetime.utcfromtimestamp(ms//1000).strftime("%H:%M:%S"), 1, win_color)
             win_text5 = font.render("R to restart", 1, win_color)
-            win_text6 = font.render("ESC to quit", 1, win_color)
+            win_text6 = font.render("P to print screen", 1, win_color)
+            win_text7 = font.render("ESC to quit", 1, win_color)
             screen.blit(win_text1, (10, 10))
             screen.blit(win_text2, (10, 30))
             screen.blit(win_text3, (10, 50))
             screen.blit(win_text4, (10, 70))
             screen.blit(win_text5, (10, 90))
             screen.blit(win_text6, (10, 110))
+            screen.blit(win_text7, (10, 130))
+            pygame.display.update() # Update screen on win, needed for the double click mode
 
         dt = clock.tick(frame_rate) / 1000
 
