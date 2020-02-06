@@ -185,7 +185,8 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 pygame.display.update()
             # P -> Screenshot
             if event.key == K_p:
-                pygame.image.save(screen, "screenshot.png")
+                filename_date = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+                pygame.image.save(screen, filename_date + ".png")
             # Arrow Keys -> Window movement, if not in fullscreen
             if not full_screen:
                 if event.key == K_DOWN or event.key == K_UP or event.key == K_LEFT or event.key == K_RIGHT:
@@ -328,12 +329,13 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
         # lose screen
         if board.lose:
             ms = timer.tick()
+            final_time = str(datetime.datetime.utcfromtimestamp(ms//1000).strftime("%H:%M:%S"))
             screen.blit(transparent_background, (0, 0))
             msg_bg_color = black
             text1 = font.render("You LOSE! :(", 1, msg_bg_color)
-            text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " cells", 1, msg_bg_color)
+            text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " tiles", 1, msg_bg_color)
             text3 = font.render(str(board.bombs) + " bombs", 1, msg_bg_color)
-            text4 = font.render("Your time: " + datetime.datetime.utcfromtimestamp(ms//1000).strftime("%H:%M:%S"), 1, msg_bg_color)
+            text4 = font.render("Your time: " + final_time, 1, msg_bg_color)
             text5 = font.render("R to restart", 1, msg_bg_color)
             text6 = font.render("P to print screen", 1, msg_bg_color)
             text7 = font.render("ESC to quit", 1, msg_bg_color)
@@ -347,12 +349,13 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
         # Win screen
         elif board.win:
             ms = timer.tick()
+            final_time = str(datetime.datetime.utcfromtimestamp(ms//1000).strftime("%H:%M:%S"))
             screen.blit(transparent_background, (0, 0))
             msg_bg_color = black
             text1 = font.render("You WIN! :D", 1, msg_bg_color)
-            text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " cells", 1, msg_bg_color)
+            text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " tiles", 1, msg_bg_color)
             text3 = font.render(str(board.bombs) + " bombs", 1, msg_bg_color)
-            text4 = font.render("Your time: " + datetime.datetime.utcfromtimestamp(ms//1000).strftime("%H:%M:%S"), 1, msg_bg_color)
+            text4 = font.render("Your time: " + final_time, 1, msg_bg_color)
             text5 = font.render("R to restart", 1, msg_bg_color)
             text6 = font.render("P to print screen", 1, msg_bg_color)
             text7 = font.render("ESC to quit", 1, msg_bg_color)
