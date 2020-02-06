@@ -202,7 +202,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                     screen.blit(pygame.image.fromstring(before_screen, init_size_tuple, "RGBA"), (0, 0))
                     pygame.display.flip()
 
-        if not board.win:
+        if not (board.win or board.lose):
             # Example on how to show clock on TAB press while playing, although this is REALLY inefficient
             """
             if event.type == KEYDOWN:
@@ -324,25 +324,43 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 if double_click_timer >= 0.5:
                     print('too late')
                     double_click_timer = 0
-        # win
-        if board.win:
+        # lose
+        if board.lose:
             ms = timer.tick()
             screen.blit(transparent_background, (0, 0))
-            win_color = black
-            win_text1 = font.render("You WIN! :D", 1, win_color)
-            win_text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " cells", 1, win_color)
-            win_text3 = font.render(str(board.bombs) + " bombs", 1, win_color)
-            win_text4 = font.render("Your time: " + datetime.datetime.utcfromtimestamp(ms//1000).strftime("%H:%M:%S"), 1, win_color)
-            win_text5 = font.render("R to restart", 1, win_color)
-            win_text6 = font.render("P to print screen", 1, win_color)
-            win_text7 = font.render("ESC to quit", 1, win_color)
-            screen.blit(win_text1, (10, 10))
-            screen.blit(win_text2, (10, 30))
-            screen.blit(win_text3, (10, 50))
-            screen.blit(win_text4, (10, 70))
-            screen.blit(win_text5, (10, 90))
-            screen.blit(win_text6, (10, 110))
-            screen.blit(win_text7, (10, 130))
+            msg_bg_color = black
+            text1 = font.render("You LOSE! :(", 1, msg_bg_color)
+            text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " cells", 1, msg_bg_color)
+            text3 = font.render(str(board.bombs) + " bombs", 1, msg_bg_color)
+            text4 = font.render("Your time: " + datetime.datetime.utcfromtimestamp(ms//1000).strftime("%H:%M:%S"), 1, msg_bg_color)
+            text5 = font.render("R to restart", 1, msg_bg_color)
+            text6 = font.render("P to print screen", 1, msg_bg_color)
+            text7 = font.render("ESC to quit", 1, msg_bg_color)
+            screen.blit(text1, (10, 10))
+            screen.blit(text2, (10, 30))
+            screen.blit(text3, (10, 50))
+            screen.blit(text4, (10, 70))
+            screen.blit(text5, (10, 90))
+            screen.blit(text6, (10, 110))
+            screen.blit(text7, (10, 130))
+        elif board.win:
+            ms = timer.tick()
+            screen.blit(transparent_background, (0, 0))
+            msg_bg_color = black
+            text1 = font.render("You WIN! :D", 1, msg_bg_color)
+            text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " cells", 1, msg_bg_color)
+            text3 = font.render(str(board.bombs) + " bombs", 1, msg_bg_color)
+            text4 = font.render("Your time: " + datetime.datetime.utcfromtimestamp(ms//1000).strftime("%H:%M:%S"), 1, msg_bg_color)
+            text5 = font.render("R to restart", 1, msg_bg_color)
+            text6 = font.render("P to print screen", 1, msg_bg_color)
+            text7 = font.render("ESC to quit", 1, msg_bg_color)
+            screen.blit(text1, (10, 10))
+            screen.blit(text2, (10, 30))
+            screen.blit(text3, (10, 50))
+            screen.blit(text4, (10, 70))
+            screen.blit(text5, (10, 90))
+            screen.blit(text6, (10, 110))
+            screen.blit(text7, (10, 130))
 
         dt = clock.tick(frame_rate) / 1000
 
