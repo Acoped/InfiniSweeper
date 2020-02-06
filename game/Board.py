@@ -500,7 +500,17 @@ class Board:
 
     def open_tile_from_coords(self, x, y, open_zero_field=True):
 
+        # This should probably be solved better, kind of an ugly fix...
+        # ----- Sunken effect correcter -----
+        """
+        last_x = self.last_held[0]
+        last_y = self.last_held[1]
+        if last_x is not None and last_x != x and last_y != y:
+            self.e8.update(last_x * self.side, last_y * self.side)
+            self.e8.draw(self.screen)
         self.last_held = [None, None]
+        """
+        # ----- /Sunken effect correcter -----
 
         cell = self.board_matrix[y][x]
 
@@ -583,6 +593,7 @@ class Board:
         self.br.draw(self.screen)
 
     # Unhide this method later for "sunken effect" on held down unopened tiles
+    """
     def draw_hold(self, mouse_pos):
 
         mx = mouse_pos[0]
@@ -598,16 +609,15 @@ class Board:
         last_x = self.last_held[0]
         last_y = self.last_held[1]
         if last_x is not None:
-            if not (x == last_x and y == last_y) and self.opened_matrix[last_y][last_x] == 0:
+            if not (x == last_x and y == last_y) and self.opened_matrix[last_y][last_x] == 0 and self.flag_matrix[last_y][last_x] == 0:
                 self.e8.update(last_x * self.side, last_y * self.side)
                 self.e8.draw(self.screen)
-
-
 
         print("N", x, y)
         print("L", last_x, last_y)
 
         self.last_held = [x, y]
+    """
 
     def calculate_screen_res(self):
         return [self.side * self.w, self.side * self.h]

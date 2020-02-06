@@ -310,6 +310,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                     right_down = True
 
             # Unhide the lines below later for "sunken effect" on held down unopened tiles
+            """
             elif pygame.mouse.get_pressed()[0]:
                 change = True
                 mouse_pos = pygame.mouse.get_pos()
@@ -318,6 +319,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 change = True
                 mouse_pos = pygame.mouse.get_pos()
                 board.draw_hold(mouse_pos)
+            """
 
             # /EVENT HANDLING
             # Increase timer after mouse was pressed the first time.
