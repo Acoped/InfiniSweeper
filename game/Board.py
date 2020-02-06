@@ -590,7 +590,6 @@ class Board:
 
         x = int(mx / self.side)
         y = int(my / self.side)
-        print(x, y)
 
         if self.opened_matrix[y][x] == 0 and self.flag_matrix[y][x] == 0:
             self.q.update(x * self.side, y * self.side)
@@ -599,11 +598,14 @@ class Board:
         last_x = self.last_held[0]
         last_y = self.last_held[1]
         if last_x is not None:
-            if not (x == last_x and y == last_y):
-                if self.opened_matrix[y][x] == 0 and self.flag_matrix[y][x] == 0:
-                    if self.opened_matrix[last_y][last_x] == 0:
-                        self.e8.update(self.last_held[0] * self.side, self.last_held[1] * self.side)
-                        self.e8.draw(self.screen)
+            if not (x == last_x and y == last_y) and self.opened_matrix[last_y][last_x] == 0:
+                self.e8.update(last_x * self.side, last_y * self.side)
+                self.e8.draw(self.screen)
+
+
+
+        print("N", x, y)
+        print("L", last_x, last_y)
 
         self.last_held = [x, y]
 
