@@ -105,6 +105,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
     min_viewport = viewport
 
     screen = pygame.display.set_mode(viewport, HWSURFACE | DOUBLEBUF)
+    # screen = pygame.display.set_mode(viewport, 32, 32)
     if full_screen:
         pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
@@ -324,7 +325,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 if double_click_timer >= 0.5:
                     print('too late')
                     double_click_timer = 0
-        # lose
+        # lose screen
         if board.lose:
             ms = timer.tick()
             screen.blit(transparent_background, (0, 0))
@@ -343,6 +344,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
             screen.blit(text5, (10, 90))
             screen.blit(text6, (10, 110))
             screen.blit(text7, (10, 130))
+        # Win screen
         elif board.win:
             ms = timer.tick()
             screen.blit(transparent_background, (0, 0))
@@ -362,7 +364,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
             screen.blit(text6, (10, 110))
             screen.blit(text7, (10, 130))
 
-        dt = clock.tick(frame_rate) / 1000
+        dt = clock.tick(frame_rate) / 1000      # delta for double click
 
 def move_window(x, y):
     # Set where the display will move to
