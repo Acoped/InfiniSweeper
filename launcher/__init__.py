@@ -119,13 +119,6 @@ class Launcher():
         help_button = Button(self.root, text="How to Play?", command=self.help_callback)
         # ----- /Title -----
 
-        # ----- screenshots submenu -----
-        screenshots_separator = ttk.Separator(self.root, orient=HORIZONTAL)
-        screenshots_var = StringVar()
-        screenshots_var.set("File directory for screenshots (when pressing 'P' in-game):")
-        screenshots_label = Label(self.root, textvariable=screenshots_var, font=separator_font)
-        screenshots_separator_end = ttk.Separator(self.root, orient=HORIZONTAL)
-        # ----- /screenshots submenu -----
         # ----- resolutions submenu -----
         resolutions_separator = ttk.Separator(self.root, orient=HORIZONTAL)
 
@@ -297,12 +290,6 @@ class Launcher():
         title_label.pack()
 
         help_button.pack(pady="4")
-
-        """
-        screenshots_separator.pack(fill="x")
-        screenshots_label.pack()
-        screenshots_separator_end.pack(fill="x")
-        """
 
         resolutions_separator.pack(fill="x")
         resolutions_label.pack()
