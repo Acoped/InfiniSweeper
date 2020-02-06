@@ -374,7 +374,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 screen.blit(text6, (10, 110))
                 screen.blit(text7, (10, 130))
                 game_over = True
-                # pygame.image.save(screen, "most_recent_win.png")
+                pygame.image.save(screen, "most_recent_win.png")
 
         dt = clock.tick(frame_rate) / 1000      # delta for double click
 
