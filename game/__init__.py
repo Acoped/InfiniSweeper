@@ -143,6 +143,8 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
     window_pos = os.environ['SDL_VIDEO_WINDOW_POS'] = '%d,%d' % (window_x, window_y)
 
+    game_over = False
+
     # Game loop
     while True:
 
@@ -326,46 +328,51 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 if double_click_timer >= 0.5:
                     print('too late')
                     double_click_timer = 0
-        # lose screen
-        if board.lose:
-            ms = timer.tick()
-            final_time = str(datetime.datetime.utcfromtimestamp(ms//1000).strftime("%H:%M:%S"))
-            screen.blit(transparent_background, (0, 0))
-            msg_bg_color = black
-            text1 = font.render("You LOSE! :(", 1, msg_bg_color)
-            text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " tiles", 1, msg_bg_color)
-            text3 = font.render(str(board.bombs) + " bombs", 1, msg_bg_color)
-            text4 = font.render("Your time: " + final_time, 1, msg_bg_color)
-            text5 = font.render("R to restart", 1, msg_bg_color)
-            text6 = font.render("P to print screen", 1, msg_bg_color)
-            text7 = font.render("ESC to quit", 1, msg_bg_color)
-            screen.blit(text1, (10, 10))
-            screen.blit(text2, (10, 30))
-            screen.blit(text3, (10, 50))
-            screen.blit(text4, (10, 70))
-            screen.blit(text5, (10, 90))
-            screen.blit(text6, (10, 110))
-            screen.blit(text7, (10, 130))
-        # Win screen
-        elif board.win:
-            ms = timer.tick()
-            final_time = str(datetime.datetime.utcfromtimestamp(ms//1000).strftime("%H:%M:%S"))
-            screen.blit(transparent_background, (0, 0))
-            msg_bg_color = black
-            text1 = font.render("You WIN! :D", 1, msg_bg_color)
-            text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " tiles", 1, msg_bg_color)
-            text3 = font.render(str(board.bombs) + " bombs", 1, msg_bg_color)
-            text4 = font.render("Your time: " + final_time, 1, msg_bg_color)
-            text5 = font.render("R to restart", 1, msg_bg_color)
-            text6 = font.render("P to print screen", 1, msg_bg_color)
-            text7 = font.render("ESC to quit", 1, msg_bg_color)
-            screen.blit(text1, (10, 10))
-            screen.blit(text2, (10, 30))
-            screen.blit(text3, (10, 50))
-            screen.blit(text4, (10, 70))
-            screen.blit(text5, (10, 90))
-            screen.blit(text6, (10, 110))
-            screen.blit(text7, (10, 130))
+
+        if not game_over:
+            # lose screen
+            if board.lose:
+                ms = timer.tick()
+                final_time_pre = str(datetime.datetime.utcfromtimestamp(ms//1000).strftime("%H:%M:%S"))
+                final_time = copy.deepcopy(final_time_pre)
+                screen.blit(transparent_background, (0, 0))
+                msg_bg_color = black
+                text1 = font.render("You LOSE! :(", 1, msg_bg_color)
+                text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " tiles", 1, msg_bg_color)
+                text3 = font.render(str(board.bombs) + " bombs", 1, msg_bg_color)
+                text4 = font.render("Your time: " + final_time, 1, msg_bg_color)
+                text5 = font.render("R to restart", 1, msg_bg_color)
+                text6 = font.render("P to print screen", 1, msg_bg_color)
+                text7 = font.render("ESC to quit", 1, msg_bg_color)
+                screen.blit(text1, (10, 10))
+                screen.blit(text2, (10, 30))
+                screen.blit(text3, (10, 50))
+                screen.blit(text4, (10, 70))
+                screen.blit(text5, (10, 90))
+                screen.blit(text6, (10, 110))
+                screen.blit(text7, (10, 130))
+                game_over = True
+            # Win screen
+            elif board.win:
+                ms = timer.tick()
+                final_time = str(datetime.datetime.utcfromtimestamp(ms//1000).strftime("%H:%M:%S"))
+                screen.blit(transparent_background, (0, 0))
+                msg_bg_color = black
+                text1 = font.render("You WIN! :D", 1, msg_bg_color)
+                text2 = font.render(str(board.w) + " x " + str(board.h) + " = " + str(board.w * board.h) + " tiles", 1, msg_bg_color)
+                text3 = font.render(str(board.bombs) + " bombs", 1, msg_bg_color)
+                text4 = font.render("Your time: " + final_time, 1, msg_bg_color)
+                text5 = font.render("R to restart", 1, msg_bg_color)
+                text6 = font.render("P to print screen", 1, msg_bg_color)
+                text7 = font.render("ESC to quit", 1, msg_bg_color)
+                screen.blit(text1, (10, 10))
+                screen.blit(text2, (10, 30))
+                screen.blit(text3, (10, 50))
+                screen.blit(text4, (10, 70))
+                screen.blit(text5, (10, 90))
+                screen.blit(text6, (10, 110))
+                screen.blit(text7, (10, 130))
+                game_over = True
 
         dt = clock.tick(frame_rate) / 1000      # delta for double click
 
