@@ -1,6 +1,3 @@
-from networking.errors import *
-
-
 class ClickPacket:
     """
     A class representing game state change (clicking) data to be sent or received for a multi-player game over a network
@@ -19,19 +16,10 @@ class ClickPacket:
         return str(self.action) + '_' + str(self.x) + '_' + str(self.y)
 
     def deserialize(self, message: str):
-        try:
-            split = message.split("_")
-            try:
-                if all(isinstance(int(item), int) for item in split):
-                    self.action = split[0]
-                    self.x = split[1]
-                    self.y = split[2]
-            except ValueError:
-                raise ClickPacketDeserializeError("Badly formatted string '" + message + "' could not be deserialized",
-                                                  "At least one value separated by '_' is not integer")
-        except IndexError:
-            raise ClickPacketDeserializeError("Badly formatted string '" + message + "' could not be deserialized",
-                                              "Too few '_' delimiters")
+        split = message.split("_")
+        self.action = split[0]
+        self.x = split[1]
+        self.y = split[2]
 
 
 # ----- Testing ----- (mbe write unit tests?)
