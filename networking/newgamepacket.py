@@ -6,52 +6,69 @@ class NewGamePacket:
     A class representing new game (and restart) data to be sent or received for a multi-player game over a network
     """
 
-    def __init__(self, board: Board = None):
+    # (if 'board' is not supplied, a placeholder board that will NOT be used is created!!)
+    def __init__(self, board: Board = Board(1, 1, 1, 1)):
         self.board: Board = board
 
     def __str__(self):
-        return '\n'.join([''.join(['{:4}'.format(item) for item in row])for row in self.board.board_matrix])
+        return '\n----------\n'\
+            'NewGamePacket object' + ' [side = ' + str(self.board.side) + ', increased_border = ' \
+               + str(self.board.increased_border) + ']\n' \
+               + 'board =\n' \
+               + ('\n'.join([''.join(['{:4}'.format(item) for item in row])for row in self.board.board_matrix])) \
+               + '\n----------\n'
 
     def serialize(self) -> str:
-        serialized = "0_"
+        serialized = "0_" + str(self.board.side) + "_"
         for x in range(self.board.h):
             serialized += "/"
             for y in range(self.board.w):
                 serialized += str(self.board.board_matrix[x][y])
-                if not y == self.board.w - 1:
-                    serialized += "_"
 
         return serialized
 
     def deserialize(self, message: str):
         message = message[2:]
+        split = message.split("_")
+        side = int(split[0])
+        message = split[1]
 
+        print(message)
+
+        matrix = []
         row = -1
+
+        bombs = 0
+
         for c in message:
             if c == '/':
                 row += 1
-            elif c == '_':
-                pass
+                matrix.append([])
             else:
-                self.board.board_matrix[row].append(int(c))
+                matrix[row].append(int(c))
+                if c == '9':
+                    bombs += 1
+
+        w = len(matrix[0])
+        h = len(matrix)
+
+        self.board = Board(w, h, bombs, side)
+        self.board.board_matrix = matrix
 
 
 # ----- Testing ----- (mbe write unit tests?)
 
 # Sending
-
-send_board = Board(5, 3, 3, 32)
+send_board = Board(5, 3, 3, 32, increased_border=True)
 send_board.place_bombs()
+send_board.print_board()
 send_packet = NewGamePacket(send_board)
 print(send_packet)
-print(send_packet.serialize())
-
 
 # Receiving
-"""
-recieved_message = "0_/0_2_9_2_0/0_3_9_3_0/0_2_9_2_0"
-recieve_packet = NewGamePacket()
-recieve_packet.deserialize(recieved_message)
-print(recieved_message)
-print(recieve_packet)
-"""
+received_message = send_packet.serialize()
+print(received_message)
+receive_packet = NewGamePacket()
+print("received_message: ", received_message)
+receive_packet.deserialize(received_message)
+print(receive_packet)

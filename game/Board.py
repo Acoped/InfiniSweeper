@@ -6,7 +6,7 @@ from copy import copy, deepcopy
 # A class describing the game board
 class Board:
 
-    def __init__(self, w, h, bombs, side, increased_border=False):
+    def __init__(self, w, h, bombs, side, increased_border : bool = False):
 
         self.screen = None          # Define later in set_screen! Which screen to draw to.
         self.w = w                  # Width of the Board in tiles.
