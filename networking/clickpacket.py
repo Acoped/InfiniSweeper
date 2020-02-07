@@ -27,9 +27,10 @@ class ClickPacket:
 # Sending
 send_packet = ClickPacket(1, 356, 123)
 print(send_packet)
-print(send_packet.serialize())
 
 # Receiving
+received_message = send_packet.serialize()
+print(received_message)
 received_packet = ClickPacket()
-received_packet.deserialize("2_531_83")
+received_packet.deserialize(received_message)
 print(received_packet)
