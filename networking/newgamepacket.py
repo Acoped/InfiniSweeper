@@ -34,8 +34,6 @@ class NewGamePacket:
         increased_border = int(split[1])
         message = split[2]
 
-        print(message)
-
         matrix = []
         row = -1
 
