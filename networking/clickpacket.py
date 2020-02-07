@@ -3,7 +3,7 @@ from networking.errors import *
 
 class ClickPacket:
     """
-    A class representing game state change (clicking) data to be sent or received for a multiplayer game over a network
+    A class representing game state change (clicking) data to be sent or received for a multi-player game over a network
     """
 
     def __init__(self, action: int = None, x: int = None, y: int = None):
@@ -27,10 +27,10 @@ class ClickPacket:
                     self.x = split[1]
                     self.y = split[2]
             except ValueError:
-                raise ClickPacketDeserializeError("Badly formated string '" + message + "' could not be deserialized",
-                                                  "At least one value seperated by '_' is not integer")
+                raise ClickPacketDeserializeError("Badly formatted string '" + message + "' could not be deserialized",
+                                                  "At least one value separated by '_' is not integer")
         except IndexError:
-            raise ClickPacketDeserializeError("Badly formated string '" + message + "' could not be deserialized",
+            raise ClickPacketDeserializeError("Badly formatted string '" + message + "' could not be deserialized",
                                               "Too few '_' delimiters")
 
 
@@ -39,6 +39,6 @@ send_packet = ClickPacket(1, 356, 123)
 print(send_packet)
 print(send_packet.serialize())
 
-recv_packet = ClickPacket()
-recv_packet.deserialize("2_531_83")
-print(recv_packet)
+received_packet = ClickPacket()
+received_packet.deserialize("2_531_83")
+print(received_packet)

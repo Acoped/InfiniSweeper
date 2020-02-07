@@ -6,3 +6,12 @@ class NewGamePacket:
 
     def __init__(self, board: Board):
         self.board = board
+
+    def __str__(self):
+        self.board.print_board()
+
+    def serialize(self) -> str:
+        return "0_"
+
+    def deserializer(self, message: str):
+        pass
