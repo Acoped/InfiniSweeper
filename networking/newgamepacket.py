@@ -19,7 +19,7 @@ class NewGamePacket:
                + '\n----------\n'
 
     def serialize(self) -> str:
-        serialized = "0_" + str(self.board.side) + "_"
+        serialized = "0_" + str(self.board.side) + "_" + str(int(self.board.increased_border)) + "_"
         for x in range(self.board.h):
             serialized += "/"
             for y in range(self.board.w):
@@ -31,7 +31,8 @@ class NewGamePacket:
         message = message[2:]
         split = message.split("_")
         side = int(split[0])
-        message = split[1]
+        increased_border = int(split[1])
+        message = split[2]
 
         print(message)
 
@@ -52,7 +53,7 @@ class NewGamePacket:
         w = len(matrix[0])
         h = len(matrix)
 
-        self.board = Board(w, h, bombs, side)
+        self.board = Board(w, h, bombs, side, increased_border=bool(increased_border))
         self.board.board_matrix = matrix
 
 
