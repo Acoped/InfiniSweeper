@@ -34,11 +34,14 @@ class ClickPacket:
                                               "Too few '_' delimiters")
 
 
-# Code for testing, mbe write unit tests?
+# ----- Testing ----- (mbe write unit tests?)
+
+# Sending
 send_packet = ClickPacket(1, 356, 123)
 print(send_packet)
 print(send_packet.serialize())
 
+# Receiving
 received_packet = ClickPacket()
 received_packet.deserialize("2_531_83")
 print(received_packet)
