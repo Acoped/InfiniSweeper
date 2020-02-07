@@ -10,7 +10,7 @@ class NewGamePacket:
         self.board: Board = board
 
     def __str__(self):
-        self.board.print_board()
+        return '\n'.join([''.join(['{:4}'.format(item) for item in row])for row in self.board.board_matrix])
 
     def serialize(self) -> str:
         serialized = "0_"
@@ -18,16 +18,16 @@ class NewGamePacket:
         w = len(matrix[0])
         h = len(matrix)
 
-        for x in range(w):
+        for x in range(h):
             serialized += "/"
-            for y in range(h):
-                serialized += str(matrix[y][x])
-                if not y == h - 1:
+            for y in range(w):
+                serialized += str(matrix[x][y])
+                if not y == w - 1:
                     serialized += "_"
 
         return serialized
 
-    def deserializer(self, message: str):
+    def deserialize(self, message: str):
         pass
 
 
@@ -36,5 +36,5 @@ test_board = Board(5, 3, 3, 32)
 test_board.place_bombs()
 
 send_packet = NewGamePacket(test_board)
-# print(send_packet)
+print(send_packet)
 print(send_packet.serialize())

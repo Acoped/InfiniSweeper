@@ -354,8 +354,7 @@ class Board:
         self.nice_print(print_island_matrix)
 
     def nice_print(self, A):
-        print('\n'.join([''.join(['{:4}'.format(item) for item in row])
-                         for row in A]))
+        print('\n'.join([''.join(['{:4}'.format(item) for item in row])for row in A]))
 
     def print_bomb(self):
         print("\nBomb Matrix:\n")
