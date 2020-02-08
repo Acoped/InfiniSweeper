@@ -104,6 +104,15 @@ class Launcher():
         # self.root.geometry("500x500")
         self.root.resizable(width=False, height=False)
 
+        # ----- Tabs -----
+        tab_parent = ttk.Notebook(self.root)
+        tab1 = ttk.Frame(tab_parent)
+        tab2 = ttk.Frame(tab_parent)
+
+        tab_parent.add(tab1, text="Single-player")
+        tab_parent.add(tab2, text="Multi-player")
+        # ----- /Tabs -----
+
         # ----- Fonts -----
         title_font = font.Font(size=21, weight="normal")
         fit_font = font.Font(size=12, weight="normal")
@@ -120,15 +129,15 @@ class Launcher():
         # ----- /Title -----
 
         # ----- resolutions submenu -----
-        resolutions_separator = ttk.Separator(self.root, orient=HORIZONTAL)
+        resolutions_separator = ttk.Separator(tab1, orient=HORIZONTAL)
 
         resolutions_var = StringVar()
         resolutions_var.set("Screen Resolution for fullscreen mode (which is not scrollable):")
-        resolutions_label = Label(self.root, textvariable = resolutions_var, font=separator_font)
+        resolutions_label = Label(tab1, textvariable = resolutions_var, font=separator_font)
 
-        resolutions_separator_end = ttk.Separator(self.root, orient=HORIZONTAL)
+        resolutions_separator_end = ttk.Separator(tab1, orient=HORIZONTAL)
 
-        resolutions_frame = Frame(self.root)
+        resolutions_frame = Frame(tab1)
 
         resolutions_entry_width_label = Label(resolutions_frame, text="Width:")
         self.resolutions_entry_width = Spinbox(resolutions_frame, from_=0, to_=999999)
@@ -145,15 +154,15 @@ class Launcher():
         # ----- /resolutions submenu -----
 
         # ----- Dimensions submenu -----
-        dimensions_separator = ttk.Separator(self.root, orient=HORIZONTAL)
+        dimensions_separator = ttk.Separator(tab1, orient=HORIZONTAL)
 
         dimensions_var = StringVar()
         dimensions_var.set("Dimensions:")
-        dimensions_label = Label(self.root, textvariable = dimensions_var, font=separator_font)
+        dimensions_label = Label(tab1, textvariable = dimensions_var, font=separator_font)
 
-        dimensions_separator_end = ttk.Separator(self.root, orient=HORIZONTAL)
+        dimensions_separator_end = ttk.Separator(tab1, orient=HORIZONTAL)
 
-        dimensions_frame = Frame(self.root)
+        dimensions_frame = Frame(tab1)
 
         dimensions_entry_width_label = Label(dimensions_frame, text="Width:")
         self.dimensions_entry_width = Spinbox(dimensions_frame, from_=9, to_=1000, command=self.bombs_callback)
@@ -165,15 +174,15 @@ class Launcher():
         # ----- /Dimensions submenu -----
 
         # ----- Bombs submenu -----
-        bombs_separator = ttk.Separator(self.root, orient=HORIZONTAL)
+        bombs_separator = ttk.Separator(tab1, orient=HORIZONTAL)
 
         bombs_var = StringVar()
         bombs_var.set("Bombs:")
-        bombs_label = Label(self.root, textvariable = bombs_var, font=separator_font)
+        bombs_label = Label(tab1, textvariable = bombs_var, font=separator_font)
 
-        bombs_separator_end = ttk.Separator(self.root, orient=HORIZONTAL)
+        bombs_separator_end = ttk.Separator(tab1, orient=HORIZONTAL)
 
-        bombs_frame = Frame(self.root)
+        bombs_frame = Frame(tab1)
 
         bombs_radiobutton1 = Label(bombs_frame, text="Number")
         bombs_radiobutton2 = Label(bombs_frame, text="Ratio")
@@ -190,15 +199,15 @@ class Launcher():
         # ----- /Bombs submenu -----
 
         # ----- Tilesize submenu -----
-        tilesize_separator = ttk.Separator(self.root, orient=HORIZONTAL)
+        tilesize_separator = ttk.Separator(tab1, orient=HORIZONTAL)
 
         tilesize_checkbutton_var = StringVar()
         tilesize_checkbutton_var.set("Tile Set:")
-        tilesize_label = Label(self.root, textvariable = tilesize_checkbutton_var, font=separator_font)
+        tilesize_label = Label(tab1, textvariable = tilesize_checkbutton_var, font=separator_font)
 
-        tilesize_separator_end = ttk.Separator(self.root, orient=HORIZONTAL)
+        tilesize_separator_end = ttk.Separator(tab1, orient=HORIZONTAL)
 
-        tilesize_frame = Frame(self.root)
+        tilesize_frame = Frame(tab1)
 
         tilesize_in_pixels = IntVar()
         tilesize_radiobutton1 = Radiobutton(tilesize_frame, text="64 x 64 (Child/Retiree)", variable=tilesize_in_pixels, value=64)
@@ -240,28 +249,28 @@ class Launcher():
         # ----- /Tilesize submenu -----
 
         # ----- Fitsscreen submenu -----
-        fitsscreen_separator = ttk.Separator(self.root, orient=HORIZONTAL)
+        fitsscreen_separator = ttk.Separator(tab1, orient=HORIZONTAL)
 
         fitsscreen_var = StringVar()
         fitsscreen_var.set("Fits Screen?")
-        fitsscreen_label = Label(self.root, textvariable = fitsscreen_var, font=separator_font)
+        fitsscreen_label = Label(tab1, textvariable = fitsscreen_var, font=separator_font)
 
-        fitsscreen_separator_end = ttk.Separator(self.root, orient=HORIZONTAL)
+        fitsscreen_separator_end = ttk.Separator(tab1, orient=HORIZONTAL)
 
         fit_var = StringVar()
         fit_var.set("YES, the board fits the screen! (to be implemented later...)")
-        fit_label = Label(self.root, textvariable = fit_var, font=fit_font)
+        fit_label = Label(tab1, textvariable = fit_var, font=fit_font)
 
         nofit_var = StringVar()
         nofit_var.set("NO, the board does NOT fit the screen! (to be implemented later...)")
-        nofit_label = Label(self.root, textvariable = nofit_var, font=nofit_font)
+        nofit_label = Label(tab1, textvariable = nofit_var, font=nofit_font)
         # ----- /Fitsscreen submenu -----
 
         # ----- Newgame submenu -----
-        newgame_separator = ttk.Separator(self.root, orient=HORIZONTAL)
+        newgame_separator = ttk.Separator(tab1, orient=HORIZONTAL)
 
-        newgame_button = Button(self.root, text ="New Game", command= lambda: self.newgame_callback(int(self.dimensions_entry_width.get()), int(self.dimensions_entry_height.get()), int(self.bombs_entry_number.get()), self.resolutions_checkbutton_var.get(), self.resolutions_entry_width.get(), self.resolutions_entry_height.get(), tilesize_checkbutton_var.get(), tilesize_in_pixels.get()), font=title_font)
-        newgame_separator_end = ttk.Separator(self.root, orient=HORIZONTAL)
+        newgame_button = Button(tab1, text ="New Game", command= lambda: self.newgame_callback(int(self.dimensions_entry_width.get()), int(self.dimensions_entry_height.get()), int(self.bombs_entry_number.get()), self.resolutions_checkbutton_var.get(), self.resolutions_entry_width.get(), self.resolutions_entry_height.get(), tilesize_checkbutton_var.get(), tilesize_in_pixels.get()), font=title_font)
+        newgame_separator_end = ttk.Separator(tab1, orient=HORIZONTAL)
         # ----- /Newgame submenu -----
 
         # ----- About submenu -----
@@ -370,6 +379,7 @@ class Launcher():
         newgame_button.pack(pady=8)
         # newgame_separator_end.pack(fill="x")
 
+        tab_parent.pack(expand=1, fill="both")
         about_label.pack()
         # ----- /Packing (and gridding...) -----
 
