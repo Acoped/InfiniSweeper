@@ -19,7 +19,7 @@ class Launcher():
 
     def newgame_callback(self, width, height, bombs, fullscreen, screen_width, screen_height, increased_border, tile_sz_px):
         try:
-            subprocess.Popen([sys.executable, '../game/__init__.py', str(width), str(height), str(bombs), str(tile_sz_px), str(fullscreen), str(increased_border), str([120, 72]), str([int(screen_width), int(screen_height)]), str(60), "InfiniSweeper"])
+            subprocess.Popen([sys.executable, '../game/__init__.py', str(width), str(height), str(bombs), str(tile_sz_px), str(fullscreen), str(increased_border), str([120, 72]), str([int(screen_width), int(screen_height)]), str(60), "InfiniSweeper"], shell=True)
         except RecursionError:
             messagebox.showinfo("Recursion depth exceeded", "Recursion depth exceeded!\n\nTry increasing the number of bombs!\n\n(>15 % or therabouts should always work)")
         except pygame.error as e:
