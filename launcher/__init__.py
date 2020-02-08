@@ -235,7 +235,7 @@ class Launcher():
         XS_photo = ImageTk.PhotoImage(XS_image)
         XS_label = Label(tilesize_frame, image=XS_photo)
         XS_label.image = XS_photo  # keep a reference!
-        
+
         XXS_image = Image.open("../resources/tiles/standard/XXS/YYY.png")
         XXS_photo = ImageTk.PhotoImage(XXS_image)
         XXS_label = Label(tilesize_frame, image=XXS_photo)
@@ -279,6 +279,55 @@ class Launcher():
         about_label = Label(self.root, textvariable = about_var)
         # ----- /About submenu -----
 
+        # ----- Server Settings -----
+        server_var = StringVar()
+        server_var.set("Host Server:")
+
+        server_separator = ttk.Separator(tab2, orient=HORIZONTAL)
+        server_label = Label(tab2, textvariable=server_var, font=separator_font)
+        server_separator_end = ttk.Separator(tab2, orient=HORIZONTAL)
+
+        server_frame = Frame(tab2)
+
+        server_address_label = Label(server_frame, text="Address: ")
+        self.server_address_entry = Entry(server_frame)
+        server_address_explanation_label = Label(server_frame, text="(IPv4, x.x.x.x)")
+
+        server_port_label = Label(server_frame, text="Port: ")
+        self.server_port_entry = Spinbox(server_frame, from_=0, to_=999999)
+        server_port_explanation_label = Label(server_frame, text="(1000-9999)")
+
+        server_button = Button(server_frame, text="Host Server")
+
+        # ----- /Server Settings -----
+
+        # ----- client Settings -----
+        client_var = StringVar()
+        client_var.set("Connect to Server:")
+
+        client_separator = ttk.Separator(tab2, orient=HORIZONTAL)
+        client_label = Label(tab2, textvariable=client_var, font=separator_font)
+        client_separator_end = ttk.Separator(tab2, orient=HORIZONTAL)
+        
+        client_frame = Frame(tab2)
+
+        client_address_label = Label(client_frame, text="Address: ")
+        self.client_address_entry = Entry(client_frame)
+        client_address_explanation_label = Label(client_frame, text="(IPv4, x.x.x.x)")
+
+        client_port_label = Label(client_frame, text="Port: ")
+        self.client_port_entry = Spinbox(client_frame, from_=0, to_=999999)
+        client_port_explanation_label = Label(client_frame, text="(1000-9999)")
+
+        client_button = Button(client_frame, text="Connect and Play!")
+        # ----- /client Settings -----
+
+        network_separator = ttk.Separator(tab2, orient=HORIZONTAL)
+        network_tips = Label(tab2, text="INSTRUCTIONS AND TIPS:" + \
+                                        "\n\nThe server will use the settings from the 'Single-Player'-tab to generate a board for the multiplayer game." + \
+                                        "\n\nDo not forget to portforward the ports you are using, for both the client and server sides." + \
+                                        "\n\nIf you are not playing over a LAN, you can use a VPN to simulate one.")
+
         # ----- Defaults -----
         tilesize_radiobutton2.select()
 
@@ -293,25 +342,19 @@ class Launcher():
 
         self.bombs_entry_ratio.delete(0, "end")
         self.bombs_entry_ratio.insert(0, 12)
+
+        self.server_address_entry.delete(0, "end")
+        self.server_address_entry.insert(0, "127.0.0.1")
+
+        self.server_port_entry.delete(0, "end")
+        self.server_port_entry.insert(0, 8888)
+        
+        self.client_address_entry.delete(0, "end")
+        self.client_address_entry.insert(0, "127.0.0.1")
+
+        self.client_port_entry.delete(0, "end")
+        self.client_port_entry.insert(0, 8888)
         # ----- /Defaults -----
-
-        # ----- Server Settings -----
-        server_var = StringVar()
-        server_var.set("Server:")
-
-        server_separator = ttk.Separator(tab2, orient=HORIZONTAL)
-        server_label = Label(tab2, textvariable=server_var, font=separator_font)
-        server_separator_end = ttk.Separator(tab2, orient=HORIZONTAL)
-        # ----- /Server Settings -----
-
-        # ----- client Settings -----
-        client_var = StringVar()
-        client_var.set("Client:")
-
-        client_separator = ttk.Separator(tab2, orient=HORIZONTAL)
-        client_label = Label(tab2, textvariable=client_var, font=separator_font)
-        client_separator_end = ttk.Separator(tab2, orient=HORIZONTAL)
-        # ----- /client Settings -----
 
         # ----- Packing (and gridding...) -----
         title_label.pack()
@@ -321,7 +364,7 @@ class Launcher():
         resolutions_separator.pack(fill="x")
         resolutions_label.pack()
         resolutions_separator_end.pack(fill="x")
-        
+
         resolutions_frame.pack()
 
         resolutions_checkbutton.grid(row=0, column=1)
@@ -347,7 +390,6 @@ class Launcher():
         dimensions_entry_height_label.grid(row=1, column=0)
         self.dimensions_entry_height.grid(row=1, column=1, sticky="e", padx=30)
         dimensions_entry_height_cells_label.grid(row=1, column=2, sticky="w")
-
 
         bombs_separator.pack(fill="x")
         bombs_label.pack()
@@ -377,7 +419,6 @@ class Launcher():
         tilesize_radiobutton5.grid(row=4, column=0, sticky="w")
         tilesize_checkbutton.grid(row=5, column=1, sticky="w")
 
-
         L_label.grid(row=0, column=1, sticky="w")
         M_label.grid(row=1, column=1, sticky="w")
         S_label.grid(row=2, column=1, sticky="w")
@@ -398,13 +439,42 @@ class Launcher():
         # newgame_separator_end.pack(fill="x")
 
         # ----- TAB 2 packing/gridding-----
+
         server_separator.pack(fill="x")
         server_label.pack()
         server_separator_end.pack(fill="x")
 
+        server_address_label.grid(row=0, column=0)
+        self.server_address_entry.grid(row=0, column=1, pady=8)
+        server_address_explanation_label.grid(row=0, column=2)
+
+        server_port_label.grid(row=1, column=0)
+        self.server_port_entry.grid(row=1, column=1, pady=8)
+        server_port_explanation_label.grid(row=1, column=2)
+
+        server_button.grid(row=2, column=1, pady=8)
+
+        server_frame.pack()
+
         client_separator.pack(fill="x")
         client_label.pack()
         client_separator_end.pack(fill="x")
+
+        client_address_label.grid(row=0, column=0)
+        self.client_address_entry.grid(row=0, column=1, pady=8)
+        client_address_explanation_label.grid(row=0, column=2)
+
+        client_port_label.grid(row=1, column=0)
+        self.client_port_entry.grid(row=1, column=1, pady=8)
+        client_port_explanation_label.grid(row=1, column=2)
+
+        client_button.grid(row=2, column=1, pady=8)
+
+        client_frame.pack()
+
+        network_separator.pack(fill="x")
+        network_tips.pack(pady=8)
+
         # ----- /TAB 2 packing/gridding-----
 
         tab_parent.pack(expand=1, fill="both")
