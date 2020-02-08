@@ -397,9 +397,13 @@ def check_both(left, right, shift):
 
 
 if __name__ == "__main__":
-    # Prepares the string commands that were sent in to the correct format for the main function
-    # ast.literal_eval is a function that turns a string that represents a list to an actual list
-    l = sys.argv[1:]
-    print(l)
-    print(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]), ast.literal_eval(l[7]), int(l[8]), l[9])
-    main(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]), ast.literal_eval(l[7]), int(l[8]), l[9])
+    try:
+        # Prepares the string commands that were sent in to the correct format for the main function
+        # ast.literal_eval is a function that turns a string that represents a list to an actual list
+        l = sys.argv[1:]
+        print(l)
+        print(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]), ast.literal_eval(l[7]), int(l[8]), l[9])
+        main(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]), ast.literal_eval(l[7]), int(l[8]), l[9])
+    except IndexError:
+        # If the file is started from just running game/__init__ when developing.
+        launch_from_init()

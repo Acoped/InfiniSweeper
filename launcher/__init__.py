@@ -11,6 +11,12 @@ from subprocess import Popen
 
 class Launcher():
 
+    def host_callback(self):
+        print('hostbutton clicked')
+
+    def connect_callback(self):
+        print('connectbutton clicked')
+
     def newgame_callback(self, width, height, bombs, fullscreen, screen_width, screen_height, increased_border, tile_sz_px):
         try:
             subprocess.Popen([sys.executable, '../game/__init__.py', str(width), str(height), str(bombs), str(tile_sz_px), str(fullscreen), str(increased_border), str([120, 72]), str([int(screen_width), int(screen_height)]), str(60), "InfiniSweeper"])
@@ -93,7 +99,6 @@ class Launcher():
             self.bombs_entry_number.insert(0, str(bombs))
         except ValueError:
             print("ValueError that should only be thrown on startup!")
-
 
     def main(self):
         self.root = Tk()
@@ -294,7 +299,7 @@ class Launcher():
         self.server_port_entry = Spinbox(server_frame, from_=0, to_=999999)
         server_port_explanation_label = Label(server_frame, text="(1000-9999)")
 
-        server_button = Button(server_frame, text="Host Server")
+        server_button = Button(server_frame, text="Host Server", command=self.host_callback)
 
         # ----- /Server Settings -----
 
@@ -316,7 +321,7 @@ class Launcher():
         self.client_port_entry = Spinbox(client_frame, from_=0, to_=999999)
         client_port_explanation_label = Label(client_frame, text="(1000-9999)")
 
-        client_button = Button(client_frame, text="Connect and Play!")
+        client_button = Button(client_frame, text="Connect and Play!", command=self.connect_callback)
         # ----- /client Settings -----
 
         network_separator = ttk.Separator(tab2, orient=HORIZONTAL)
