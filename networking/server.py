@@ -4,7 +4,7 @@ from networking import *
 from game import Board
 
 
-class Server:
+class GameServer:
 
     """
     def __init__(self, w, h, bombs, side, increased_border : bool = False):
@@ -41,5 +41,5 @@ class Server:
 
 
 if __name__ == '__main__':
-    sv = Server()
-    asyncio.run(sv.main())
+    game_server = GameServer()
+    asyncio.run(game_server.main())
