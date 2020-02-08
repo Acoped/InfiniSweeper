@@ -6,16 +6,18 @@ from PIL import Image, ImageTk
 import math
 import pygame
 import os
-from subprocess import Popen
+from subprocess import *
 
 
 class Launcher():
 
     def host_callback(self):
         print('hostbutton clicked')
+        subprocess.Popen([sys.executable, '../networking/server.py'], shell=True)
 
     def connect_callback(self):
         print('connectbutton clicked')
+        subprocess.Popen([sys.executable, '../networking/client.py'], shell=True)
 
     def newgame_callback(self, width, height, bombs, fullscreen, screen_width, screen_height, increased_border, tile_sz_px):
         try:

@@ -1,4 +1,11 @@
 import asyncio
+from aioconsole import ainput
+
+
+async def some_coroutine():
+    line = await ainput("input 'quit' to quit server\n")
+    if line == 'quit':
+        print("Q pressed")
 
 
 async def handle_echo(reader, writer):
@@ -17,8 +24,9 @@ async def handle_echo(reader, writer):
 
 
 async def main():
+
     server = await asyncio.start_server(
-        handle_echo, '127.0.0.1', 8888)
+        handle_echo, '127.0.0.1', 8889)
 
     addr = server.sockets[0].getsockname()
     print(f'Serving on {addr}')
@@ -26,4 +34,6 @@ async def main():
     async with server:
         await server.serve_forever()
 
-asyncio.run(main())
+
+if __name__ == '__main__':
+    asyncio.run(main())
