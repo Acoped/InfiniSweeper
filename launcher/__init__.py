@@ -132,7 +132,7 @@ class Launcher():
         resolutions_separator = ttk.Separator(tab1, orient=HORIZONTAL)
 
         resolutions_var = StringVar()
-        resolutions_var.set("Screen Resolution for fullscreen mode (which is not scrollable):")
+        resolutions_var.set("Fullscreen settings (fullscreen is not scrollable):")
         resolutions_label = Label(tab1, textvariable = resolutions_var, font=separator_font)
 
         resolutions_separator_end = ttk.Separator(tab1, orient=HORIZONTAL)
