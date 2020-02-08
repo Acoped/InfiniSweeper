@@ -190,18 +190,19 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
             if event.key == K_p:
                 filename_date = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
                 pygame.image.save(screen, filename_date + ".png")
-            # Arrow Keys -> Window movement, if not in fullscreen
+            # Arrow Keys or WASD -> Window movement, if not in fullscreen
             if not full_screen:
-                if event.key == K_DOWN or event.key == K_UP or event.key == K_LEFT or event.key == K_RIGHT:
+                if event.key == K_DOWN or event.key == K_UP or event.key == K_LEFT or event.key == K_RIGHT or \
+                        event.key == K_s or event.key == K_w or event.key == K_a or event.key == K_d:
                     init_size_tuple = pygame.display.get_surface().get_size()
                     before_screen = pygame.image.tostring(screen, "RGBA")
-                    if event.key == K_DOWN:
+                    if event.key == K_DOWN or event.key == K_s:
                         window_y += tile_sz_px * arrow_key_movement_cells
-                    if event.key == K_UP:
+                    if event.key == K_UP or event.key == K_w:
                         window_y -= tile_sz_px * arrow_key_movement_cells
-                    if event.key == K_LEFT:
+                    if event.key == K_LEFT or event.key == K_a:
                         window_x -= tile_sz_px * arrow_key_movement_cells
-                    if event.key == K_RIGHT:
+                    if event.key == K_RIGHT or event.key == K_d:
                         window_x += tile_sz_px * arrow_key_movement_cells
                     move_window(window_x, window_y)
                     screen.blit(pygame.image.fromstring(before_screen, init_size_tuple, "RGBA"), (0, 0))
