@@ -292,8 +292,26 @@ class Launcher():
         self.resolutions_entry_height.config(state="disabled")
 
         self.bombs_entry_ratio.delete(0, "end")
-        self.bombs_entry_ratio.insert(0, 20.0)
+        self.bombs_entry_ratio.insert(0, 12)
         # ----- /Defaults -----
+
+        # ----- Server Settings -----
+        server_var = StringVar()
+        server_var.set("Server:")
+
+        server_separator = ttk.Separator(tab2, orient=HORIZONTAL)
+        server_label = Label(tab2, textvariable=server_var, font=separator_font)
+        server_separator_end = ttk.Separator(tab2, orient=HORIZONTAL)
+        # ----- /Server Settings -----
+
+        # ----- client Settings -----
+        client_var = StringVar()
+        client_var.set("Client:")
+
+        client_separator = ttk.Separator(tab2, orient=HORIZONTAL)
+        client_label = Label(tab2, textvariable=client_var, font=separator_font)
+        client_separator_end = ttk.Separator(tab2, orient=HORIZONTAL)
+        # ----- /client Settings -----
 
         # ----- Packing (and gridding...) -----
         title_label.pack()
@@ -378,6 +396,16 @@ class Launcher():
         newgame_separator.pack(fill="x")
         newgame_button.pack(pady=8)
         # newgame_separator_end.pack(fill="x")
+
+        # ----- TAB 2 packing/gridding-----
+        server_separator.pack(fill="x")
+        server_label.pack()
+        server_separator_end.pack(fill="x")
+
+        client_separator.pack(fill="x")
+        client_label.pack()
+        client_separator_end.pack(fill="x")
+        # ----- /TAB 2 packing/gridding-----
 
         tab_parent.pack(expand=1, fill="both")
         about_label.pack()
