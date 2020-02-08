@@ -5,14 +5,25 @@ import game
 from PIL import Image, ImageTk
 import math
 import pygame
+import os
+from subprocess import Popen
 
 
 class Launcher():
 
     def newgame_callback(self, width, height, bombs, fullscreen, screen_width, screen_height, increased_border, tile_sz_px):
         try:
-            # subprocess.call([sys.executable, '../game/__init__.py', str(width), str(height), str(bombs), str(tile_sz_px), str(fullscreen), str(increased_border), str([120, 72]), str([int(screen_width), int(screen_height)]), str(60), "InfiniSweeper"]) # probably bullshit
-            game.main(width, height, bombs, tile_sz_px, fullscreen, increased_border, [120, 72], [int(screen_width), int(screen_height)], 60, "InfiniSweeper")  # temporary solution
+            # subprocess.run([sys.executable, '../game/__init__.py', str(width), str(height), str(bombs), str(tile_sz_px), str(fullscreen), str(increased_border), str([120, 72]), str([int(screen_width), int(screen_height)]), str(60), "InfiniSweeper"]) # probably bullshit
+            subprocess.Popen([sys.executable, '../game/__init__.py', str(width), str(height), str(bombs), str(tile_sz_px), str(fullscreen), str(increased_border), str([120, 72]), str([int(screen_width), int(screen_height)]), str(60), "InfiniSweeper"]) # probably bullshit
+            # game.main(width, height, bombs, tile_sz_px, fullscreen, increased_border, [120, 72], [int(screen_width), int(screen_height)], 60, "InfiniSweeper")  # temporary solution
+            """
+            command = 'python ../game/__init__.py ' + str(width) + ' ' + str(height) + ' ' + str(bombs) + ' ' \
+                      + str(tile_sz_px) + ' ' + str(fullscreen) + ' ' + str(increased_border) + ' ' \
+                      + str([120, 72]) + ' ' + str([int(screen_width), int(screen_height)]) + ' ' + str(60) + ' ' \
+                      + "InfiniSweeper"
+            print(command)
+            os.system(command)
+            """
         except RecursionError:
             messagebox.showinfo("Recursion depth exceeded", "Recursion depth exceeded!\n\nTry increasing the number of bombs!\n\n(>15 % or therabouts should always work)")
         except pygame.error as e:
