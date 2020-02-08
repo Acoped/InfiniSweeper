@@ -1,3 +1,4 @@
+import subprocess
 from tkinter import *
 from tkinter import Tk, font, ttk, messagebox, filedialog
 import game
@@ -5,14 +6,12 @@ from PIL import Image, ImageTk
 import math
 import pygame
 
+
 class Launcher():
 
     def newgame_callback(self, width, height, bombs, fullscreen, screen_width, screen_height, increased_border, tile_sz_px):
-        print("New Game button clicked")
-
-        print(width, height)
-
         try:
+            # subprocess.call([sys.executable, '../game/__init__.py', str(width), str(height), str(bombs), str(tile_sz_px), str(fullscreen), str(increased_border), str([120, 72]), str([int(screen_width), int(screen_height)]), str(60), "InfiniSweeper"]) # probably bullshit
             game.main(width, height, bombs, tile_sz_px, fullscreen, increased_border, [120, 72], [int(screen_width), int(screen_height)], 60, "InfiniSweeper")  # temporary solution
         except RecursionError:
             messagebox.showinfo("Recursion depth exceeded", "Recursion depth exceeded!\n\nTry increasing the number of bombs!\n\n(>15 % or therabouts should always work)")
@@ -28,7 +27,6 @@ class Launcher():
 
 
     def help_callback(self):
-        print("Helpbutton clicked")
 
         window = Toplevel(self.root)
         window.resizable(width=False, height=False)
@@ -89,8 +87,6 @@ class Launcher():
             w = int(self.dimensions_entry_width.get())
             h = int(self.dimensions_entry_height.get())
             bombs = math.ceil(ratio * 0.01 * w * h)
-
-            print(ratio, w, h)
 
             self.bombs_entry_number.delete(0, "end")
             self.bombs_entry_number.insert(0, str(bombs))

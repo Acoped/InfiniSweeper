@@ -5,6 +5,8 @@ from game.Board import Board
 import datetime
 import os
 import copy
+import sys
+import ast
 
 def launch_from_init():
 
@@ -229,11 +231,9 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
             if event.type == KEYDOWN:
                 if event.key == K_RSHIFT or event.key == K_LSHIFT:
                     shift_down = True
-                    print("shift down")
             if event.type == KEYUP:
                 if event.key == K_RSHIFT or event.key == K_LSHIFT:
                     shift_down = False
-                    print("shift up")
             if event.type == MOUSEBUTTONUP:
 
                 if not timer_started:
@@ -245,14 +245,11 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 # LEFT CLICK -> Opens tile
                 if button == 1:
 
-                    print(left_down, right_down, shift_down)
-
                     change = True
 
                     mouse_pos = pygame.mouse.get_pos()
 
                     if check_both(left_down, right_down, shift_down):
-                        print('double hold then released left')
                         board.double_open_tile_from_mouse(mouse_pos)
 
                     left_down = False
@@ -271,7 +268,6 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                     mouse_pos = pygame.mouse.get_pos()
 
                     if check_both(left_down, right_down, shift_down):
-                        print('double hold then released right')
                         board.double_open_tile_from_mouse(mouse_pos)
 
                     right_down = False
@@ -301,7 +297,6 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                         double_click_timer = 0.001  # Start the timer.
                     # Click again before 0.5 seconds to double click.
                     elif double_click_timer < 0.5:
-                        print('double click')
                         board.double_open_tile_from_mouse(mouse_pos)
                         double_click_timer = 0
                         change = True
@@ -328,7 +323,6 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 double_click_timer += dt
                 # Reset after 0.5 seconds.
                 if double_click_timer >= 0.5:
-                    print('too late')
                     double_click_timer = 0
 
         if not game_over:
@@ -403,4 +397,10 @@ def check_both(left, right, shift):
 
 
 if __name__ == "__main__":
+    """ Probably bullshit
+    l = sys.argv[1:]
+    print(l)
+    print(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]), ast.literal_eval(l[7]), int(l[8]), l[9])
+    main(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]), ast.literal_eval(l[7]), int(l[8]), l[9])
+    """
     launch_from_init()

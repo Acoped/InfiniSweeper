@@ -432,13 +432,7 @@ class Board:
 
     # Gets the ID of the clicked zero field
     def get_zero_field(self, x, y):
-
-        # print("get zero field", x, y)
-
         field = self.island_matrix[y][x]
-
-        # print(field)
-
         return field
 
     # Opens the zero field
@@ -448,7 +442,6 @@ class Board:
         for coord in cells_to_open:
             x = coord[0]
             y = coord[1]
-            # print(coord)
             self.open_tile_from_coords(y, x, False)
 
     def open_tile_from_mouse(self, mouse_pos):
@@ -458,13 +451,11 @@ class Board:
     def double_open_tile_from_mouse(self, mouse_pos):
         x, y = self.get_clicked_tile(mouse_pos)
         flags = self.count_neighbor_flags(x, y, self.flag_matrix)
-        print(flags)
 
         if flags == self.board_matrix[y][x]:
             self.open_cells_not_flagged(x, y)
 
     def open_cells_not_flagged(self, x, y):
-        print("OPEN CELLS NOT FLAGGED")
         lookup = get_neighbors(self.board_matrix, x, y)
 
         coordinates = [[[-1, -1], [-1, 0], [-1, 1]],
@@ -561,7 +552,7 @@ class Board:
                 if not self.lose:
                     self.game_won()
 
-            print('cells_open ', self.cells_opened)
+            # print('cells_open ', self.cells_opened)
             # self.print_open_matrix()
 
     def game_won(self):
@@ -681,12 +672,12 @@ class Board:
                 try:
                     if (0 <= x_p <= self.w) and (0 <= y_p <= self.h):
                         if flag_matrix[y_p][x_p] == 1:
-                            print('flag_x', x_p, 'flag_y', y_p)
+                            # print('flag_x', x_p, 'flag_y', y_p)
                             flags += 1
                 except IndexError:
                     pass
 
-        print("neighboring flags: ", flags)
+        # print("neighboring flags: ", flags)
 
         return flags
 
