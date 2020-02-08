@@ -1,39 +1,45 @@
 import asyncio
 from aioconsole import ainput
+from networking import *
+from game import Board
 
 
-async def some_coroutine():
-    line = await ainput("input 'quit' to quit server\n")
-    if line == 'quit':
-        print("Q pressed")
+class Server:
 
+    """
+    def __init__(self, w, h, bombs, side, increased_border : bool = False):
+        self.board = Board(w, h, bombs, side, increased_border)
+    """
 
-async def handle_echo(reader, writer):
-    data = await reader.read(100)
-    message = data.decode()
-    addr = writer.get_extra_info('peername')
+    async def some_coroutine(self):
+        line = await ainput("input 'quit' to quit server\n")
+        if line == 'quit':
+            print("Q pressed")
 
-    print(f"Received {message!r} from {addr!r}")
+    async def handle_echo(self, reader, writer):
+        data = await reader.read(100)
+        message = data.decode()
+        address = writer.get_extra_info('peername')
 
-    print(f"Send: {message!r}")
-    writer.write(data)
-    await writer.drain()
+        print(f"Received {message!r} from {address!r}")
 
-    print("Close the connection")
-    writer.close()
+        print(f"Send: {message!r}")
+        writer.write(data)
+        await writer.drain()
 
+        print("Close the connection")
+        writer.close()
 
-async def main():
+    async def main(self):
+        server = await asyncio.start_server(self.handle_echo, '127.0.0.1', 8888)
 
-    server = await asyncio.start_server(
-        handle_echo, '127.0.0.1', 8889)
+        address = server.sockets[0].getsockname()
+        print(f'Serving on {address}')
 
-    addr = server.sockets[0].getsockname()
-    print(f'Serving on {addr}')
-
-    async with server:
-        await server.serve_forever()
+        async with server:
+            await server.serve_forever()
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    sv = Server()
+    asyncio.run(sv.main())
