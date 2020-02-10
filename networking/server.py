@@ -34,7 +34,7 @@ class GameServer:
         writer.close()
 
     async def main(self):
-        server = await asyncio.start_server(self.handle_echo, '127.0.0.1', 8888)
+        server = await asyncio.start_server(self.handle_echo, '127.0.0.1', 8890)
 
         address = server.sockets[0].getsockname()
         print(f'Serving on {address}')
@@ -45,7 +45,6 @@ class GameServer:
 
 if __name__ == '__main__':
     # Prepares the string commands that were sent in to the correct format for the main function
-    # ast.literal_eval is a function that turns a string that represents a list to an actual list
     l = sys.argv[1:]
     print(l)
     print(int(l[0]), int(l[1]), int(l[2]), int(l[3]), bool(l[4]))
