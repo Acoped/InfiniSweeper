@@ -1,6 +1,6 @@
 import asyncio
 from aioconsole import ainput
-# from networking import *
+from networking import newgamepacket
 from game import Board
 import sys
 # import ast
@@ -59,7 +59,7 @@ class GameServer:
             answer = None   # Do not send back an answer (just update gamestate)
         # Client sent a request to join a game
         elif type == "j":
-            answer = "Här kommer spelbrädet och inställningar"
+            answer = newgamepacket.NewGamePacket(board=self.board).serialize()
         # Client sent an erroneous message
         else:
             answer = "Jag har tagit emot ditt meddelande, men förstod inte vad du sa"
