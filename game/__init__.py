@@ -117,7 +117,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
     else:
         board = Board(width, height, bombs, tile_sz_px, increased_border=increased_border)
         board.place_bombs()
-        board.find_islands()
+    board.find_islands()
 
     if not full_screen:
         viewport = board.calculate_screen_res()
