@@ -1,6 +1,6 @@
 import asyncio
 
-
+# When either join game request or update request
 async def send_and_receive(message):
     reader, writer = await asyncio.open_connection('127.0.0.1', 8888)
 
@@ -16,4 +16,13 @@ async def send_and_receive(message):
 
     return received_message
 
-asyncio.run(send_and_receive('Hello World!'))
+# When clicking
+async def send_only(message):
+    reader, writer = await asyncio.open_connection('127.0.0.1', 8888)
+
+    print(f'Client sends: {message!r}')
+    writer.write(message.encode())
+    writer.close()
+    print(f'Client closed the connection\n')
+
+asyncio.run(send_and_receive('u'))

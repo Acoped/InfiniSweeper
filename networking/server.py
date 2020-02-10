@@ -28,15 +28,35 @@ class GameServer:
 
         message = self.prepare_answer(received_message)
 
-        print(f"Server sends: {message!r} to {address!r}")
-        writer.write(message.encode())
-        await writer.drain()
+        # Send message if it wasn't a ClickPacket that was received.
+        if message is not None:
+            print(f"Server sends: {message!r} to {address!r}")
+            writer.write(message.encode())
+            await writer.drain()
+            writer.close()
+        else:
+            print("Server received ClickPacket")
 
-        writer.close()
         print("Server closed the connection\n")
 
     def prepare_answer(self, client_message: str) -> str:
-        answer = "Jag har tagit emot ditt meddelande"
+
+        type = client_message[0]
+        print(f'Message type: {type}')
+
+        # Cient sent an request to update game state
+        if type == "u":
+            answer = "Här kommer den uppdaterade gamestaten"
+        # Client sent a ClickPacket
+        elif type == "1" or type == "2" or type == "3":
+            answer = None   # Do not send back an answer (just update gamestate)
+        # Client sent a request to join a game
+        elif type == "j":
+            answer = "Här kommer spelbrädet och inställningar"
+        # Client sent an erroneous message
+        else:
+            answer = "Jag har tagit emot ditt meddelande, men förstod inte vad du sa"
+
         return answer
 
     async def main(self):
