@@ -21,20 +21,26 @@ class GameServer:
 
     async def handle_client(self, reader, writer):
         data = await reader.read(100)
-        message = data.decode()
+        received_message = data.decode()
         address = writer.get_extra_info('peername')
 
-        print(f"Server received {message!r} from {address!r}")
+        print(f"Server received {received_message!r} from {address!r}")
 
-        print(f"Server sends: {message!r}")
-        writer.write(data)
+        message = self.prepare_answer(received_message)
+
+        print(f"Server sends: {message!r} to {address!r}")
+        writer.write(message.encode())
         await writer.drain()
 
         writer.close()
         print("Server closed the connection\n")
 
+    def prepare_answer(self, client_message: str) -> str:
+        answer = "Jag har tagit emot ditt meddelande"
+        return answer
+
     async def main(self):
-        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8890)
+        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8888)
 
         address = server.sockets[0].getsockname()
         print(f'Serving on {address}')
