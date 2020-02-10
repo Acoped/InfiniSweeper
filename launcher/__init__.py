@@ -1,19 +1,22 @@
 import subprocess
 from tkinter import *
-from tkinter import Tk, font, ttk, messagebox, filedialog
-import game
+from tkinter import Tk, font, ttk, messagebox
 from PIL import Image, ImageTk
 import math
 import pygame
-import os
-from subprocess import *
 
 
 class Launcher():
 
     def host_callback(self):
+        w = int(self.dimensions_entry_width.get())
+        h = int(self.dimensions_entry_height.get())
+        bombs = int(self.bombs_entry_number.get())
+        tile_sz_px = self.tilesize_in_pixels.get()
+        increased_border = self.tilesize_checkbutton_var.get()
+
         print('hostbutton clicked')
-        subprocess.Popen([sys.executable, '../networking/server.py'], shell=True)
+        subprocess.Popen([sys.executable, '../networking/server.py', str(w), str(h), str(bombs), str(tile_sz_px), str(increased_border)], shell=True)
 
     def connect_callback(self):
         print('connectbutton clicked')
@@ -205,20 +208,20 @@ class Launcher():
         # ----- Tilesize submenu -----
         tilesize_separator = ttk.Separator(tab1, orient=HORIZONTAL)
 
-        tilesize_checkbutton_var = StringVar()
-        tilesize_checkbutton_var.set("Tile Set:")
-        tilesize_label = Label(tab1, textvariable = tilesize_checkbutton_var, font=separator_font)
+        self.tilesize_checkbutton_var = StringVar()
+        self.tilesize_checkbutton_var.set("Tile Set:")
+        tilesize_label = Label(tab1, textvariable = self.tilesize_checkbutton_var, font=separator_font)
 
         tilesize_separator_end = ttk.Separator(tab1, orient=HORIZONTAL)
 
         tilesize_frame = Frame(tab1)
 
-        tilesize_in_pixels = IntVar()
-        tilesize_radiobutton1 = Radiobutton(tilesize_frame, text="64 x 64 (Child/Retiree)", variable=tilesize_in_pixels, value=64)
-        tilesize_radiobutton2 = Radiobutton(tilesize_frame, text="32 x 32 (Man)", variable=tilesize_in_pixels, value=32)
-        tilesize_radiobutton3 = Radiobutton(tilesize_frame, text="16 x 16 (Superman)", variable=tilesize_in_pixels, value=16)
-        tilesize_radiobutton4 = Radiobutton(tilesize_frame, text="8 x 8 (Ant)", variable=tilesize_in_pixels, value=8)
-        tilesize_radiobutton5 = Radiobutton(tilesize_frame, text="4 x 4 (Superant)", variable=tilesize_in_pixels, value=4)
+        self.tilesize_in_pixels = IntVar()
+        tilesize_radiobutton1 = Radiobutton(tilesize_frame, text="64 x 64 (Child/Retiree)", variable=self.tilesize_in_pixels, value=64)
+        tilesize_radiobutton2 = Radiobutton(tilesize_frame, text="32 x 32 (Man)", variable=self.tilesize_in_pixels, value=32)
+        tilesize_radiobutton3 = Radiobutton(tilesize_frame, text="16 x 16 (Superman)", variable=self.tilesize_in_pixels, value=16)
+        tilesize_radiobutton4 = Radiobutton(tilesize_frame, text="8 x 8 (Ant)", variable=self.tilesize_in_pixels, value=8)
+        tilesize_radiobutton5 = Radiobutton(tilesize_frame, text="4 x 4 (Superant)", variable=self.tilesize_in_pixels, value=4)
 
         L_image = Image.open("../resources/tiles/standard/L/YYY.png")
         L_photo = ImageTk.PhotoImage(L_image)
@@ -245,10 +248,10 @@ class Launcher():
         XXS_label = Label(tilesize_frame, image=XXS_photo)
         XXS_label.image = XXS_photo  # keep a reference!
 
-        tilesize_checkbutton_var = IntVar()
+        self.tilesize_checkbutton_var = IntVar()
         tilesize_checkbutton = Checkbutton(
             tilesize_frame, text="Increased border sharpness (16 x 16 px and larger only)",
-            variable=tilesize_checkbutton_var)
+            variable=self.tilesize_checkbutton_var)
 
         # ----- /Tilesize submenu -----
 
@@ -273,7 +276,7 @@ class Launcher():
         # ----- Newgame submenu -----
         newgame_separator = ttk.Separator(tab1, orient=HORIZONTAL)
 
-        newgame_button = Button(tab1, text ="New Game", command= lambda: self.newgame_callback(int(self.dimensions_entry_width.get()), int(self.dimensions_entry_height.get()), int(self.bombs_entry_number.get()), self.resolutions_checkbutton_var.get(), self.resolutions_entry_width.get(), self.resolutions_entry_height.get(), tilesize_checkbutton_var.get(), tilesize_in_pixels.get()), font=title_font)
+        newgame_button = Button(tab1, text ="New Game", command= lambda: self.newgame_callback(int(self.dimensions_entry_width.get()), int(self.dimensions_entry_height.get()), int(self.bombs_entry_number.get()), self.resolutions_checkbutton_var.get(), self.resolutions_entry_width.get(), self.resolutions_entry_height.get(), self.tilesize_checkbutton_var.get(), self.tilesize_in_pixels.get()), font=title_font)
         newgame_separator_end = ttk.Separator(tab1, orient=HORIZONTAL)
         # ----- /Newgame submenu -----
 

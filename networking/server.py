@@ -1,15 +1,18 @@
 import asyncio
 from aioconsole import ainput
-from networking import *
+# from networking import *
 from game import Board
+import sys
+# import ast
 
 
 class GameServer:
 
-    """
-    def __init__(self, w, h, bombs, side, increased_border : bool = False):
+    def __init__(self, w, h, bombs, side, increased_border: bool = False):
         self.board = Board(w, h, bombs, side, increased_border)
-    """
+        self.board.place_bombs()
+
+        self.board.print_board()    # prints the baord to check if it was correctly initialized
 
     async def some_coroutine(self):
         line = await ainput("input 'quit' to quit server\n")
@@ -41,5 +44,10 @@ class GameServer:
 
 
 if __name__ == '__main__':
-    game_server = GameServer()
+    # Prepares the string commands that were sent in to the correct format for the main function
+    # ast.literal_eval is a function that turns a string that represents a list to an actual list
+    l = sys.argv[1:]
+    print(l)
+    print(int(l[0]), int(l[1]), int(l[2]), int(l[3]), bool(l[4]))
+    game_server = GameServer(int(l[0]), int(l[1]), int(l[2]), int(l[3]), bool(l[4]))
     asyncio.run(game_server.main())
