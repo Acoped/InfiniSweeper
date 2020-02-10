@@ -5,6 +5,7 @@ from game import Board
 import sys
 # import ast
 
+MAX_CHARACTERS = 100000
 
 class GameServer:
 
@@ -20,7 +21,7 @@ class GameServer:
             print("Q pressed")
 
     async def handle_client(self, reader, writer):
-        data = await reader.read(100)
+        data = await reader.read(MAX_CHARACTERS)
         received_message = data.decode()
         address = writer.get_extra_info('peername')
 
@@ -67,7 +68,7 @@ class GameServer:
         return answer
 
     async def main(self):
-        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8900)
+        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8903)
 
         address = server.sockets[0].getsockname()
         print(f'Serving on {address}')

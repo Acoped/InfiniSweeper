@@ -1,9 +1,10 @@
 import asyncio
 
+MAX_CHARACTERS = 100000
 
 # When either join game request or update request
 async def send_and_receive(client_name: str, message: str):
-    reader, writer = await asyncio.open_connection('127.0.0.1', 8900)
+    reader, writer = await asyncio.open_connection('127.0.0.1', 8903)
 
     send_message = client_name + '|' + message
 
@@ -13,7 +14,7 @@ async def send_and_receive(client_name: str, message: str):
     more_packets = "m"
     received_messages = []
     while more_packets == "m":
-        data = await reader.read(100)
+        data = await reader.read(MAX_CHARACTERS)
         received_message = data.decode()
         more_packets = received_message[-1]
         if more_packets == "m":
@@ -32,7 +33,7 @@ async def send_and_receive(client_name: str, message: str):
 
 # When clicking
 async def send_only(client_name: str, message: str):
-    reader, writer = await asyncio.open_connection('127.0.0.1', 8900)
+    reader, writer = await asyncio.open_connection('127.0.0.1', 8903)
 
     send_message = client_name + '|' + message
 
