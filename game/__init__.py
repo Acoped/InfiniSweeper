@@ -108,10 +108,12 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
     board = None
     if networked_multiplayer:
-        # board_string = asyncio.run(send_and_receive(client_name, 'j'))[0]
+        board_string = asyncio.run(send_and_receive(client_name, 'j'))[0]
+        """
         loop = asyncio.get_event_loop()
         tasks = send_and_receive(client_name, 'j')
         board_string = loop.run_until_complete(tasks)[0]
+        """
 
         board_wrapper = NewGamePacket()
         board_wrapper.deserialize(board_string)
