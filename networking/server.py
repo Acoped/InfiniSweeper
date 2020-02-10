@@ -53,7 +53,7 @@ class GameServer:
 
         # Cient sent an request to update game state
         if type == "u":
-            answer = "Här kommer den uppdaterade gamestatem"
+            answer = "Här kommer den uppdaterade gamestaten"
         # Client sent a ClickPacket
         elif type == "1" or type == "2" or type == "3":
             answer = None   # Do not send back an answer (just update gamestate)
