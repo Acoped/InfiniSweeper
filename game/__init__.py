@@ -93,7 +93,8 @@ def launch_from_init():
     main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title, arrowkey_movement_cells)
 
 
-def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title, arrow_key_movement_cells=8, networked_multiplayer = False, client_name = ""):
+def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title,
+         arrow_key_movement_cells=10, networked_multiplayer=False, client_name=''):
 
     print("IN MAIN GAME")
     print("client_name: " + client_name)
@@ -270,8 +271,6 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 # LEFT CLICK -> Opens tile
                 if button == 1:
 
-                    print("LMB clicked")
-
                     change = True
 
                     mouse_pos = pygame.mouse.get_pos()
@@ -280,8 +279,6 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                         board.double_open_tile_from_mouse(mouse_pos)
 
                     left_down = False
-
-                    print("HEJSANHOPPSAN ", board.w, board.h, tile_sz_px)
 
                     if mouse_pos[0] < (board.w * tile_sz_px) and mouse_pos[1] < (board.h * tile_sz_px):
                         board.open_tile_from_mouse(mouse_pos)
@@ -430,10 +427,16 @@ if __name__ == "__main__":
     l = sys.argv[1:]
     print(l)
     try:
+        """
         print(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]),
-            ast.literal_eval(l[7]), int(l[8]), l[9], bool(l[10]), bool(l[11]))
-        main(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]),
-            ast.literal_eval(l[7]), int(l[8]), l[9], bool(l[10]), bool(l[11]))
+            ast.literal_eval(l[7]), int(l[8]), l[9], bool(l[10]), bool(l[11]))"""
+        main(int(l[0]), int(l[1]),
+             int(l[2]), int(l[3]),
+             int(l[4]),
+             int(l[5]),
+             ast.literal_eval(l[6]), ast.literal_eval(l[7]),
+             int(l[8]), l[9],
+             networked_multiplayer=bool(l[10]), client_name=l[11])
     except IndexError:
         try:
             # Prepares the string commands that were sent in to the correct format for the main function
