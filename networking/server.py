@@ -19,22 +19,22 @@ class GameServer:
         if line == 'quit':
             print("Q pressed")
 
-    async def handle_echo(self, reader, writer):
+    async def handle_client(self, reader, writer):
         data = await reader.read(100)
         message = data.decode()
         address = writer.get_extra_info('peername')
 
-        print(f"Received {message!r} from {address!r}")
+        print(f"Server received {message!r} from {address!r}")
 
-        print(f"Send: {message!r}")
+        print(f"Server sends: {message!r}")
         writer.write(data)
         await writer.drain()
 
-        print("Close the connection")
         writer.close()
+        print("Server closed the connection\n")
 
     async def main(self):
-        server = await asyncio.start_server(self.handle_echo, '127.0.0.1', 8890)
+        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8890)
 
         address = server.sockets[0].getsockname()
         print(f'Serving on {address}')
@@ -45,8 +45,8 @@ class GameServer:
 
 if __name__ == '__main__':
     # Prepares the string commands that were sent in to the correct format for the main function
-    l = sys.argv[1:]
-    print(l)
-    print(int(l[0]), int(l[1]), int(l[2]), int(l[3]), bool(l[4]))
-    game_server = GameServer(int(l[0]), int(l[1]), int(l[2]), int(l[3]), bool(l[4]))
+    i = sys.argv[1:]
+    print(i)
+    print(int(i[0]), int(i[1]), int(i[2]), int(i[3]), bool(i[4]))
+    game_server = GameServer(int(i[0]), int(i[1]), int(i[2]), int(i[3]), bool(i[4]))
     asyncio.run(game_server.main())

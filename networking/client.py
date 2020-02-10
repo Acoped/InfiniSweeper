@@ -1,7 +1,7 @@
 import asyncio
 
 
-async def send_and_recieve(message):
+async def send_and_receive(message):
     reader, writer = await asyncio.open_connection('127.0.0.1', 8890)
 
     print(f'Client sends: {message!r}')
@@ -12,8 +12,8 @@ async def send_and_recieve(message):
     print(f'Client received: {received_message!r}')
 
     writer.close()
-    print('Client closed the connection')
+    print('Client closed the connection\n')
 
     return received_message
 
-asyncio.run(send_and_recieve('Hello World!'))
+asyncio.run(send_and_receive('Hello World!'))
