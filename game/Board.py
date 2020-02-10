@@ -201,6 +201,10 @@ class Board:
     def set_screen(self, screen):
         self.screen = screen
 
+    # Can be used for multiplayer
+    def construct_from_board_matrix(self):
+        pass
+
     def place_bombs(self):
 
         # Randomizes bombs

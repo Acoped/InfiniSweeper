@@ -20,7 +20,10 @@ class Launcher():
 
     def connect_callback(self):
         print('connectbutton clicked')
-        subprocess.Popen([sys.executable, '../networking/client.py'], shell=True)
+        # subprocess.Popen([sys.executable, '../networking/client.py'], shell=True)
+        # self.resolutions_checkbutton_var.get(), self.resolutions_entry_width.get(), self.resolutions_entry_height.get(), self.tilesize_checkbutton_var.get(), self.tilesize_in_pixels.get()), font=title_font
+        client_name = "andreas"
+        subprocess.Popen([sys.executable, '../game/__init__.py', str(0), str(0), str(0), str(0), str(self.tilesize_checkbutton_var.get()), str(0), str([120, 72]), str([int(self.resolutions_entry_width.get()), int(self.resolutions_entry_height.get())]), str(60), "InfiniSweeper - Multiplayer", "networked_multiplayer=True", "client_name=" + client_name], shell=True)
 
     def newgame_callback(self, width, height, bombs, fullscreen, screen_width, screen_height, increased_border, tile_sz_px):
         try:

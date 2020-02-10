@@ -22,15 +22,20 @@ class ClickPacket:
         self.y = split[2]
 
 
-# ----- Testing ----- (mbe write unit tests?)
+def test():
+    # ----- Testing ----- (mbe write unit tests?)
 
-# Sending
-send_packet = ClickPacket(1, 356, 123)
-print(send_packet)
+    # Sending
+    send_packet = ClickPacket(1, 356, 123)
+    print(send_packet)
 
-# Receiving
-received_message = send_packet.serialize()
-print(received_message)
-received_packet = ClickPacket()
-received_packet.deserialize(received_message)
-print(received_packet)
+    # Receiving
+    received_message = send_packet.serialize()
+    print(received_message)
+    received_packet = ClickPacket()
+    received_packet.deserialize(received_message)
+    print(received_packet)
+
+if __name__ == '__main__':
+    pass
+    test()

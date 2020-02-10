@@ -54,20 +54,25 @@ class NewGamePacket:
         self.board = Board(w, h, bombs, side, increased_border=bool(increased_border))
         self.board.board_matrix = matrix
 
+def test():
+    # ----- Testing ----- (mbe write unit tests?)
 
-# ----- Testing ----- (mbe write unit tests?)
+    # Sending
+    send_board = Board(5, 3, 3, 32, increased_border=True)
+    send_board.place_bombs()
+    send_board.print_board()
+    send_packet = NewGamePacket(send_board)
+    print(send_packet)
 
-# Sending
-send_board = Board(5, 3, 3, 32, increased_border=True)
-send_board.place_bombs()
-send_board.print_board()
-send_packet = NewGamePacket(send_board)
-print(send_packet)
+    # Receiving
+    received_message = send_packet.serialize()
+    print(received_message)
+    receive_packet = NewGamePacket()
+    print("received_message: ", received_message)
+    receive_packet.deserialize(received_message)
+    print(receive_packet)
 
-# Receiving
-received_message = send_packet.serialize()
-print(received_message)
-receive_packet = NewGamePacket()
-print("received_message: ", received_message)
-receive_packet.deserialize(received_message)
-print(receive_packet)
+
+if __name__ == '__main__':
+    pass
+    # test()

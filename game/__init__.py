@@ -7,6 +7,10 @@ import os
 import copy
 import sys
 import ast
+import asyncio
+import networking
+from networking.client import send_and_receive, send_only
+from networking.newgamepacket import *
 
 def launch_from_init():
 
@@ -89,7 +93,11 @@ def launch_from_init():
     main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title, arrowkey_movement_cells)
 
 
-def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title, arrow_key_movement_cells=8):
+def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title, arrow_key_movement_cells=8, networked_multiplayer = False, client_name = ""):
+
+    print("IN MAIN GAME")
+    print("client_name: " + client_name)
+
     black = (0, 0, 0)
     white = (255, 255, 255)
     yellow = (255, 255, 0)
@@ -98,9 +106,18 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
     pygame.init()
 
-    board = Board(width, height, bombs, tile_sz_px, increased_border=increased_border)
-    board.place_bombs()
-    board.find_islands()
+    board = None
+    if networked_multiplayer:
+        board_string = asyncio.run(send_and_receive(client_name, 'j'))[0]
+        board_wrapper = NewGamePacket()
+        board_wrapper.deserialize(board_string)
+        board = board_wrapper.board
+        print(f'board_string: {board_string}')
+        board.print_board()
+    else:
+        board = Board(width, height, bombs, tile_sz_px, increased_border=increased_border)
+        board.place_bombs()
+        board.find_islands()
 
     if not full_screen:
         viewport = board.calculate_screen_res()
@@ -397,13 +414,19 @@ def check_both(left, right, shift):
 
 
 if __name__ == "__main__":
+    l = sys.argv[1:]
+    print(l)
     try:
-        # Prepares the string commands that were sent in to the correct format for the main function
-        # ast.literal_eval is a function that turns a string that represents a list to an actual list
-        l = sys.argv[1:]
-        print(l)
-        print(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]), ast.literal_eval(l[7]), int(l[8]), l[9])
-        main(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]), ast.literal_eval(l[7]), int(l[8]), l[9])
+        print(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]),
+            ast.literal_eval(l[7]), int(l[8]), l[9], l[10], l[11])
+        main(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]),
+            ast.literal_eval(l[7]), int(l[8]), l[9], l[10], l[11])
     except IndexError:
-        # If the file is started from just running game/__init__ when developing.
-        launch_from_init()
+        try:
+            # Prepares the string commands that were sent in to the correct format for the main function
+            # ast.literal_eval is a function that turns a string that represents a list to an actual list
+            print(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]), ast.literal_eval(l[7]), int(l[8]), l[9])
+            main(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]), ast.literal_eval(l[7]), int(l[8]), l[9])
+        except IndexError:
+            # If the file is started from just running game/__init__ when developing.
+            launch_from_init()
