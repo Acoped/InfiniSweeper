@@ -53,7 +53,7 @@ class GameServer:
 
         # Cient sent an request to update game state
         if type == "u":
-            answer = "Här kommer den uppdaterade gamestaten"
+            answer = "Här kommer den uppdaterade gamestatem"
         # Client sent a ClickPacket
         elif type == "1" or type == "2" or type == "3":
             answer = None   # Do not send back an answer (just update gamestate)
@@ -67,7 +67,7 @@ class GameServer:
         return answer
 
     async def main(self):
-        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8888)
+        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8890)
 
         address = server.sockets[0].getsockname()
         print(f'Serving on {address}')
