@@ -36,14 +36,14 @@ class GameServer:
         send_message = self.prepare_answer(message)
 
         # Send message if it wasn't a ClickPacket that was received.
-        if message is not None:
+        if send_message is not None:
             print(f"Server sends: {send_message!r} to {address!r}")
             writer.write(send_message.encode())
             await writer.drain()
-            writer.close()
         else:
             print("Server received ClickPacket")
 
+        writer.close()
         print("Server closed the connection\n")
 
     def prepare_answer(self, client_message: str) -> str:
@@ -67,7 +67,7 @@ class GameServer:
         return answer
 
     async def main(self):
-        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8890)
+        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8891)
 
         address = server.sockets[0].getsockname()
         print(f'Serving on {address}')

@@ -3,7 +3,7 @@ import asyncio
 
 # When either join game request or update request
 async def send_and_receive(client_name: str, message: str):
-    reader, writer = await asyncio.open_connection('127.0.0.1', 8890)
+    reader, writer = await asyncio.open_connection('127.0.0.1', 8891)
 
     send_message = client_name + '|' + message
 
@@ -11,6 +11,7 @@ async def send_and_receive(client_name: str, message: str):
     writer.write(send_message.encode())
 
     more_packets = "m"
+    received_messages = []
     while more_packets == "m":
         data = await reader.read(100)
         received_message = data.decode()
@@ -21,16 +22,17 @@ async def send_and_receive(client_name: str, message: str):
         else:
             print("More packets: No")
         print(f'Client received: {received_message!r}')
+        received_messages.append(received_message)
 
     writer.close()
     print('Client closed the connection\n')
 
-    return received_message
+    return received_messages
 
 
 # When clicking
 async def send_only(client_name: str, message: str):
-    reader, writer = await asyncio.open_connection('127.0.0.1', 8888)
+    reader, writer = await asyncio.open_connection('127.0.0.1', 8891)
 
     send_message = client_name + '|' + message
 
@@ -41,4 +43,5 @@ async def send_only(client_name: str, message: str):
     print(f'Client closed the connection\n')
 
 
-asyncio.run(send_and_receive('andreas', 'u'))
+# asyncio.run(send_and_receive('andreas', '1_0_123'))
+asyncio.run(send_only('andreas', '1_0_123'))
