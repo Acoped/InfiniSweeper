@@ -26,12 +26,19 @@ class GameServer:
 
         print(f"Server received {received_message!r} from {address!r}")
 
-        message = self.prepare_answer(received_message)
+        message_list = received_message.split('|')
+
+        client_name = message_list[0]
+        message = message_list[1]
+
+        print(client_name, message)
+
+        send_message = self.prepare_answer(message)
 
         # Send message if it wasn't a ClickPacket that was received.
         if message is not None:
-            print(f"Server sends: {message!r} to {address!r}")
-            writer.write(message.encode())
+            print(f"Server sends: {send_message!r} to {address!r}")
+            writer.write(send_message.encode())
             await writer.drain()
             writer.close()
         else:
