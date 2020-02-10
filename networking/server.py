@@ -33,7 +33,7 @@ class GameServer:
 
         print(client_name, message)
 
-        send_message = self.prepare_answer(message)
+        send_message = self.handle_request(client_name, message)
 
         # Send message if it wasn't a ClickPacket that was received.
         if send_message is not None:
@@ -46,7 +46,7 @@ class GameServer:
         writer.close()
         print("Server closed the connection\n")
 
-    def prepare_answer(self, client_message: str) -> str:
+    def handle_request(self, client_name: str, client_message: str) -> str:
 
         type = client_message[0]
         print(f'Message type: {type}')
