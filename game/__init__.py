@@ -119,6 +119,8 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
         board_wrapper.deserialize(board_string)
         board = board_wrapper.board
         print(f'board_string: {board_string}')
+
+        print(board.w, board.h, board.bombs, board.side, board.increased_border)
         board.print_board()
     else:
         board = Board(width, height, bombs, tile_sz_px, increased_border=increased_border)
@@ -279,6 +281,8 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
                     left_down = False
 
+                    print("HEJSANHOPPSAN ", board.w, board.h, tile_sz_px)
+
                     if mouse_pos[0] < (board.w * tile_sz_px) and mouse_pos[1] < (board.h * tile_sz_px):
                         board.open_tile_from_mouse(mouse_pos)
 
@@ -427,9 +431,9 @@ if __name__ == "__main__":
     print(l)
     try:
         print(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]),
-            ast.literal_eval(l[7]), int(l[8]), l[9], l[10], l[11])
+            ast.literal_eval(l[7]), int(l[8]), l[9], bool(l[10]), bool(l[11]))
         main(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]),
-            ast.literal_eval(l[7]), int(l[8]), l[9], l[10], l[11])
+            ast.literal_eval(l[7]), int(l[8]), l[9], bool(l[10]), bool(l[11]))
     except IndexError:
         try:
             # Prepares the string commands that were sent in to the correct format for the main function

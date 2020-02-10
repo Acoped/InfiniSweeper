@@ -3,7 +3,7 @@ import asyncio
 
 # When either join game request or update request
 async def send_and_receive(client_name: str, message: str):
-    reader, writer = await asyncio.open_connection('127.0.0.1', 8895)
+    reader, writer = await asyncio.open_connection('127.0.0.1', 8897)
 
     send_message = client_name + '|' + message
 
@@ -32,7 +32,7 @@ async def send_and_receive(client_name: str, message: str):
 
 # When clicking
 async def send_only(client_name: str, message: str):
-    reader, writer = await asyncio.open_connection('127.0.0.1', 8895)
+    reader, writer = await asyncio.open_connection('127.0.0.1', 8897)
 
     send_message = client_name + '|' + message
 
