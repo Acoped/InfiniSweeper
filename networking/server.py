@@ -67,7 +67,7 @@ class GameServer:
         return answer
 
     async def main(self):
-        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8899)
+        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8900)
 
         address = server.sockets[0].getsockname()
         print(f'Serving on {address}')

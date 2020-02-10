@@ -16,7 +16,10 @@ class Launcher():
         increased_border = self.tilesize_checkbutton_var.get()
 
         print('hostbutton clicked')
-        subprocess.Popen([sys.executable, '../networking/server.py', str(w), str(h), str(bombs), str(tile_sz_px), str(increased_border)], shell=True)
+        subprocess.Popen([sys.executable, '../networking/server.py',
+                          str(w), str(h),
+                          str(bombs), str(tile_sz_px),
+                          str(increased_border)], shell=True)
 
     def connect_callback(self):
         print('connectbutton clicked')

@@ -432,8 +432,7 @@ if __name__ == "__main__":
             ast.literal_eval(l[7]), int(l[8]), l[9], bool(l[10]), bool(l[11]))"""
         main(int(l[0]), int(l[1]),
              int(l[2]), int(l[3]),
-             int(l[4]),
-             int(l[5]),
+             int(l[4]),  int(l[5]),
              ast.literal_eval(l[6]), ast.literal_eval(l[7]),
              int(l[8]), l[9],
              networked_multiplayer=bool(l[10]), client_name=l[11])
