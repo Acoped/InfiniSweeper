@@ -108,7 +108,11 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
     board = None
     if networked_multiplayer:
-        board_string = asyncio.run(send_and_receive(client_name, 'j'))[0]
+        # board_string = asyncio.run(send_and_receive(client_name, 'j'))[0]
+        loop = asyncio.get_event_loop()
+        tasks = send_and_receive(client_name, 'j')
+        board_string = loop.run_until_complete(tasks)[0]
+
         board_wrapper = NewGamePacket()
         board_wrapper.deserialize(board_string)
         board = board_wrapper.board
@@ -262,6 +266,8 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 # LEFT CLICK -> Opens tile
                 if button == 1:
 
+                    print("LMB clicked")
+
                     change = True
 
                     mouse_pos = pygame.mouse.get_pos()
@@ -414,6 +420,7 @@ def check_both(left, right, shift):
 
 
 if __name__ == "__main__":
+
     l = sys.argv[1:]
     print(l)
     try:
@@ -430,3 +437,8 @@ if __name__ == "__main__":
         except IndexError:
             # If the file is started from just running game/__init__ when developing.
             launch_from_init()
+
+
+    # ----- Multiplayer test -----
+    # Write multiplayer test code here
+    # ----- Multiplayer test -----

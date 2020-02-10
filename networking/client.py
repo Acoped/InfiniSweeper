@@ -42,6 +42,7 @@ async def send_only(client_name: str, message: str):
     writer.close()
     print(f'Client closed the connection\n')
 
+
 if __name__ == '__main__':
     pass
     # asyncio.run(send_and_receive('andreas', 'j'))
