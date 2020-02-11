@@ -13,6 +13,8 @@ from networking.client import send_and_receive, send_only
 from networking.newgamepacket import *
 from networking.clickpacket import *
 
+NETWORKED_FRAMERATE = 30
+
 def launch_from_init():
 
 
@@ -88,7 +90,7 @@ def launch_from_init():
 
     min_viewport = [120, 72]
     viewport = [2560, 1440]
-    frame_rate = 1              # does this need to be  high?
+    frame_rate = 60              # does this need to be  high?
     title = "InfiniSweeper"
 
     main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title, arrowkey_movement_cells)
@@ -96,6 +98,9 @@ def launch_from_init():
 
 def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title,
          arrow_key_movement_cells=10, networked_multiplayer=False, client_name='', address_port_tuple=None):
+
+    if networked_multiplayer:
+        frame_rate = NETWORKED_FRAMERATE
 
     print("IN MAIN GAME")
     print("client_name: " + client_name)
@@ -174,6 +179,8 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
     window_pos = os.environ['SDL_VIDEO_WINDOW_POS'] = '%d,%d' % (window_x, window_y)
 
     game_over = False
+
+    change = True
 
     # Game loop
     while True:
