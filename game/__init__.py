@@ -280,16 +280,18 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                     mouse_pos = pygame.mouse.get_pos()
 
                     if check_both(left_down, right_down, shift_down):
-                        should_multiplayer_update = board.double_open_tile_from_mouse(mouse_pos)
-                        if should_multiplayer_update:
+                        should_multiplayer_update, coords = board.double_open_tile_from_mouse(mouse_pos)
+                        if networked_multiplayer and should_multiplayer_update:
                             print("DOUBLEINGGG!!! (MP)")
                             # HERE
+                            click_packet = ClickPacket(3, coords[0], coords[1])
+                            asyncio.run(send_only(client_name, click_packet.serialize()))
 
                     left_down = False
 
                     if mouse_pos[0] < (board.w * tile_sz_px) and mouse_pos[1] < (board.h * tile_sz_px):
                         should_multiplayer_update, coords = board.open_tile_from_mouse(mouse_pos)
-                        if should_multiplayer_update:
+                        if networked_multiplayer and should_multiplayer_update:
                             print("OPENINGGG!!! (MP)")
                             # HERE
                             click_packet = ClickPacket(1, coords[0], coords[1])
@@ -306,17 +308,21 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                     mouse_pos = pygame.mouse.get_pos()
 
                     if check_both(left_down, right_down, shift_down):
-                        should_multiplayer_update = board.double_open_tile_from_mouse(mouse_pos)
-                        if should_multiplayer_update:
+                        should_multiplayer_update, coords = board.double_open_tile_from_mouse(mouse_pos)
+                        if networked_multiplayer and should_multiplayer_update:
                             print("DOUBLEINGGG!!! (MP)")
                             # HERE
+                            click_packet = ClickPacket(3, coords[0], coords[1])
+                            asyncio.run(send_only(client_name, click_packet.serialize()))
 
                     right_down = False
 
-                    should_multiplayer_update = board.mark_from_mouse_pos(mouse_pos)
-                    if should_multiplayer_update:
+                    should_multiplayer_update, coords = board.mark_from_mouse_pos(mouse_pos)
+                    if networked_multiplayer and should_multiplayer_update:
                         print("FLAGGGING!!! (MP)")
                         # HERE
+                        click_packet = ClickPacket(2, coords[0], coords[1])
+                        asyncio.run(send_only(client_name, click_packet.serialize()))
 
                 # SCROLL UP
                 elif button == 4:

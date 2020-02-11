@@ -462,7 +462,7 @@ class Board:
             should_multiplayer_update = True
             self.open_cells_not_flagged(x, y)
 
-        return should_multiplayer_update
+        return should_multiplayer_update, (x, y)
 
     def open_cells_not_flagged(self, x, y):
         lookup = get_neighbors(self.board_matrix, x, y)
@@ -631,7 +631,7 @@ class Board:
         x, y = self.get_clicked_tile(mouse_pos)
         should_multiplayer_update = self.mark(x, y)
 
-        return should_multiplayer_update
+        return should_multiplayer_update, (x, y)
 
     def mark(self, x, y):
 
