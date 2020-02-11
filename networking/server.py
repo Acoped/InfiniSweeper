@@ -12,8 +12,13 @@ class GameServer:
     def __init__(self, w, h, bombs, side, increased_border: bool = False):
         self.board = Board(w, h, bombs, side, increased_border)
         self.board.place_bombs()
+        self.board.print_board()        # Prints the board to check if it was correctly initialized
 
-        self.board.print_board()    # prints the baord to check if it was correctly initialized
+        self.game_state_list = []       # A list with all the ClickPackets containing game state
+        self.client_latest_update = {}  # A dictionary with client nicks and their latest received client_list index
+        
+    def print_clients(self):
+        print(f'client_list: {self.client_latest_update}')
 
     async def some_coroutine(self):
         line = await ainput("input 'quit' to quit server\n")
@@ -60,6 +65,8 @@ class GameServer:
             answer = None   # Do not send back an answer (just update gamestate)
         # Client sent a request to join a game
         elif type == "j":
+            self.client_latest_update[client_name] = 0
+            self.print_clients()
             answer = newgamepacket.NewGamePacket(board=self.board).serialize()
         # Client sent an erroneous message
         else:
@@ -68,7 +75,7 @@ class GameServer:
         return answer
 
     async def main(self):
-        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8903)
+        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8888)
 
         address = server.sockets[0].getsockname()
         print(f'Serving on {address}')

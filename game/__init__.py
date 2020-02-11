@@ -207,13 +207,16 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 pygame.quit()
             # R -> Restarts the game
             if event.key == K_r:
-                game_over = False
-                board = Board(width, height, bombs, tile_sz_px, increased_border=increased_border)
-                board.place_bombs()
-                board.find_islands()
-                board.set_screen(screen)
-                board.draw_start()
-                pygame.display.update()
+                if networked_multiplayer:
+                    pass
+                else:
+                    game_over = False
+                    board = Board(width, height, bombs, tile_sz_px, increased_border=increased_border)
+                    board.place_bombs()
+                    board.find_islands()
+                    board.set_screen(screen)
+                    board.draw_start()
+                    pygame.display.update()
             # P -> Screenshot
             if event.key == K_p:
                 filename_date = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -364,6 +367,8 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 text3 = font.render(str(board.bombs) + " bombs", 1, msg_bg_color)
                 text4 = font.render("Your time: " + final_time, 1, msg_bg_color)
                 text5 = font.render("R to restart", 1, msg_bg_color)
+                if networked_multiplayer:
+                    text5 = font.render("R to restart (host only)", 1, msg_bg_color)
                 text6 = font.render("P to print screen", 1, msg_bg_color)
                 text7 = font.render("ESC to quit", 1, msg_bg_color)
                 screen.blit(text1, (10, 10))
@@ -385,6 +390,8 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 text3 = font.render(str(board.bombs) + " bombs", 1, msg_bg_color)
                 text4 = font.render("Your time: " + final_time, 1, msg_bg_color)
                 text5 = font.render("R to restart", 1, msg_bg_color)
+                if networked_multiplayer:
+                    text5 = font.render("R to restart (host only)", 1, msg_bg_color)
                 text6 = font.render("P to print screen", 1, msg_bg_color)
                 text7 = font.render("ESC to quit", 1, msg_bg_color)
                 screen.blit(text1, (10, 10))
