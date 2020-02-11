@@ -31,9 +31,9 @@ class Launcher():
         # self.resolutions_checkbutton_var.get(), self.resolutions_entry_width.get(), self.resolutions_entry_height.get(), self.tilesize_checkbutton_var.get(), self.tilesize_in_pixels.get()), font=title_font
         tile_sz_px = self.tilesize_in_pixels.get()
 
-        server_connect_address = '127.0.0.1'
-        server_connect_port = 8891
-        client_name = "andreas"
+        server_connect_address = self.client_address_entry.get()
+        server_connect_port = int(self.client_port_entry.get())
+        client_name = self.client_nickname_entry.get()
 
         subprocess.Popen([sys.executable, '../game/__init__.py',
                           str(0), str(0),
