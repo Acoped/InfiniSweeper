@@ -219,7 +219,6 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
         # ALL DRAW CODE SHOULD GO ABOVE THIS COMMENT
 
-
         # EVENT HANDLING
         event = pygame.event.poll()
         # Handle exit and escape

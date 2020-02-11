@@ -57,8 +57,10 @@ class GameServer:
             merged_message = ""
             sender_list = self.game_state_sender[:len(send_message)]
             for i in range(len(send_message)):
-                if sender_list[i] != client_name:
-                    merged_message += send_message[i].serialize() + "m"
+                # if sender_list[i] != client_name:
+                merged_message += send_message[i].serialize() + "m"
+            self.print_game_state_list()
+            print("sending to " + client_name + ": " + merged_message)
             writer.write(merged_message.encode())
             await writer.drain()
         else:
@@ -73,8 +75,6 @@ class GameServer:
 
         writer.close()
         # print("Server closed the connection\n")
-
-        self.print_game_state_list()
 
     def handle_request(self, client_name: str, client_message: str):
 
