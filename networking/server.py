@@ -58,7 +58,10 @@ class GameServer:
             sender_list = self.game_state_sender[-len(send_message):]
             print(client_name + "'s NEW state: " + str(self.client_latest_update[client_name]))
             print(f'sender_list {sender_list}')
-            for i in range(1, len(send_message)):
+            start_value = 1
+            if len(send_message) == 1:
+                start_value = 0
+            for i in range(start_value, len(send_message)):
                 if sender_list[i] != client_name:
                     merged_message += send_message[i].serialize() + "m"
             if merged_message == "":
