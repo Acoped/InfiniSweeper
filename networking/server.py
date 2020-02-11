@@ -1,6 +1,6 @@
 import asyncio
 from aioconsole import ainput
-from networking import newgamepacket
+from networking import newgamepacket, clickpacket
 from game import Board
 import sys
 # import ast
@@ -65,7 +65,11 @@ class GameServer:
             answer = "Här kommer den uppdaterade gamestaten"
         # Client sent a ClickPacket
         elif type == "1" or type == "2" or type == "3":
-            answer = None   # Do not send back an answer (just update gamestate)
+            click_packet = clickpacket.ClickPacket()
+            click_packet.deserialize(client_message)
+            self.game_state_list.append(click_packet)   # Update gamestate
+            self.print_game_state_list()
+            answer = None                               # Do not send back an answer
         # Client sent a request to join a game
         elif type == "j":
             self.client_latest_update[client_name] = 0
