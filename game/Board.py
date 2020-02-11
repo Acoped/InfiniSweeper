@@ -450,14 +450,19 @@ class Board:
 
     def open_tile_from_mouse(self, mouse_pos):
         x, y = self.get_clicked_tile(mouse_pos)
-        self.open_tile_from_coords(x,y)
+        should_multiplayer_update = self.open_tile_from_coords(x,y)
+        return should_multiplayer_update
 
     def double_open_tile_from_mouse(self, mouse_pos):
         x, y = self.get_clicked_tile(mouse_pos)
         flags = self.count_neighbor_flags(x, y, self.flag_matrix)
 
+        should_multiplayer_update = False
         if flags == self.board_matrix[y][x]:
+            should_multiplayer_update = True
             self.open_cells_not_flagged(x, y)
+
+        return should_multiplayer_update
 
     def open_cells_not_flagged(self, x, y):
         lookup = get_neighbors(self.board_matrix, x, y)
@@ -508,7 +513,11 @@ class Board:
 
         cell = self.board_matrix[y][x]
 
+        should_multiplayer_update = False
+
         if self.opened_matrix[y][x] == 0 and self.flag_matrix[y][x] == 0:
+
+            should_multiplayer_update = True
 
             xd = x * self.side
             yd = y * self.side
@@ -558,6 +567,8 @@ class Board:
 
             # print('cells_open ', self.cells_opened)
             # self.print_open_matrix()
+
+        return should_multiplayer_update
 
     def game_won(self):
         print("GAME WON!")
@@ -618,15 +629,20 @@ class Board:
 
     def mark_from_mouse_pos(self, mouse_pos):
         x, y = self.get_clicked_tile(mouse_pos)
-        self.mark(x, y)
+        should_multiplayer_update = self.mark(x, y)
+
+        return should_multiplayer_update
 
     def mark(self, x, y):
+
+        should_multiplayer_update = False
 
         xd = x * self.side
         yd = y * self.side
 
         # if not opened
         if self.opened_matrix[y][x] == 0:
+            should_multiplayer_update = True
             # if not flagged
             if self.flag_matrix[y][x] == 0:
                 self.f.update(xd, yd)
@@ -639,6 +655,8 @@ class Board:
                 self.flag_matrix[y][x] = 0
 
         # self.print_flag_matrix()
+
+        return should_multiplayer_update
 
 
     # Counts the neighbors which are bombs

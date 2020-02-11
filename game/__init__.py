@@ -279,16 +279,18 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                     mouse_pos = pygame.mouse.get_pos()
 
                     if check_both(left_down, right_down, shift_down):
-                        board.double_open_tile_from_mouse(mouse_pos)
-                        print("DOUBLEINGGG!!!")
-                        # HERE
+                        should_multiplayer_update = board.double_open_tile_from_mouse(mouse_pos)
+                        if should_multiplayer_update:
+                            print("DOUBLEINGGG!!! (MP)")
+                            # HERE
 
                     left_down = False
 
                     if mouse_pos[0] < (board.w * tile_sz_px) and mouse_pos[1] < (board.h * tile_sz_px):
-                        board.open_tile_from_mouse(mouse_pos)
-                        print("OPENINGGG!!!")
-                        # HERE
+                        should_multiplayer_update = board.open_tile_from_mouse(mouse_pos)
+                        if should_multiplayer_update:
+                            print("OPENINGGG!!! (MP)")
+                            # HERE
 
                 # MIDDLE CLICK
                 elif button == 2:
@@ -301,15 +303,17 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                     mouse_pos = pygame.mouse.get_pos()
 
                     if check_both(left_down, right_down, shift_down):
-                        board.double_open_tile_from_mouse(mouse_pos)
-                        print("DOUBLEINGGG!!!")
-                        # HERE
+                        should_multiplayer_update = board.double_open_tile_from_mouse(mouse_pos)
+                        if should_multiplayer_update:
+                            print("DOUBLEINGGG!!! (MP)")
+                            # HERE
 
                     right_down = False
 
-                    board.mark_from_mouse_pos(mouse_pos)
-                    print("FLAGGGING!!!")
-                    # HERE
+                    should_multiplayer_update = board.mark_from_mouse_pos(mouse_pos)
+                    if should_multiplayer_update:
+                        print("FLAGGGING!!! (MP)")
+                        # HERE
 
                 # SCROLL UP
                 elif button == 4:
