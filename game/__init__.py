@@ -95,10 +95,11 @@ def launch_from_init():
 
 
 def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title,
-         arrow_key_movement_cells=10, networked_multiplayer=False, client_name=''):
+         arrow_key_movement_cells=10, networked_multiplayer=False, client_name='', address_port_tuple=None):
 
     print("IN MAIN GAME")
     print("client_name: " + client_name)
+    print("address_port_tuple: " + str(address_port_tuple))
 
     black = (0, 0, 0)
     white = (255, 255, 255)
@@ -110,7 +111,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
     board = None
     if networked_multiplayer:
-        board_string = asyncio.run(send_and_receive(client_name, 'j'))[0]
+        board_string = asyncio.run(send_and_receive(address_port_tuple, client_name, 'j'))[0]
         """
         loop = asyncio.get_event_loop()
         tasks = send_and_receive(client_name, 'j')
@@ -285,7 +286,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                             print("DOUBLEINGGG!!! (MP)")
                             # HERE
                             click_packet = ClickPacket(3, coords[0], coords[1])
-                            asyncio.run(send_only(client_name, click_packet.serialize()))
+                            asyncio.run(send_only(address_port_tuple, client_name, click_packet.serialize()))
 
                     left_down = False
 
@@ -295,7 +296,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                             print("OPENINGGG!!! (MP)")
                             # HERE
                             click_packet = ClickPacket(1, coords[0], coords[1])
-                            asyncio.run(send_only(client_name, click_packet.serialize()))
+                            asyncio.run(send_only(address_port_tuple, client_name, click_packet.serialize()))
 
                 # MIDDLE CLICK
                 elif button == 2:
@@ -313,7 +314,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                             print("DOUBLEINGGG!!! (MP)")
                             # HERE
                             click_packet = ClickPacket(3, coords[0], coords[1])
-                            asyncio.run(send_only(client_name, click_packet.serialize()))
+                            asyncio.run(send_only(address_port_tuple, client_name, click_packet.serialize()))
 
                     right_down = False
 
@@ -322,7 +323,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                         print("FLAGGGING!!! (MP)")
                         # HERE
                         click_packet = ClickPacket(2, coords[0], coords[1])
-                        asyncio.run(send_only(client_name, click_packet.serialize()))
+                        asyncio.run(send_only(address_port_tuple, client_name, click_packet.serialize()))
 
                 # SCROLL UP
                 elif button == 4:
@@ -457,13 +458,15 @@ if __name__ == "__main__":
     try:
         """
         print(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]),
-            ast.literal_eval(l[7]), int(l[8]), l[9], bool(l[10]), bool(l[11]))"""
+            ast.literal_eval(l[7]), int(l[8]), l[9], bool(l[10]), bool(l[11]), l[12])"""
+        print(f'l[12] {l[12]}')
         main(int(l[0]), int(l[1]),
              int(l[2]), int(l[3]),
              int(l[4]),  int(l[5]),
              ast.literal_eval(l[6]), ast.literal_eval(l[7]),
              int(l[8]), l[9],
-             networked_multiplayer=bool(l[10]), client_name=l[11])
+             networked_multiplayer=bool(l[10]), client_name=l[11],
+             address_port_tuple=ast.literal_eval(l[12]))
     except IndexError:
         try:
             # Prepares the string commands that were sent in to the correct format for the main function

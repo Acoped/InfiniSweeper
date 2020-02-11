@@ -3,8 +3,8 @@ import asyncio
 MAX_CHARACTERS = 100000
 
 # When either join game request or update request
-async def send_and_receive(client_name: str, message: str):
-    reader, writer = await asyncio.open_connection('127.0.0.1', 8890)
+async def send_and_receive(address_port_tuple, client_name: str, message: str):
+    reader, writer = await asyncio.open_connection(address_port_tuple[0], address_port_tuple[1])
 
     send_message = client_name + '|' + message
 
@@ -32,8 +32,8 @@ async def send_and_receive(client_name: str, message: str):
 
 
 # When clicking
-async def send_only(client_name: str, message: str):
-    reader, writer = await asyncio.open_connection('127.0.0.1', 8890)
+async def send_only(address_port_tuple, client_name: str, message: str):
+    reader, writer = await asyncio.open_connection(address_port_tuple[0], address_port_tuple[1])
 
     send_message = client_name + '|' + message
 
@@ -45,6 +45,9 @@ async def send_only(client_name: str, message: str):
 
 
 if __name__ == '__main__':
-    pass
-    # asyncio.run(send_and_receive('andreas', 'j'))
-    # asyncio.run(send_only('diana', '1_0_123'))
+    # pass
+    """
+    address_port_tuple = '127.0.0.1', 8891
+    asyncio.run(send_and_receive(address_port_tuple, 'andreas', 'j'))
+    asyncio.run(send_only(address_port_tuple, 'diana', '1_0_123'))
+    """

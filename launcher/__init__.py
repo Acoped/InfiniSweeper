@@ -30,14 +30,20 @@ class Launcher():
         # subprocess.Popen([sys.executable, '../networking/client.py'], shell=True)
         # self.resolutions_checkbutton_var.get(), self.resolutions_entry_width.get(), self.resolutions_entry_height.get(), self.tilesize_checkbutton_var.get(), self.tilesize_in_pixels.get()), font=title_font
         tile_sz_px = self.tilesize_in_pixels.get()
+
+        server_connect_address = '127.0.0.1'
+        server_connect_port = 8891
         client_name = "andreas"
+
         subprocess.Popen([sys.executable, '../game/__init__.py',
                           str(0), str(0),
                           str(0), str(tile_sz_px),
                           str(self.resolutions_checkbutton_var.get()), str(self.tilesize_checkbutton_var.get()),
                           str([120, 72]), str([int(self.resolutions_entry_width.get()), int(self.resolutions_entry_height.get())]),
                           str(60), client_name + " (ISMP)",
-                          "networked_multiplayer=True", 'client_name="' + client_name + '"'], shell=True)
+                          "networked_multiplayer=True",
+                          client_name,
+                          '("' + server_connect_address + '", ' + str(server_connect_port) + ')'], shell=True)
 
     def newgame_callback(self, width, height, bombs, fullscreen, screen_width, screen_height, increased_border, tile_sz_px):
         try:
