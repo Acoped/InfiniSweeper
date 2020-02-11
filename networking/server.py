@@ -50,25 +50,41 @@ class GameServer:
 
         send_message = self.handle_request(client_name, message)
 
-        # Send message if it wasn't a ClickPacket that was received.
-        if send_message is not None:
-            print(f"Server sends: {send_message!r} to {address!r}")
-            writer.write(send_message.encode())
+        if isinstance(send_message[0], clickpacket.ClickPacket):
+            print("JAG VILL VARA DIN")
+            # Send all ClickPackets except last, with a splitting 'm' tag
+            merged_message = ""
+            for cp in send_message:
+                merged_message += cp.serialize() + "m"
+            writer.write(merged_message.encode())
             await writer.drain()
         else:
-            print("Server received ClickPacket")
+            # Send message if it wasn't a ClickPacket that was received.
+            if send_message is not None:
+                print(f"Server sends: {send_message!r} to {address!r}")
+                writer.write(send_message.encode())
+                await writer.drain()
+            else:
+                print("Server received ClickPacket")
 
         writer.close()
         print("Server closed the connection\n")
 
-    def handle_request(self, client_name: str, client_message: str) -> str:
+    def handle_request(self, client_name: str, client_message: str):
 
         type = client_message[0]
         print(f'Message type: {type}')
 
         # Cient sent an request to update game state
         if type == "u":
-            answer = "Här kommer den uppdaterade gamestaten"
+            latest_update = self.client_latest_update[client_name]
+            if latest_update < len(self.game_state_list) - 1:
+                answer = self.game_state_list[latest_update:]
+                for c in answer:
+                    print(c)
+                self.client_latest_update[client_name] = len(self.game_state_list) - 1 # sets the new index
+            else:
+                answer = "0"
         # Client sent a ClickPacket
         elif type == "1" or type == "2" or type == "3":
             click_packet = clickpacket.ClickPacket()

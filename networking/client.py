@@ -11,19 +11,20 @@ async def send_and_receive(address_port_tuple, client_name: str, message: str):
     print(f'Client sends: {send_message!r}')
     writer.write(send_message.encode())
 
-    more_packets = "m"
-    received_messages = []
-    while more_packets == "m":
-        data = await reader.read(MAX_CHARACTERS)
-        received_message = data.decode()
-        more_packets = received_message[-1]
-        if more_packets == "m":
-            received_message = received_message[:-1]
-            print("More packets: Yes")
-        else:
-            print("More packets: No")
-        print(f'Client received: {received_message!r}')
-        received_messages.append(received_message)
+    data = await reader.read(MAX_CHARACTERS)
+    received_message = data.decode()
+
+    print(f'Client received: {received_message!r}')
+
+    received_messages = received_message.split('m')
+
+    received_messages.append(received_message)
+
+    try:
+        if received_messages[-2] == "":
+            received_messages = received_messages[:-2]
+    except IndexError:
+        pass
 
     writer.close()
     print('Client closed the connection\n')
@@ -46,8 +47,12 @@ async def send_only(address_port_tuple, client_name: str, message: str):
 
 if __name__ == '__main__':
     # pass
-    """
-    address_port_tuple = '127.0.0.1', 8891
-    asyncio.run(send_and_receive(address_port_tuple, 'andreas', 'j'))
-    asyncio.run(send_only(address_port_tuple, 'diana', '1_0_123'))
-    """
+
+    address_port_tuple = '127.0.0.1', 8895
+    nickname = "diana"
+
+    asyncio.run(send_and_receive(address_port_tuple, nickname, 'j'))
+    # asyncio.run(send_only(address_port_tuple, nickname, '1_0_123'))
+    received_messages = asyncio.run(send_and_receive(address_port_tuple, nickname, 'u'))
+
+    print(received_messages)
