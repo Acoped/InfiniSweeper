@@ -9,8 +9,8 @@ import pygame
 class Launcher():
 
     def host_callback(self):
-        address = '127.0.0.1'
-        port = 8890
+        address = self.server_address_entry.get()
+        port = int(self.server_port_entry.get())
 
         w = int(self.dimensions_entry_width.get())
         h = int(self.dimensions_entry_height.get())
