@@ -451,7 +451,7 @@ class Board:
     def open_tile_from_mouse(self, mouse_pos):
         x, y = self.get_clicked_tile(mouse_pos)
         should_multiplayer_update = self.open_tile_from_coords(x,y)
-        return should_multiplayer_update
+        return should_multiplayer_update, (x, y)
 
     def double_open_tile_from_mouse(self, mouse_pos):
         x, y = self.get_clicked_tile(mouse_pos)

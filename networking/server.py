@@ -21,7 +21,10 @@ class GameServer:
         print(f'client_list: {self.client_latest_update}')
 
     def print_game_state_list(self):
-        print(f'game_state_list (len {str(len(self.game_state_list))}): {self.game_state_list}')
+        print(f'----- game_state_list (len {str(len(self.game_state_list))}) -----')
+        for cp in self.game_state_list:
+            print(cp)
+        print(f'----- /game_state_list -----')
 
     async def some_coroutine(self):
         line = await ainput("input 'quit' to quit server\n")
@@ -83,7 +86,7 @@ class GameServer:
         return answer
 
     async def main(self):
-        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8889)
+        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8890)
 
         address = server.sockets[0].getsockname()
         print(f'Serving on {address}')

@@ -11,6 +11,7 @@ import asyncio
 import networking
 from networking.client import send_and_receive, send_only
 from networking.newgamepacket import *
+from networking.clickpacket import *
 
 def launch_from_init():
 
@@ -287,10 +288,12 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                     left_down = False
 
                     if mouse_pos[0] < (board.w * tile_sz_px) and mouse_pos[1] < (board.h * tile_sz_px):
-                        should_multiplayer_update = board.open_tile_from_mouse(mouse_pos)
+                        should_multiplayer_update, coords = board.open_tile_from_mouse(mouse_pos)
                         if should_multiplayer_update:
                             print("OPENINGGG!!! (MP)")
                             # HERE
+                            click_packet = ClickPacket(1, coords[0], coords[1])
+                            asyncio.run(send_only(client_name, click_packet.serialize()))
 
                 # MIDDLE CLICK
                 elif button == 2:
