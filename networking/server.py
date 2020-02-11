@@ -55,13 +55,16 @@ class GameServer:
             # print("JAG VILL VARA DIN")
             # Send all ClickPackets except last, with a splitting 'm' tag
             merged_message = ""
-            sender_list = self.game_state_sender[:len(send_message)]
+            sender_list = self.game_state_sender[-len(send_message):]
+            print(client_name + "'s NEW state: " + str(self.client_latest_update[client_name]))
             print(f'sender_list {sender_list}')
             for i in range(len(send_message)):
-                # if sender_list[i] != client_name:
-                merged_message += send_message[i].serialize() + "m"
+                if sender_list[i] != client_name:
+                    merged_message += send_message[i].serialize() + "m"
+            if merged_message == "":
+                merged_message = "0"
             self.print_game_state_list()
-            print("sending to " + client_name + ": " + merged_message)
+            print("sending to " + client_name + ": " + merged_message +"\n")
             writer.write(merged_message.encode())
             await writer.drain()
         else:
@@ -86,11 +89,12 @@ class GameServer:
         if type == "u":
             latest_update = self.client_latest_update[client_name]
             if latest_update < len(self.game_state_list) - 1:
+                print(client_name + "'s OLD state: " + str(latest_update))
                 answer = self.game_state_list[latest_update:]
                 for c in answer:
                     # print(c)
                     pass
-                self.client_latest_update[client_name] = len(self.game_state_list) - 1 # sets the new index
+                self.client_latest_update[client_name] = len(self.game_state_list) -1 # sets the new index
             else:
                 answer = "0"
         # Client sent a ClickPacket
@@ -103,7 +107,7 @@ class GameServer:
             answer = None                               # Do not send back an answer
         # Client sent a request to join a game
         elif type == "j":
-            self.client_latest_update[client_name] = 0
+            self.client_latest_update[client_name] = -1
             self.print_clients()
             # self.print_game_state_list()
             answer = newgamepacket.NewGamePacket(board=self.board).serialize()
