@@ -372,7 +372,12 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                         double_click_timer = 0.001  # Start the timer.
                     # Click again before 0.5 seconds to double click.
                     elif double_click_timer < 0.5:
-                        board.double_open_tile_from_mouse(mouse_pos)
+                        should_multiplayer_update, coords = board.double_open_tile_from_mouse(mouse_pos)
+                        if networked_multiplayer and should_multiplayer_update:
+                            print("DOUBLEINGGG!!! (MP)")
+                            # HERE
+                            click_packet = ClickPacket(3, coords[0], coords[1])
+                            asyncio.run(send_only(address_port_tuple, client_name, click_packet.serialize()))
                         double_click_timer = 0
                         change = True
 
