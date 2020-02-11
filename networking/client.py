@@ -4,7 +4,7 @@ MAX_CHARACTERS = 100000
 
 # When either join game request or update request
 async def send_and_receive(client_name: str, message: str):
-    reader, writer = await asyncio.open_connection('127.0.0.1', 8888)
+    reader, writer = await asyncio.open_connection('127.0.0.1', 8889)
 
     send_message = client_name + '|' + message
 
@@ -33,7 +33,7 @@ async def send_and_receive(client_name: str, message: str):
 
 # When clicking
 async def send_only(client_name: str, message: str):
-    reader, writer = await asyncio.open_connection('127.0.0.1', 8888)
+    reader, writer = await asyncio.open_connection('127.0.0.1', 8889)
 
     send_message = client_name + '|' + message
 

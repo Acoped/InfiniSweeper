@@ -20,6 +20,9 @@ class GameServer:
     def print_clients(self):
         print(f'client_list: {self.client_latest_update}')
 
+    def print_game_state_list(self):
+        print(f'game_state_list (len {str(len(self.game_state_list))}): {self.game_state_list}')
+
     async def some_coroutine(self):
         line = await ainput("input 'quit' to quit server\n")
         if line == 'quit':
@@ -67,6 +70,7 @@ class GameServer:
         elif type == "j":
             self.client_latest_update[client_name] = 0
             self.print_clients()
+            self.print_game_state_list()
             answer = newgamepacket.NewGamePacket(board=self.board).serialize()
         # Client sent an erroneous message
         else:
@@ -75,7 +79,7 @@ class GameServer:
         return answer
 
     async def main(self):
-        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8888)
+        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8889)
 
         address = server.sockets[0].getsockname()
         print(f'Serving on {address}')
