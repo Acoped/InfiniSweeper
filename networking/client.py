@@ -46,12 +46,12 @@ async def send_only(address_port_tuple, client_name: str, message: str):
 
 
 if __name__ == '__main__':
-    # pass
+    pass
 
     address_port_tuple = '127.0.0.1', 8895
     nickname = "diana"
 
-    asyncio.run(send_and_receive(address_port_tuple, nickname, 'j'))
+    # asyncio.run(send_and_receive(address_port_tuple, nickname, 'j'))
     # asyncio.run(send_only(address_port_tuple, nickname, '1_0_123'))
     received_messages = asyncio.run(send_and_receive(address_port_tuple, nickname, 'u'))
 

@@ -88,7 +88,7 @@ def launch_from_init():
 
     min_viewport = [120, 72]
     viewport = [2560, 1440]
-    frame_rate = 60              # does this need to be  high?
+    frame_rate = 1              # does this need to be  high?
     title = "InfiniSweeper"
 
     main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title, arrowkey_movement_cells)
@@ -182,6 +182,24 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
         # screen.fill(black)
         # xs.draw(screen)
         # xs2.draw(screen)
+
+        # Update gamestate from server
+        if networked_multiplayer:
+            received_messages = asyncio.run(send_and_receive(address_port_tuple, client_name, 'u'))
+            if received_messages[0] != "0":
+                for message in received_messages:
+                    cp = ClickPacket()
+                    cp.deserialize(message)
+                    action = cp.action
+                    x = int(cp.x)
+                    y = int(cp.y)
+                    if action == "1":
+                        board.open_tile_from_coords(x, y)
+                    if action == "2":
+                        board.mark(x, y)
+                    if action == "3":
+                        board.open_cells_not_flagged(x, y)
+                change = True
 
         # Only update screen on change
         if change:
