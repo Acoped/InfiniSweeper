@@ -9,6 +9,9 @@ import pygame
 class Launcher():
 
     def host_callback(self):
+        address = '127.0.0.1'
+        port = 8890
+
         w = int(self.dimensions_entry_width.get())
         h = int(self.dimensions_entry_height.get())
         bombs = int(self.bombs_entry_number.get())
@@ -17,6 +20,7 @@ class Launcher():
 
         print('hostbutton clicked')
         subprocess.Popen([sys.executable, '../networking/server.py',
+                          address, str(port),
                           str(w), str(h),
                           str(bombs), str(tile_sz_px),
                           str(increased_border)], shell=True)

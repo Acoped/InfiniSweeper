@@ -9,7 +9,10 @@ MAX_CHARACTERS = 100000
 
 class GameServer:
 
-    def __init__(self, w, h, bombs, side, increased_border: bool = False):
+    def __init__(self, address: str, port: int, w, h, bombs, side, increased_border: bool = False):
+        self.address = address
+        self.port = port
+
         self.board = Board(w, h, bombs, side, increased_border)
         self.board.place_bombs()
         self.board.print_board()        # Prints the board to check if it was correctly initialized
@@ -86,7 +89,7 @@ class GameServer:
         return answer
 
     async def main(self):
-        server = await asyncio.start_server(self.handle_client, '127.0.0.1', 8890)
+        server = await asyncio.start_server(self.handle_client, self.address, self.port)
 
         address = server.sockets[0].getsockname()
         print(f'Serving on {address}')
@@ -99,6 +102,6 @@ if __name__ == '__main__':
     # Prepares the string commands that were sent in to the correct format for the main function
     i = sys.argv[1:]
     print(i)
-    print(int(i[0]), int(i[1]), int(i[2]), int(i[3]), bool(i[4]))
-    game_server = GameServer(int(i[0]), int(i[1]), int(i[2]), int(i[3]), bool(i[4]))
+    print(i[0], int(i[1]), int(i[2]), int(i[3]), int(i[4]), int(i[5]), bool(i[6]))
+    game_server = GameServer(i[0], int(i[1]), int(i[2]), int(i[3]), int(i[4]), int(i[5]), bool(i[6]))
     asyncio.run(game_server.main())

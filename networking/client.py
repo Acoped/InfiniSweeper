@@ -47,4 +47,4 @@ async def send_only(client_name: str, message: str):
 if __name__ == '__main__':
     pass
     # asyncio.run(send_and_receive('andreas', 'j'))
-    # asyncio.run(send_only('andreas', '1_0_123'))
+    # asyncio.run(send_only('diana', '1_0_123'))
