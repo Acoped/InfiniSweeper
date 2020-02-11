@@ -280,11 +280,14 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
                     if check_both(left_down, right_down, shift_down):
                         board.double_open_tile_from_mouse(mouse_pos)
+                        print("DOUBLEINGGG!!!")
+                        # HERE
 
                     left_down = False
 
                     if mouse_pos[0] < (board.w * tile_sz_px) and mouse_pos[1] < (board.h * tile_sz_px):
                         board.open_tile_from_mouse(mouse_pos)
+                        print("OPENINGGG!!!")
                         # HERE
 
                 # MIDDLE CLICK
@@ -299,11 +302,13 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
                     if check_both(left_down, right_down, shift_down):
                         board.double_open_tile_from_mouse(mouse_pos)
+                        print("DOUBLEINGGG!!!")
                         # HERE
 
                     right_down = False
 
                     board.mark_from_mouse_pos(mouse_pos)
+                    print("FLAGGGING!!!")
                     # HERE
 
                 # SCROLL UP
