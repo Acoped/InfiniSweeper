@@ -10,6 +10,14 @@ MAX_CHARACTERS = 100000
 class GameServer:
 
     def __init__(self, address: str, port: int, w, h, bombs, side, increased_border: bool = False):
+        # ---- Saves the settings for restart ----
+        self.w = w
+        self.h = h
+        self.bombs = bombs
+        self.side = side
+        self.increased_border = increased_border
+        # ---- Saves the settings for restart ----
+
         self.address = address
         self.port = port
 
@@ -90,16 +98,19 @@ class GameServer:
 
         # Cient sent an request to update game state
         if type == "u":
-            latest_update = self.client_latest_update[client_name]
-            if latest_update < len(self.game_state_list) - 1:
-                print(client_name + "'s OLD state: " + str(latest_update))
-                answer = self.game_state_list[latest_update:]
-                for c in answer:
-                    # print(c)
-                    pass
-                self.client_latest_update[client_name] = len(self.game_state_list) -1 # sets the new index
-            else:
-                answer = "0"
+            try:
+                latest_update = self.client_latest_update[client_name]
+                if latest_update < len(self.game_state_list) - 1:
+                    print(client_name + "'s OLD state: " + str(latest_update))
+                    answer = self.game_state_list[latest_update:]
+                    for c in answer:
+                        # print(c)
+                        pass
+                    self.client_latest_update[client_name] = len(self.game_state_list) -1 # sets the new index
+                else:
+                    answer = "0"
+            except KeyError:
+                answer = "restart"
         # Client sent a ClickPacket
         elif type == "1" or type == "2" or type == "3":
             click_packet = clickpacket.ClickPacket()
@@ -114,6 +125,18 @@ class GameServer:
             self.print_clients()
             # self.print_game_state_list()
             answer = newgamepacket.NewGamePacket(board=self.board).serialize()
+        # Client sent a request to restart game
+        elif type == "r":
+            # Resets all server values, for a new game!
+            self.board = Board(self.w, self.h, self.bombs, self.side, self.increased_border)    # new board
+            self.board.place_bombs()
+            self.board.print_board()
+            self.game_state_list = []
+            self.game_state_sender = []
+            self.client_latest_update = {}
+            # answer = newgamepacket.NewGamePacket(board=self.board).serialize()"
+            answer = "restart"
+            print("SERVER HAS ACCEPTED RESTARTBOARD")
         # Client sent an erroneous message
         else:
             answer = "Jag har tagit emot ditt meddelande, men förstod inte vad du sa"

@@ -193,6 +193,12 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
         # Update gamestate from server
         if networked_multiplayer:
             received_messages = asyncio.run(send_and_receive(address_port_tuple, client_name, 'u'))
+            """
+            print("RECEIVED MESSAGE", received_messages)
+            if received_messages[0] == "restart":
+                print("SERVER SAYS TO RESTART")
+                board.lose = True
+            """
             if received_messages[0] != "0":
                 for message in received_messages:
                     cp = ClickPacket()
@@ -234,6 +240,25 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
             # R -> Restarts the game
             if event.key == K_r:
                 if networked_multiplayer:
+                    """
+                    game_over = False
+                    # Request server restart and get the new data from server
+                    board_string = asyncio.run(send_and_receive(address_port_tuple, client_name, 'r'))[0]
+                    board_wrapper = NewGamePacket()
+                    board_wrapper.deserialize(board_string)
+                    board = board_wrapper.board
+
+                    """
+                    print(f'board_string: {board_string}')
+                    print(board.w, board.h, board.bombs, board.side, board.increased_border)
+                    board.print_board()
+                    """
+
+                    # Resets locally
+                    board.set_screen(screen)
+                    board.draw_start()
+                    pygame.display.update()
+                    """
                     pass
                 else:
                     game_over = False
