@@ -343,6 +343,10 @@ class Launcher():
         self.client_port_entry = Spinbox(client_frame, from_=0, to_=999999)
         client_port_explanation_label = Label(client_frame, text="(1000-9999)")
 
+        client_nickname_label = Label(client_frame, text="Nickname: ")
+        self.client_nickname_entry = Entry(client_frame)
+        client_nickname_explanation_label = Label(client_frame, text="(A-Z, a-z, unique)")
+
         client_button = Button(client_frame, text="Connect and Play!", command=self.connect_callback)
         # ----- /client Settings -----
 
@@ -492,7 +496,11 @@ class Launcher():
         self.client_port_entry.grid(row=1, column=1, pady=8)
         client_port_explanation_label.grid(row=1, column=2)
 
-        client_button.grid(row=2, column=1, pady=8)
+        client_nickname_label.grid(row=2, column=0)
+        self.client_nickname_entry.grid(row=2, column=1, pady=8)
+        client_nickname_explanation_label.grid(row=2, column=2)
+
+        client_button.grid(row=3, column=1, pady=8)
 
         client_frame.pack()
 
