@@ -8,13 +8,13 @@ async def send_and_receive(address_port_tuple, client_name: str, message: str):
 
     send_message = client_name + '|' + message
 
-    print(f'Client sends: {send_message!r}')
+    # print(f'Client sends: {send_message!r}')
     writer.write(send_message.encode())
 
     data = await reader.read(MAX_CHARACTERS)
     received_message = data.decode()
 
-    print(f'Client received: {received_message!r}')
+    # print(f'Client received: {received_message!r}')
 
     received_messages = received_message.split('m')
 
@@ -27,7 +27,7 @@ async def send_and_receive(address_port_tuple, client_name: str, message: str):
         pass
 
     writer.close()
-    print('Client closed the connection\n')
+    # print('Client closed the connection\n')
 
     return received_messages
 
@@ -38,11 +38,11 @@ async def send_only(address_port_tuple, client_name: str, message: str):
 
     send_message = client_name + '|' + message
 
-    print(f'Client sends: {send_message!r}')
+    # print(f'Client sends: {send_message!r}')
     writer.write(send_message.encode())
 
     writer.close()
-    print(f'Client closed the connection\n')
+    # print(f'Client closed the connection\n')
 
 
 if __name__ == '__main__':
@@ -55,4 +55,4 @@ if __name__ == '__main__':
     # asyncio.run(send_only(address_port_tuple, nickname, '1_0_123'))
     received_messages = asyncio.run(send_and_receive(address_port_tuple, nickname, 'u'))
 
-    print(received_messages)
+    # print(received_messages)

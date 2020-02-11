@@ -201,7 +201,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                     x = int(cp.x)
                     y = int(cp.y)
                     if action == "1":
-                        board.open_tile_from_coords(x, y)
+                        board.open_tile_from_coords(x, y, open_zero_field=True)
                     if action == "2":
                         board.mark(x, y)
                     if action == "3":

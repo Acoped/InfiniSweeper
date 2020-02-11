@@ -18,6 +18,7 @@ class GameServer:
         self.board.print_board()        # Prints the board to check if it was correctly initialized
 
         self.game_state_list = []       # A list with all the ClickPackets containing game state
+        self.game_state_sender = []     # The sender of the game state (ClickPacket) in game_stat_list
         self.client_latest_update = {}  # A dictionary with client nicks and their latest received client_list index
         
     def print_clients(self):
@@ -25,8 +26,8 @@ class GameServer:
 
     def print_game_state_list(self):
         print(f'----- game_state_list (len {str(len(self.game_state_list))}) -----')
-        for cp in self.game_state_list:
-            print(cp)
+        for i in range(len(self.game_state_list)):
+            print(self.game_state_sender[i], self.game_state_list[i])
         print(f'----- /game_state_list -----')
 
     async def some_coroutine(self):
@@ -39,41 +40,46 @@ class GameServer:
         received_message = data.decode()
         address = writer.get_extra_info('peername')
 
-        print(f"Server received {received_message!r} from {address!r}")
+        # print(f"Server received {received_message!r} from {address!r}")
 
         message_list = received_message.split('|')
 
         client_name = message_list[0]
         message = message_list[1]
 
-        print(client_name, message)
+        # print(client_name, message)
 
         send_message = self.handle_request(client_name, message)
 
         if isinstance(send_message[0], clickpacket.ClickPacket):
-            print("JAG VILL VARA DIN")
+            # print("JAG VILL VARA DIN")
             # Send all ClickPackets except last, with a splitting 'm' tag
             merged_message = ""
-            for cp in send_message:
-                merged_message += cp.serialize() + "m"
+            sender_list = self.game_state_sender[:len(send_message)]
+            for i in range(len(send_message)):
+                if sender_list[i] != client_name:
+                    merged_message += send_message[i].serialize() + "m"
             writer.write(merged_message.encode())
             await writer.drain()
         else:
             # Send message if it wasn't a ClickPacket that was received.
             if send_message is not None:
-                print(f"Server sends: {send_message!r} to {address!r}")
+                # print(f"Server sends: {send_message!r} to {address!r}")
                 writer.write(send_message.encode())
                 await writer.drain()
             else:
-                print("Server received ClickPacket")
+                # print("Server received ClickPacket")
+                pass
 
         writer.close()
-        print("Server closed the connection\n")
+        # print("Server closed the connection\n")
+
+        self.print_game_state_list()
 
     def handle_request(self, client_name: str, client_message: str):
 
         type = client_message[0]
-        print(f'Message type: {type}')
+        # print(f'Message type: {type}')
 
         # Cient sent an request to update game state
         if type == "u":
@@ -81,7 +87,8 @@ class GameServer:
             if latest_update < len(self.game_state_list) - 1:
                 answer = self.game_state_list[latest_update:]
                 for c in answer:
-                    print(c)
+                    # print(c)
+                    pass
                 self.client_latest_update[client_name] = len(self.game_state_list) - 1 # sets the new index
             else:
                 answer = "0"
@@ -89,14 +96,15 @@ class GameServer:
         elif type == "1" or type == "2" or type == "3":
             click_packet = clickpacket.ClickPacket()
             click_packet.deserialize(client_message)
-            self.game_state_list.append(click_packet)   # Update gamestate
-            self.print_game_state_list()
+            self.game_state_list.append(click_packet)   # Update game state
+            self.game_state_sender.append(client_name)  # Update game state sender
+            # self.print_game_state_list()
             answer = None                               # Do not send back an answer
         # Client sent a request to join a game
         elif type == "j":
             self.client_latest_update[client_name] = 0
             self.print_clients()
-            self.print_game_state_list()
+            # self.print_game_state_list()
             answer = newgamepacket.NewGamePacket(board=self.board).serialize()
         # Client sent an erroneous message
         else:
@@ -108,7 +116,7 @@ class GameServer:
         server = await asyncio.start_server(self.handle_client, self.address, self.port)
 
         address = server.sockets[0].getsockname()
-        print(f'Serving on {address}')
+        # print(f'Serving on {address}')
 
         async with server:
             await server.serve_forever()
@@ -117,7 +125,7 @@ class GameServer:
 if __name__ == '__main__':
     # Prepares the string commands that were sent in to the correct format for the main function
     i = sys.argv[1:]
-    print(i)
-    print(i[0], int(i[1]), int(i[2]), int(i[3]), int(i[4]), int(i[5]), bool(i[6]))
+    # print(i)
+    # print(i[0], int(i[1]), int(i[2]), int(i[3]), int(i[4]), int(i[5]), bool(i[6]))
     game_server = GameServer(i[0], int(i[1]), int(i[2]), int(i[3]), int(i[4]), int(i[5]), bool(i[6]))
     asyncio.run(game_server.main())
