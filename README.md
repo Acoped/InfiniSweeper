@@ -41,3 +41,8 @@ This project uses PyInstaller
 14. The build file should then work for any Windows machine. __TEST IT__ on another machine before you commit in git and push the new build to Github!
 15. Upload the compressed .zip directory to Github and make a new release, with the appropriate naming conventions, release notes and instructions. 
 
+## Network Model
+
+![alt text](network_model.jpg "The design drawing for the Network model of InfiniSweeper")
+
+**Figure 3** The design drawing for the Network Model of InfiniSweeper. The implementation was 95 % like this I would say
