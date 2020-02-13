@@ -255,6 +255,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
         if networked_multiplayer and game_over and not sent_restart:
             pygame.display.update()
             asyncio.run(send_only(address_port_tuple, client_name, 'r'))
+            sent_restart = True
 
         # Only update screen on change
         if change:
@@ -486,7 +487,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 text4 = font.render("Your time: " + final_time, 1, msg_bg_color)
                 text5 = font.render("R to restart", 1, msg_bg_color)
                 if networked_multiplayer:
-                    text5 = font.render("R to restart (host only)", 1, msg_bg_color)
+                    text5 = font.render("Reconnect to restart!", 1, msg_bg_color)
                 text6 = font.render("P to print screen", 1, msg_bg_color)
                 text7 = font.render("ESC to quit", 1, msg_bg_color)
                 screen.blit(text1, (10, 10))
@@ -509,7 +510,7 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 text4 = font.render("Your time: " + final_time, 1, msg_bg_color)
                 text5 = font.render("R to restart", 1, msg_bg_color)
                 if networked_multiplayer:
-                    text5 = font.render("R to restart (host only)", 1, msg_bg_color)
+                    text5 = font.render("Reconnect to restart!", 1, msg_bg_color)
                 text6 = font.render("P to print screen", 1, msg_bg_color)
                 text7 = font.render("ESC to quit", 1, msg_bg_color)
                 screen.blit(text1, (10, 10))
