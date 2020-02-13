@@ -158,8 +158,37 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
     # xs2 = xs.__copy__()
     # xs2.update(72, 0)
 
-    start = True
+    start = False
     change = True
+
+    board.draw_start()
+
+    # Update gamestate from server
+    if networked_multiplayer:
+        try:
+            received_messages = asyncio.run(send_and_receive(address_port_tuple, client_name, 'u'))
+            """
+            print("RECEIVED MESSAGE", received_messages)
+            if received_messages[0] == "restart":
+                print("SERVER SAYS TO RESTART")
+                board.lose = True
+            """
+            if received_messages[0] != "0":
+                for message in received_messages:
+                    cp = ClickPacket()
+                    cp.deserialize(message)
+                    action = cp.action
+                    x = int(cp.x)
+                    y = int(cp.y)
+                    if action == "1":
+                        board.open_tile_from_coords(x, y, open_zero_field=True)
+                    if action == "2":
+                        board.mark(x, y)
+                    if action == "3":
+                        board.open_cells_not_flagged(x, y)
+                change = True
+        except OSError:
+            pass
 
     left_down = False       # whether left mouse button is being held down
     right_down = False      # whether right mouse button is being held down

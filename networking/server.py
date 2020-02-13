@@ -102,7 +102,10 @@ class GameServer:
                 latest_update = self.client_latest_update[client_name]
                 if latest_update < len(self.game_state_list) - 1:
                     print(client_name + "'s OLD state: " + str(latest_update))
-                    answer = self.game_state_list[latest_update:]
+                    if latest_update == -1:
+                        answer = self.game_state_list
+                    else:
+                        answer = self.game_state_list[latest_update:]
                     for c in answer:
                         # print(c)
                         pass
