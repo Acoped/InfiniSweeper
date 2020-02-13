@@ -19,14 +19,15 @@ def launch_from_init():
 
 
     # For testing purposes
+    """
     width = 80
     height = 50
     bombs = 600
     tile_sz_px = 16
     arrowkey_movement_cells = 8
     full_screen = False
-
     """
+
     # Small 9 x 9
     width = 9
     height = 9
@@ -34,7 +35,6 @@ def launch_from_init():
     tile_sz_px = 32
     arrowkey_movement_cells = 1
     full_screen = False
-    """
 
     """
     # Medium 16 x 16
@@ -93,7 +93,11 @@ def launch_from_init():
     frame_rate = 60              # does this need to be  high?
     title = "InfiniSweeper"
 
-    main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title, arrowkey_movement_cells)
+    address_and_port = ("127.0.0.1", 8888)
+
+    main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title, arrowkey_movement_cells,
+         networked_multiplayer=True, client_name="Testefeste", address_port_tuple=address_and_port)
+
 
 
 def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title,
@@ -211,6 +215,8 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
     change = True
 
+    sent_restart = False
+
     # Game loop
     while True:
 
@@ -243,11 +249,12 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                         if action == "3":
                             board.open_cells_not_flagged(x, y)
                     change = True
-            except OSError:
+            except (OSError, IndexError):
                 pass
 
-        if networked_multiplayer and game_over:
+        if networked_multiplayer and game_over and not sent_restart:
             pygame.display.update()
+            asyncio.run(send_only(address_port_tuple, client_name, 'r'))
 
         # Only update screen on change
         if change:
