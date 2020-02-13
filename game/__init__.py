@@ -254,8 +254,8 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
 
         if networked_multiplayer and game_over and not sent_restart:
             pygame.display.update()
-            asyncio.run(send_only(address_port_tuple, client_name, 'r'))
-            sent_restart = True
+            # asyncio.run(send_only(address_port_tuple, client_name, 'r'))
+            # sent_restart = True
 
         # Only update screen on change
         if change:
