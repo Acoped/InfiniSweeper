@@ -246,6 +246,9 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
             except OSError:
                 pass
 
+        if networked_multiplayer and game_over:
+            pygame.display.update()
+
         # Only update screen on change
         if change:
             # board.draw(screen)
@@ -513,6 +516,8 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
                 pygame.image.save(screen, "most_recent_win.png")
 
         dt = clock.tick(frame_rate) / 1000      # delta for double click
+
+
 
 def move_window(x, y):
     # Set where the display will move to
