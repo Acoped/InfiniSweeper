@@ -359,8 +359,9 @@ class Launcher():
         network_separator = ttk.Separator(tab2, orient=HORIZONTAL)
         network_tips = Label(tab2, text="INSTRUCTIONS AND TIPS:" + \
                                         "\n\nThe server will use the settings from the 'Single-Player'-tab to generate a board for the multiplayer game." + \
-                                        "\n\nDo not forget to portforward the ports you are using, for both the client and server sides." + \
-                                        "\n\nIf you are not playing over a LAN, you can use a VPN to simulate one.")
+                                        "\n\nOn game over, close the game window and reconnect to the server for a new game with the same settings."
+                                        "\n\nThe multiplayer functionality will work best on a LAN (WAN functionality varies)." + \
+                                        "\n\nIf you are not playing over LAN, you can either:\n(1) forward the relevant ports for the server side, or \n(2) use a VPN to simulate a LAN.")
 
         # ----- Defaults -----
         tilesize_radiobutton2.select()
