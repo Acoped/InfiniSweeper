@@ -65,11 +65,12 @@ If so, I have the following suggestions:
 - Loading bar to approximate time to generate huge boards, so we can see what the board generation is currently doing! Currently users need to wait without much clue of what's going on.
 - Finalizing game board navigation with arrow keys in fullscreen and windowed mode.
 - General refactors, optimizations, bug fixes, and cleaner code.
+- Improve the build process (Docker etc). Support Linux/Mac. More user-friendly releases for those who just want to play.
 - Finalize the networked multiplayer (I think big boards could be really fun with friends!)
 
 ## Additional details for curious computer science nerds
 
-The crux normally prohibiting huge minesweeper games are the blank fields, if a blank field is clicked we need to check its neighbors to see if they too are blank, and so on until all blank fields are opened. Most implementations of minesweeper (all those that I found at least!) computes  this on the fly when the user clicks, or even just checks all cells on the entire board, which is extremely inefficient. Infinisweeper instead uses an _island search_ approach, to precalculate the addresses to all blank fields. So let's take a square board n by n cells. A normal minesweeper has time complexity O(n^2) to compute the new game state when the user clicks a blank cell whereas Infinisweeper does it at O(1) when the user clicks a cell regardless of cell content.
+The crux normally prohibiting huge minesweeper games are the blank fields, if a blank field is clicked we need to check its neighbors to see if they too are blank, and so on until all blank fields are opened. Most implementations of minesweeper (all those that I found at least!) computes  this on the fly when the user clicks, or even just checks all cells on the entire board, which is extremely inefficient. Infinisweeper instead uses an _island search_ approach, to precalculate the addresses to all blank fields on board generation. So let's take a square board n by n cells. A normal minesweeper has time complexity O(n^2) to compute the new game state when the user clicks a blank cell whereas Infinisweeper does it at O(1) when the user clicks a cell regardless of cell content, since everything is precalculated on board generation.
 
 ## Support me
 
