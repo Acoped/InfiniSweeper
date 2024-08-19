@@ -88,6 +88,7 @@ If so, I have the following suggestions:
 - Fix generation of big boards with a low ratio of bombs (fails due to overstepping the max recursion depth when the ratio of bombs is about <12 %)
 - Make the launcher better, such as input sanitation. I would be careful of disallowing too big boards though, if someone wants to test the limits, but some warnings and a better UX would be nice.
 - Loading bar to approximate time to generate huge boards, so we can see what the board generation is currently doing! Currently users need to wait without much clue of what's going on. For me, generating the largest board at the top of this page took almost 4 minutes!
+- Optimize bomb drawing on game over, currently it takes a long time on big screens. Could probably be done in O(1) if you precompute a sprite for the bombs with transparency to put on top on game over. Alternatively, add a spiraling traversal algorithm with an animation, etc.
 - Finalizing game board navigation with arrow keys in fullscreen and windowed mode.
 - General refactors, optimizations, bug fixes, and cleaner code.
 - Improve the build process (Docker etc). Support Linux/Mac. More user-friendly releases for those who just want to play.
