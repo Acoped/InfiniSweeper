@@ -15,8 +15,8 @@ from networking.clickpacket import *
 
 NETWORKED_FRAMERATE = 30
 
-def launch_from_init():
 
+def launch_from_init():
 
     # For testing purposes
     """
@@ -102,6 +102,11 @@ def launch_from_init():
 
 def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_viewport, viewport, frame_rate, title,
          arrow_key_movement_cells=10, networked_multiplayer=False, client_name='', address_port_tuple=None):
+
+    # Set window position
+    window_x = 50
+    window_y = 50
+    os.environ['SDL_VIDEO_WINDOW_POS'] = f"{window_x},{window_y}"
 
     if networked_multiplayer:
         frame_rate = NETWORKED_FRAMERATE
@@ -526,7 +531,6 @@ def main(width, height, bombs, tile_sz_px, full_screen, increased_border, min_vi
         dt = clock.tick(frame_rate) / 1000      # delta for double click
 
 
-
 def move_window(x, y):
     # Set where the display will move to
     os.environ['SDL_VIDEO_WINDOW_POS'] = '%d,%d' % (x, y)
@@ -540,7 +544,8 @@ def move_window(x, y):
     pygame.display.set_mode((init_size[0], init_size[1]))
 
 
-# Checks if both left and right mouse buttons are (were...) being held (double click (release...)), also accounts for shift click (release)!
+# Checks if both left and right mouse buttons are (were...) being held (double click (release...)),
+# also accounts for shift click (release)!
 def check_both(left, right, shift):
     if left and right:
         return True
@@ -570,8 +575,10 @@ if __name__ == "__main__":
         try:
             # Prepares the string commands that were sent in to the correct format for the main function
             # ast.literal_eval is a function that turns a string that represents a list to an actual list
-            print(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]), ast.literal_eval(l[7]), int(l[8]), l[9])
-            main(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]), ast.literal_eval(l[7]), int(l[8]), l[9])
+            print(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]),
+                  ast.literal_eval(l[7]), int(l[8]), l[9])
+            main(int(l[0]), int(l[1]), int(l[2]), int(l[3]), int(l[4]), int(l[5]), ast.literal_eval(l[6]),
+                 ast.literal_eval(l[7]), int(l[8]), l[9])
         except IndexError:
             # If the file is started from just running game/__init__ when developing.
             launch_from_init()

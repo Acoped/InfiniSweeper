@@ -4,6 +4,7 @@ from tkinter import Tk, font, ttk, messagebox
 from PIL import Image, ImageTk
 import math
 import pygame
+import sys
 
 
 class Launcher():
