@@ -40,6 +40,30 @@ Also, make sure that your antivirus software does not interfere. You may need to
 
 If you're on other systems, or want to contribute, you will need to set up and build the project.
 
+## Game rules 
+
+Open all the tiles that are not bombs to win the game. The number in a tile tells you how many bombs are surrounding it. Click on a bomb and you lose! It's minesweeper!
+
+### Controls:
+
+**LEFT CLICK** to open tile
+
+**RIGHT CLICK** to flag/unflag tile
+
+**LEFT AND RIGHT CLICK**, or **DOUBLE CLICK**, or **SHIFT + CLICK** to open all non-flagged surrounding tiles if number of surrounding flags is equal to the tile number
+
+**ARROW KEYS** to move the game window, if not in fullscreen mode
+
+**R** to restart (a new board with the same settings)
+
+**P** to take a screenshot of the current board (they are saved with the executable)
+
+**ESCAPE** to quit
+
+
+### Other 
+A screenshot of your most recent win is automatically saved in the same directory as the executable.
+
 ## Notes on board generation, performance etc
 
 Some specific combinations of games can't be generated (at time of writing), such as:
