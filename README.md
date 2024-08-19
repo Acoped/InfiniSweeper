@@ -53,9 +53,19 @@ However: **Once a board is launched succesfully, it should work as intended with
 
 Basic multiplayer functionality is implemented although there still are bugs for the multiplayer mode. (Again, feel free to contribute! I imagine a proper multiplayer mode could make these huge boards actually *fun* to solve together!)
 
-Personally I was mostly curious about generating huge minesweeper boards, and since I succeeded with that, I'm probably not working much on this app going forward.
+## Ideas for contribution
 
-It would be fun if someone wanted to contribute to make the launcher better and perhaps finalize the multiplayer, though! 
+Personally I was mostly curious about generating huge minesweeper boards, beating the world record, and also some basic networking for a networking course back in university, and since I succeeded with those goals, I'm probably not working much on this app going forward.
+
+It would be fun if someone wanted to contribute, however! 
+
+If so, I have the following suggestions:
+
+- Make the launcher better, such as input sanitation. I would be careful of disallowing too big boards though, if someone wants to test the limits, but some warnings and a better UX would be nice.
+- Loading bar to approximate time to generate huge boards, so we can see what the board generation is currently doing! Currently users need to wait without much clue of what's going on.
+- Finalizing game board navigation with arrow keys in fullscreen and windowed mode.
+- General refactors, optimizations, bug fixes, and cleaner code.
+- Finalize the networked multiplayer (I think big boards could be really fun with friends!)
 
 ## Additional details for curious computer science nerds
 
