@@ -40,10 +40,6 @@ Also, make sure that your antivirus software does not interfere. You may need to
 
 If you're on other systems, or want to contribute, you will need to set up and build the project.
 
-## Additional details for curious computer science nerds
-
-The crux normally prohibiting huge minesweeper games are the blank fields, if a blank field is clicked we need to check its neighbors to see if they too are blank, and so on until all blank fields are opened. Most implementations of minesweeper (all those that I found at least!) computes  this on the fly when the user clicks, or even just checks all cells on the entire board, which is extremely inefficient. Infinisweeper instead uses an _island search_ approach, to precalculate the addresses to all blank fields. So let's take a square board n by n cells. A normal minesweeper has time complexity O(n^2) to compute the new game state when the user clicks a blank cell whereas Infinisweeper does it at O(1) when the user clicks a cell regardless of cell content.
-
 ## Notes on board generation, performance etc
 
 Some specific combinations of games can't be generated (at time of writing), such as:
@@ -60,6 +56,10 @@ Basic multiplayer functionality is implemented although there still are bugs for
 Personally I was mostly curious about generating huge minesweeper boards, and since I succeeded with that, I'm probably not working much on this app going forward.
 
 It would be fun if someone wanted to contribute to make the launcher better and perhaps finalize the multiplayer, though! 
+
+## Additional details for curious computer science nerds
+
+The crux normally prohibiting huge minesweeper games are the blank fields, if a blank field is clicked we need to check its neighbors to see if they too are blank, and so on until all blank fields are opened. Most implementations of minesweeper (all those that I found at least!) computes  this on the fly when the user clicks, or even just checks all cells on the entire board, which is extremely inefficient. Infinisweeper instead uses an _island search_ approach, to precalculate the addresses to all blank fields. So let's take a square board n by n cells. A normal minesweeper has time complexity O(n^2) to compute the new game state when the user clicks a blank cell whereas Infinisweeper does it at O(1) when the user clicks a cell regardless of cell content.
 
 ## Support me
 
